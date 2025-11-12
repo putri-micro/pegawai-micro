@@ -21,9 +21,9 @@
         DataManager.fetchData(detail.replace(':id', id)).then(response => {
             if (response.success) {
                 const data = response.data;
-                $("#edit_nama").text(data.nama);
+                $("#edit_nama_lengkap").text(data.nama_lengkap);
                 $("#edit_nik").text(data.nik);
-                $("#edit_nomor_hp").text(data.nomor_hp);
+                $("#edit_no_hp").text(data.no_hp);
                 $("#edit_nomor_sk").val(data.nomor_sk);
                 $('#edit_nomor_karpeg').val(response.data.nomor_karpeg);
                 edit_tmt.setDate(response.data.tmt);

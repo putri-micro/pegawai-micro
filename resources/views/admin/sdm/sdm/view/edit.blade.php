@@ -14,7 +14,7 @@
                         <div class="col-md-4">
                             <div class="d-flex flex-column mb-2">
                                 <label class="fs-sm-8 fs-lg-6 fw-bolder mb-1">Nama</label>
-                                <p id="edit_nama"
+                                <p id="edit_nama_lengkap"
                                    class="fw-light fs-sm-8 fs-lg-6"></p>
                             </div>
 
@@ -29,7 +29,7 @@
                         <div class="col-md-4">
                             <div class="d-flex flex-column mb-2">
                                 <label class="fs-sm-8 fs-lg-6 fw-bolder mb-1">Nomor HP</label>
-                                <p id="edit_nomor_hp"
+                                <p id="edit_no_hp"
                                    class="fw-light fs-sm-8 fs-lg-6"></p>
                             </div>
                         </div>

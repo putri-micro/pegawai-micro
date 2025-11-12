@@ -24,14 +24,14 @@ final readonly class PersonSdmService
     public function getHistoriByUuid(string $uuid): Collection
     {
         return PersonSdm::query()
-            ->leftJoin('person', 'person.id_person', '=', 'person_sdm.id_person')
+            ->leftJoin('person', 'person.id', '=', 'person_sdm.id')
             ->select([
                 'person_sdm.id_sdm',
                 'person_sdm.nomor_karpeg',
                 'person_sdm.nomor_sk',
                 'person_sdm.tmt',
                 'person_sdm.tmt_pensiun',
-                'person.nama',
+                'person.nama_lengkap',
                 'person.uuid_person',
             ])
             ->where('person.uuid_person', $uuid)
@@ -42,14 +42,14 @@ final readonly class PersonSdmService
     public function getListData(): Collection
     {
         return PersonSdm::query()
-            ->leftJoin('person', 'person.id_person', '=', 'person_sdm.id_person')
+            ->leftJoin('person', 'person.id', '=', 'person_sdm.id')
             ->select([
                 'person_sdm.id_sdm',
                 'person_sdm.nomor_karpeg',
                 'person_sdm.nomor_sk',
                 'person_sdm.tmt',
                 'person_sdm.tmt_pensiun',
-                'person.nama',
+                'person.nama_lengkap',
                 'person.uuid_person',
             ])
             ->get();
@@ -63,13 +63,13 @@ final readonly class PersonSdmService
     public function getDetailData(string $id): ?PersonSdm
     {
         return PersonSdm::query()
-            ->leftJoin('person', 'person.id_person', '=', 'person_sdm.id_person')
+            ->leftJoin('person', 'person.id', '=', 'person_sdm.id')
             ->select([
                 'person_sdm.*',
                 'person.nik',
-                'person.nomor_kk',
-                'person.nomor_hp',
-                'person.nama',
+                'person.kk',
+                'person.no_hp',
+                'person.nama_lengkap',
             ])
             ->where('person_sdm.id_sdm', $id)
             ->first();
@@ -89,7 +89,7 @@ final readonly class PersonSdmService
 
     public function checkDuplicate(int $idPerson): bool
     {
-        return PersonSdm::where('id_person', $idPerson)
+        return PersonSdm::where('id', $idPerson)
             ->exists();
     }
 

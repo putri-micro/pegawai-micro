@@ -39,7 +39,7 @@
                             </h6>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <p class="mb-1"><strong>Nama:</strong> <span id="person_nama"></span></p>
+                                    <p class="mb-1"><strong>Nama:</strong> <span id="person_nama_lengkap"></span></p>
                                     <p class="mb-1"><strong>NIK:</strong> <span id="person_nik"></span></p>
                                     <p class="mb-1"><strong>Tempat Lahir:</strong> <span
                                                 id="person_tempat_lahir"></span>
@@ -51,7 +51,7 @@
                                     <p class="mb-1"><strong>Alamat:</strong> <span id="person_alamat"></span></p>
                                 </div>
                             </div>
-                            <input type="hidden" id="id_person" name="id_person">
+                            <input type="hidden" id="id" name="id">
                         </div>
                         <div class="row" id="sdm_form" style="display:none;">
                             <div class="col-md-4">

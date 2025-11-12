@@ -31,7 +31,7 @@ final class PersonSdm extends Model implements Auditable
     protected $dateFormat = 'Y-m-d';
 
     protected $fillable = [
-        'id_person',
+        'id',
         'nomor_karpeg',
         'nomor_sk',
         'tmt',
@@ -42,7 +42,7 @@ final class PersonSdm extends Model implements Auditable
 
     protected $casts = [
         'id_sdm' => 'integer',
-        'id_person' => 'integer',
+        'id' => 'integer',
         'id_jenis_sdm' => 'integer',
         'id_status_sdm' => 'integer',
         'tmt' => 'date',

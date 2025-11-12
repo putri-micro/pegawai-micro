@@ -52,9 +52,18 @@
 
                             <div class="d-flex flex-column mb-2">
                                 <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1 required">
-                                    <span>Nama</span>
+                                    <span>Nama Lengkap</span>
                                 </label>
-                                <input type="text" id="nama" class="form-control form-control-sm fs-sm-8 fs-lg-6"
+                                <input type="text" id="nama_lengkap" class="form-control form-control-sm fs-sm-8 fs-lg-6"
+                                       maxlength="50" required/>
+                                <div class="invalid-feedback"></div>
+                            </div>
+
+                            <div class="d-flex flex-column mb-2">
+                                <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1 required">
+                                    <span>Nama Panggilan</span>
+                                </label>
+                                <input type="text" id="nama_panggilan" class="form-control form-control-sm fs-sm-8 fs-lg-6"
                                        maxlength="50" required/>
                                 <div class="invalid-feedback"></div>
                             </div>
@@ -89,6 +98,15 @@
                                 </label>
                                 <input type="text" id="tanggal_lahir"
                                        class="form-control form-control-sm fs-sm-8 fs-lg-6" required/>
+                                <div class="invalid-feedback"></div>
+                            </div>
+
+                            <div class="d-flex flex-column mb-2">
+                                <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1 required">
+                                    <span>Agama</span>
+                                </label>
+                                <input type="text" id="agama" class="form-control form-control-sm fs-sm-8 fs-lg-6"
+                                       maxlength="50" required/>
                                 <div class="invalid-feedback"></div>
                             </div>
 
@@ -130,7 +148,7 @@
                                 <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
                                     <span>Nomor KK</span>
                                 </label>
-                                <input type="text" id="nomor_kk" class="form-control form-control-sm fs-sm-8 fs-lg-6"
+                                <input type="text" id="kk" class="form-control form-control-sm fs-sm-8 fs-lg-6"
                                        maxlength="16"/>
                                 <div class="invalid-feedback"></div>
                             </div>
@@ -148,7 +166,7 @@
                                 <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
                                     <span>Nomor HP</span>
                                 </label>
-                                <input type="text" id="nomor_hp" class="form-control form-control-sm fs-sm-8 fs-lg-6"
+                                <input type="text" id="no_hp" class="form-control form-control-sm fs-sm-8 fs-lg-6"
                                        maxlength="16"/>
                                 <div class="invalid-feedback"></div>
                             </div>

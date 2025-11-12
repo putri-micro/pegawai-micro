@@ -7,9 +7,9 @@
         DataManager.fetchData(detail.replace(':id', id))
             .then(function (response) {
                 if (response.success) {
-                    $('#detail_nama').text(response.data.nama);
+                    $('#detail_nama_lengkap').text(response.data.nama_lengkap);
                     $('#detail_nik').text(response.data.nik);
-                    $('#detail_nomor_hp').text(response.data.nomor_hp);
+                    $('#detail_no_hp').text(response.data.no_hp);
                     $('#detail_nomor_karpeg').text(response.data.nomor_karpeg);
                     $('#detail_nomor_sk').text(response.data.nomor_sk);
                     $('#detail_tmt').text(formatter.formatDate(response.data.tmt));

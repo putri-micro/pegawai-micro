@@ -33,7 +33,7 @@
                             <div class="d-flex flex-column flex-grow-1">
                                 <div class="d-flex align-items-center mb-3">
                                     <h2 class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">
-                                        {{ $person->nama ?? 'Nama tidak tersedia' }}
+                                        {{ $person->nama_lengkap ?? 'Nama tidak tersedia' }}
                                     </h2>
                                 </div>
                                 <div class="row g-3">
@@ -46,7 +46,7 @@
                                     <div class="col-md-6">
                                         <div class="d-flex align-items-center text-gray-600">
 
-                                            <span class="fs-7">No. KK: {{ $person->nomor_kk ?? '-' }}</span>
+                                            <span class="fs-7">No. KK: {{ $person->kk ?? '-' }}</span>
                                         </div>
                                     </div>
                                     @if ($person->npwp)
@@ -58,11 +58,11 @@
                                         </div>
                                     @endif
 
-                                    @if ($person->nomor_hp)
+                                    @if ($person->no_hp)
                                         <div class="col-md-6">
                                             <div class="d-flex align-items-center text-gray-600">
 
-                                                <span class="fs-7">HP: {{ $person->nomor_hp }}</span>
+                                                <span class="fs-7">HP: {{ $person->no_hp }}</span>
                                             </div>
                                         </div>
                                     @endif
@@ -146,7 +146,7 @@
                         <tbody class="text-gray-800 fw-bolder fs-sm-8 fs-lg-6">
                         @forelse ($data as $item)
                             <tr>
-                                <td class="text-gray-900 fw-bold">{{ $item->nama ?? '-' }}</td>
+                                <td class="text-gray-900 fw-bold">{{ $item->nama_lengkap ?? '-' }}</td>
                                 <td>{{ $item->nomor_karpeg ?? '-' }}</td>
                                 <td>{{ $item->nomor_sk ?? '-' }}</td>
                                 <td class="">{{ $item->tmt ? Carbon::parse($item->tmt)->format('d M Y') : '-' }}</td>

@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AlmtController;
 use App\Http\Controllers\Api\MasterController;
 use App\Http\Controllers\Api\RefController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OtpController;
 
 Route::prefix('almt')->group(function () {
     Route::get('provinsi', [AlmtController::class, 'provinsi'])
@@ -31,3 +32,6 @@ Route::prefix('master')->group(function () {
     Route::get('unit', [MasterController::class, 'unit'])->name('api.master.unit');
     Route::get('jabatan', [MasterController::class, 'jabatan'])->name('api.master.jabatan');
 });
+
+Route::post('/otp/request', [OtpController::class, 'requestOtp']);
+Route::post('/otp/verify', [OtpController::class, 'verifyOtp']);

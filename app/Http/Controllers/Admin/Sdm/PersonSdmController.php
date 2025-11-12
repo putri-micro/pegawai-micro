@@ -57,13 +57,13 @@ final class PersonSdmController extends Controller
 
     public function store(PersonSdmStoreRequest $request): JsonResponse
     {
-        if ($this->personSdmService->checkDuplicate($request->id_person)) {
+        if ($this->personSdmService->checkDuplicate($request->id)) {
             return $this->responseService->errorResponse('Kombinasi jenis/status SDM untuk person ini sudah terdaftar');
         }
 
         return $this->transactionService->handleWithTransaction(function () use ($request) {
             $data = $this->personSdmService->create($request->only([
-                'id_person',
+                'id',
                 'nomor_karpeg',
                 'nomor_sk',
                 'tmt',
