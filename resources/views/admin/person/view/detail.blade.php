@@ -25,11 +25,18 @@
                     <div class="col-md-4">
                         <h6 class="text-primary fw-bold mb-3 border-bottom border-primary pb-2">Data Dasar</h6>
 
+                       <div class="d-flex flex-column mb-3">
+                            <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
+                                <span>Nama Lengkap</span>
+                            </label>
+                            <p id="detail_nama_lengkap" class="fw-light fs-sm-8 fs-lg-6"></p>
+                        </div>
+
                         <div class="d-flex flex-column mb-3">
                             <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                <span>Nama</span>
+                                <span>Nama Panggilan</span>
                             </label>
-                            <p id="detail_nama" class="fw-light fs-sm-8 fs-lg-6"></p>
+                            <p id="detail_nama_panggilan" class="fw-light fs-sm-8 fs-lg-6"></p>
                         </div>
 
                         <div class="d-flex flex-column mb-3">
@@ -51,6 +58,13 @@
                                 <span>Tanggal Lahir</span>
                             </label>
                             <p id="detail_tanggal_lahir" class="fw-light fs-sm-8 fs-lg-6"></p>
+                        </div>
+
+                         <div class="d-flex flex-column mb-3">
+                            <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
+                                <span>Agama</span>
+                            </label>
+                            <p id="detail_agama" class="fw-light fs-sm-8 fs-lg-6"></p>
                         </div>
 
                         <div class="d-flex flex-column mb-3">
