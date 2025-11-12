@@ -76,9 +76,9 @@
 
                         <div class="d-flex flex-column mb-3">
                             <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                <span>Nomor KK</span>
+                                <span>KK</span>
                             </label>
-                            <p id="detail_nomor_kk" class="fw-light fs-sm-8 fs-lg-6"></p>
+                            <p id="detail_kk" class="fw-light fs-sm-8 fs-lg-6"></p>
                         </div>
 
                         <div class="d-flex flex-column mb-3">
@@ -90,9 +90,9 @@
 
                         <div class="d-flex flex-column mb-3">
                             <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                <span>Nomor HP</span>
+                                <span>No HP</span>
                             </label>
-                            <p id="detail_nomor_hp" class="fw-light fs-sm-8 fs-lg-6"></p>
+                            <p id="detail_no_hp" class="fw-light fs-sm-8 fs-lg-6"></p>
                         </div>
 
                         <div class="d-flex flex-column mb-3">
