@@ -167,4 +167,4 @@
         $m.find('.is-invalid, .is-valid').removeClass('is-invalid is-valid');
         $m.find('.invalid-feedback, .valid-feedback, .text-danger').remove();
     });
-</script>
+</script>;
