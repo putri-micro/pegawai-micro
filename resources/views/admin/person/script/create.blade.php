@@ -58,20 +58,22 @@
                 if (result.value) {
                     DataManager.openLoading();
                     const formData = new FormData();
-                    formData.append('nama', $('#nama').val());
+                    formData.append('nama_lengkap', $('#nama_lengkap').val());
+                    formData.append('nama_panggilan', $('#nama_panggilan').val());
                     formData.append('jk', $('#jk').val());
                     formData.append('tempat_lahir', $('#tempat_lahir').val());
                     formData.append('tanggal_lahir', $('#tanggal_lahir').val());
+                    formData.append('agama', $('#agama').val());
                     formData.append('kewarganegaraan', $('#kewarganegaraan').val());
                     formData.append('golongan_darah', $('#golongan_darah').val());
                     formData.append('nik', $('#nik').val());
-                    formData.append('nomor_kk', $('#nomor_kk').val());
+                    formData.append('kk', $('#kk').val());
                     formData.append('alamat', $('#alamat').val());
                     formData.append('rt', $('#rt').val());
                     formData.append('rw', $('#rw').val());
                     formData.append('id_desa', $('#id_desa').val());
                     formData.append('npwp', $('#npwp').val());
-                    formData.append('nomor_hp', $('#nomor_hp').val());
+                    formData.append('no_hp', $('#no_hp').val());
                     formData.append('email', $('#email').val());
 
                     const fileInput = $('#foto')[0];

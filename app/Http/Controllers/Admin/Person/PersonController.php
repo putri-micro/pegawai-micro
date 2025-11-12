@@ -8,7 +8,7 @@ use App\Http\Requests\Person\PersonUpdateRequest;
 use App\Services\Person\PersonService;
 use App\Services\Tools\ResponseService;
 use App\Services\Tools\TransactionService;
-use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\view;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -33,8 +33,8 @@ final class PersonController extends Controller
             fn() => $this->personService->getListData(),
             [
                 'action' => fn($row) => implode(' ', [
-                    $this->transactionService->actionButton($row->id_person, 'detail'),
-                    $this->transactionService->actionButton($row->id_person, 'edit'),
+                    $this->transactionService->actionButton($row->id, 'detail'),
+                    $this->transactionService->actionButton($row->id, 'edit'),
                 ]),
             ]
         );
@@ -53,20 +53,22 @@ final class PersonController extends Controller
 
         return $this->transactionService->handleWithTransaction(function () use ($request, $foto) {
             $payload = $request->only([
-                'nama',
+                'nama_lengkap',
+                'nama_panggilan',
                 'jk',
                 'tempat_lahir',
                 'tanggal_lahir',
+                'agama',
                 'kewarganegaraan',
                 'golongan_darah',
                 'nik',
-                'nomor_kk',
+                'kk',
                 'alamat',
                 'rt',
                 'rw',
                 'id_desa',
                 'npwp',
-                'nomor_hp',
+                'no_hp',
                 'email',
             ]);
 
@@ -92,20 +94,22 @@ final class PersonController extends Controller
 
         return $this->transactionService->handleWithTransaction(function () use ($request, $data, $foto) {
             $payload = $request->only([
-                'nama',
+                'nama_lengkap',
+                'nama_panggilan',
                 'jk',
                 'tempat_lahir',
                 'tanggal_lahir',
+                'agama',
                 'kewarganegaraan',
                 'golongan_darah',
                 'nik',
-                'nomor_kk',
+                'kk',
                 'alamat',
                 'rt',
                 'rw',
                 'id_desa',
                 'npwp',
-                'nomor_hp',
+                'no_hp',
                 'email',
             ]);
 
