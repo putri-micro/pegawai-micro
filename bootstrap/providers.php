@@ -1,13 +1,11 @@
 <?php
 
-use App\Providers\AppServiceProvider;
-use OwenIt\Auditing\AuditingServiceProvider;
-use Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider;
-use Yajra\DataTables\DataTablesServiceProvider;
-
 return [
-    AppServiceProvider::class,
-    DataTablesServiceProvider::class,
-    LaravelLogViewerServiceProvider::class,
-    AuditingServiceProvider::class,
+    App\Providers\AppServiceProvider::class,
+    App\Providers\AuthServiceProvider::class,
+    App\Providers\EventServiceProvider::class,
+    App\Providers\RouteServiceProvider::class,
+    OwenIt\Auditing\AuditingServiceProvider::class,
+    Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
+    Yajra\DataTables\DataTablesServiceProvider::class,
 ];
