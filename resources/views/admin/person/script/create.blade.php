@@ -17,7 +17,7 @@
             $('#id_desa').empty().append('<option value="">-- Pilih Desa/Kelurahan --</option>');
 
             if (provinsiId) {
-                const kabupatenUrl = `{{ route('api.almt.kabupaten', ':id') }}`.replace(':id', provinsiId);
+                const kabupatenUrl = {{ route('api.almt.kabupaten', ':id') }}.replace(':id', provinsiId);
                 fetchDataDropdown(kabupatenUrl, '#id_kabupaten', 'kabupaten', 'kabupaten');
             }
         });
@@ -28,7 +28,7 @@
             $('#id_desa').empty().append('<option value="">-- Pilih Desa/Kelurahan --</option>');
 
             if (kabupatenId) {
-                const kecamatanUrl = `{{ route('api.almt.kecamatan', ':id') }}`.replace(':id', kabupatenId);
+                const kecamatanUrl = {{ route('api.almt.kecamatan', ':id') }}.replace(':id', kabupatenId);
                 fetchDataDropdown(kecamatanUrl, '#id_kecamatan', 'kecamatan', 'kecamatan');
             }
         });
@@ -38,7 +38,7 @@
             $('#id_desa').empty().append('<option value="">-- Pilih Desa/Kelurahan --</option>');
 
             if (kecamatanId) {
-                const desaUrl = `{{ route('api.almt.desa', ':id') }}`.replace(':id', kecamatanId);
+                const desaUrl = {{ route('api.almt.desa', ':id') }}.replace(':id', kecamatanId);
                 fetchDataDropdown(desaUrl, '#id_desa', 'desa', 'desa');
             }
         });
@@ -112,4 +112,4 @@
         $m.find('.is-invalid, .is-valid').removeClass('is-invalid is-valid');
         $m.find('.invalid-feedback, .valid-feedback, .text-danger').remove();
     });
-</script>
+</script>;

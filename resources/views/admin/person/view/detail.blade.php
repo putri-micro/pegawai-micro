@@ -83,7 +83,7 @@
 
                         <div class="d-flex flex-column mb-3">
                             <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                <span>NIK</span>
+                                <span> Nomor NIK</span>
                             </label>
                             <p id="detail_nik" class="fw-light fs-sm-8 fs-lg-6"></p>
                         </div>
@@ -104,7 +104,7 @@
 
                         <div class="d-flex flex-column mb-3">
                             <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                <span>No HP</span>
+                                <span>Nomor HP</span>
                             </label>
                             <p id="detail_no_hp" class="fw-light fs-sm-8 fs-lg-6"></p>
                         </div>

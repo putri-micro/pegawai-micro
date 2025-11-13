@@ -146,7 +146,7 @@
 
                             <div class="d-flex flex-column mb-2">
                                 <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                    <span>KK</span>
+                                    <span>Nomor KK</span>
                                 </label>
                                 <input type="text" id="kk" class="form-control form-control-sm fs-sm-8 fs-lg-6"
                                        maxlength="16"/>
@@ -164,7 +164,7 @@
 
                             <div class="d-flex flex-column mb-2">
                                 <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                    <span>No HP</span>
+                                    <span>Nomor HP</span>
                                 </label>
                                 <input type="text" id="no_hp" class="form-control form-control-sm fs-sm-8 fs-lg-6"
                                        maxlength="16"/>

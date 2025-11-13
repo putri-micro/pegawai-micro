@@ -43,4 +43,4 @@
             ErrorHandler.handleError(error);
         });
     });
-</script>
+</script>;
