@@ -98,4 +98,4 @@
     }
 
     load_data();
-</script>
+</script>;
