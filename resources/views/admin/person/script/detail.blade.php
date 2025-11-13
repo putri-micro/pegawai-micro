@@ -12,7 +12,7 @@
                     $('#detail_jk').text(response.data.jk === 'L' ? 'Laki-laki' : (response.data.jk === 'P' ? 'Perempuan' : response.data.jk));
                     $('#detail_tempat_lahir').text(response.data.tempat_lahir);
                     $('#detail_tanggal_lahir').text(formatter.formatDate(response.data.tanggal_lahir));
-                    $('#detail_agama').text(data.agama);
+                    $('#detail_agama').text(response.data.agama);
                     $('#detail_kewarganegaraan').text(response.data.kewarganegaraan);
                     $('#detail_golongan_darah').text(response.data.golongan_darah);
                     $('#detail_nik').text(response.data.nik);
