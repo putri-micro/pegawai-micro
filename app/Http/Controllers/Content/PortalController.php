@@ -41,11 +41,14 @@ final class PortalController extends Controller
         $validationRules = [
             'username' => 'required',
             'password' => 'required',
+            'g-recaptcha-response' => 'required|captcha',
         ];
 
         $customMessages = [
             'username.required' => 'Nama Pengguna harus diisi.',
             'password.required' => 'Kata Kunci harus diisi.',
+            'g-recaptcha-response.required' => 'Verifikasi reCAPTCHA wajib diisi.',
+            'g-recaptcha-response.captcha' => 'Verifikasi reCAPTCHA tidak valid.',
         ];
 
         $validator = Validator::make($request->all(), $validationRules, $customMessages);

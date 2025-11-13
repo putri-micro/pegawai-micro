@@ -48,6 +48,15 @@
                                         <i class="bi bi-eye fs-2 d-none"></i>
                                     </span>
                                 </div>
+
+                                {{-- reCAPTCHA --}}
+                                <div class="form-group text-center mb-4">
+                                     {!! NoCaptcha::display() !!}
+                                     @error('g-recaptcha-response')
+                                            <small class="text-danger d-block mt-2">{{ $message }}</small>
+                                     @enderror
+                                </div>
+
                             </div>
                             <div class="d-grid my-4">
                                 <button type="submit" id="kt_sign_in_submit" class="btn btn-primary">
@@ -67,6 +76,9 @@
 </div>
 <script src="{{ asset('assets/plugins/plugins.bundle.js') }}"></script>
 <script src="{{ asset('assets/js/scripts.bundle.js') }}"></script>
+
+{{-- Script render Google reCAPTCHA --}}
+{!! NoCaptcha::renderJs() !!}
 </body>
 
 </html>
