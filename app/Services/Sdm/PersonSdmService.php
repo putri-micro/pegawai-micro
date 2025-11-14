@@ -27,7 +27,7 @@ final readonly class PersonSdmService
     public function getHistoriByUuid(string $uuid): Collection
     {
         return PersonSdm::query()
-            ->leftJoin('person', 'person.id', '=', 'person_sdm.id_person')   // FIX
+            ->leftJoin('person', 'person.id', '=', 'person_sdm.id')   // FIX
             ->select([
                 'person_sdm.id_sdm',
                 'person_sdm.nomor_karpeg',
@@ -48,7 +48,7 @@ final readonly class PersonSdmService
     public function getListData(): Collection
     {
         return PersonSdm::query()
-            ->leftJoin('person', 'person.id', '=', 'person_sdm.id_person')   // FIX
+            ->leftJoin('person', 'person.id', '=', 'person_sdm.id')   // FIX
             ->select([
                 'person_sdm.id_sdm',
                 'person_sdm.nomor_karpeg',
@@ -75,7 +75,7 @@ final readonly class PersonSdmService
     public function getDetailData(string $id): ?PersonSdm
     {
         return PersonSdm::query()
-            ->leftJoin('person', 'person.id', '=', 'person_sdm.id_person')  // FIX
+            ->leftJoin('person', 'person.id', '=', 'person_sdm.id')  // FIX
             ->select([
                 'person_sdm.*',
                 'person.nik',
@@ -105,11 +105,11 @@ final readonly class PersonSdmService
     }
 
     /**
-     * Cek duplikasi berdasarkan id_person (FIX)
+     * Cek duplikasi berdasarkan id (FIX)
      */
-    public function checkDuplicate(int $idPerson): bool
+    public function checkDuplicate(int $id): bool
     {
-        return PersonSdm::where('id_person', $idPerson)->exists();   // FIX
+        return PersonSdm::where('id', $id)->exists();   // FIX
     }
 
     /**
