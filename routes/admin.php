@@ -45,7 +45,7 @@ Route::prefix('sdm')->group(function () {
         ->name('sdm.sdm.store');
     Route::post('update/{id}', [PersonSdmController::class, 'update'])
         ->name('sdm.sdm.update');
-    Route::get('histori/{uuid}', [PersonSdmController::class, 'histori'])
+    Route::get('histori/{id}', [PersonSdmController::class, 'histori'])
         ->name('sdm.sdm.histori');
     Route::get('find/by/nik/{id}', [PersonSdmController::class, 'find_by_nik'])
         ->name('sdm.sdm.find_by_nik');
