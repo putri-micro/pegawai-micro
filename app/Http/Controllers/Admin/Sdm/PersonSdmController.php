@@ -56,23 +56,28 @@ final class PersonSdmController extends Controller
     }
 
     public function store(PersonSdmStoreRequest $request): JsonResponse
-    {
-        if ($this->personSdmService->checkDuplicate($request->id)) {
-            return $this->responseService->errorResponse('Kombinasi jenis/status SDM untuk person ini sudah terdaftar');
+{
+    // Jika ingin cek duplikat berdasarkan nomor_karpeg (jika diberikan)
+    if ($request->filled('nomor_karpeg')) {
+        if ($this->personSdmService->existsByKarpeg($request->get('nomor_karpeg'))) {
+            return $this->responseService->errorResponse('Nomor karpeg sudah terdaftar untuk person lain');
         }
-
-        return $this->transactionService->handleWithTransaction(function () use ($request) {
-            $data = $this->personSdmService->create($request->only([
-                'id',
-                'nomor_karpeg',
-                'nomor_sk',
-                'tmt',
-                'tmt_pensiun',
-            ]));
-
-            return $this->responseService->successResponse('Data berhasil dibuat', $data, 201);
-        });
     }
+
+    return $this->transactionService->handleWithTransaction(function () use ($request) {
+        // Simpan hanya field yang valid untuk model sekarang
+        $payload = $request->only([
+            'nomor_karpeg',
+            'nomor_sk',
+            'tmt',
+            'tmt_pensiun',
+        ]);
+
+        $data = $this->personSdmService->create($payload);
+
+        return $this->responseService->successResponse('Data berhasil dibuat', $data, 201);
+    });
+}
 
     public function show(string $id): JsonResponse
     {

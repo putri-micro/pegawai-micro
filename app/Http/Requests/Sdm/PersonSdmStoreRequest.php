@@ -16,18 +16,16 @@ class PersonSdmStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => 'required|integer|exists:person,id',
-            'nomor_karpeg' => 'nullable|string|max:20',
-            'nomor_sk' => 'nullable|string|max:50',
-            'tmt' => 'nullable|date',
-            'tmt_pensiun' => 'nullable|date',
+            'nomor_karpeg'   => 'nullable|string|max:20',
+            'nomor_sk'       => 'nullable|string|max:50',
+            'tmt'            => 'nullable|date',
+            'tmt_pensiun'    => 'nullable|date',
         ];
     }
 
     public function attributes(): array
     {
         return [
-            'id' => 'ID Person',
             'nomor_karpeg' => 'Nomor Karpeg',
             'nomor_sk' => 'Nomor SK',
             'tmt' => 'TMT',
@@ -49,9 +47,6 @@ class PersonSdmStoreRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'id.required' => 'Field :attribute wajib diisi.',
-            'id.integer' => 'Field :attribute harus berupa angka.',
-            'id.exists' => 'Field :attribute tidak ditemukan.',
             'nomor_karpeg.string' => 'Field :attribute harus berupa teks.',
             'nomor_karpeg.max' => 'Field :attribute maksimal :max karakter.',
             'nomor_sk.string' => 'Field :attribute harus berupa teks.',

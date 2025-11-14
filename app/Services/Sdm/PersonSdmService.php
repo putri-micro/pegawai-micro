@@ -5,26 +5,29 @@ namespace App\Services\Sdm;
 use App\Models\Person\Person;
 use App\Models\Sdm\PersonSdm;
 use App\Services\Person\PersonService;
-use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
 final readonly class PersonSdmService
 {
     public function __construct(
         private PersonService $personService,
-    )
-    {
-    }
+    ) {}
 
+    /**
+     * Ambil detail Person (biodata) berdasarkan UUID
+     */
     public function getPersonDetailByUuid(string $uuid): ?Person
     {
         return $this->personService->getPersonDetailByUuid($uuid);
     }
 
+    /**
+     * Ambil histori SDM berdasarkan UUID PERSON
+     */
     public function getHistoriByUuid(string $uuid): Collection
     {
         return PersonSdm::query()
-            ->leftJoin('person', 'person.id', '=', 'person_sdm.id')
+            ->leftJoin('person', 'person.id', '=', 'person_sdm.id_person')   // FIX
             ->select([
                 'person_sdm.id_sdm',
                 'person_sdm.nomor_karpeg',
@@ -39,10 +42,13 @@ final readonly class PersonSdmService
             ->get();
     }
 
+    /**
+     * Ambil seluruh data list SDM
+     */
     public function getListData(): Collection
     {
         return PersonSdm::query()
-            ->leftJoin('person', 'person.id', '=', 'person_sdm.id')
+            ->leftJoin('person', 'person.id', '=', 'person_sdm.id_person')   // FIX
             ->select([
                 'person_sdm.id_sdm',
                 'person_sdm.nomor_karpeg',
@@ -55,15 +61,21 @@ final readonly class PersonSdmService
             ->get();
     }
 
+    /**
+     * Simpan data baru SDM
+     */
     public function create(array $data): PersonSdm
     {
         return PersonSdm::create($data);
     }
 
+    /**
+     * Ambil detail SDM (master + biodata person)
+     */
     public function getDetailData(string $id): ?PersonSdm
     {
         return PersonSdm::query()
-            ->leftJoin('person', 'person.id', '=', 'person_sdm.id')
+            ->leftJoin('person', 'person.id', '=', 'person_sdm.id_person')  // FIX
             ->select([
                 'person_sdm.*',
                 'person.nik',
@@ -75,26 +87,53 @@ final readonly class PersonSdmService
             ->first();
     }
 
+    /**
+     * Ambil berdasarkan primary key SDM
+     */
     public function findById(string $id): ?PersonSdm
     {
         return PersonSdm::find($id);
     }
 
+    /**
+     * Update data SDM
+     */
     public function update(PersonSdm $personSdm, array $data): PersonSdm
     {
         $personSdm->update($data);
-
         return $personSdm;
     }
 
+    /**
+     * Cek duplikasi berdasarkan id_person (FIX)
+     */
     public function checkDuplicate(int $idPerson): bool
     {
-        return PersonSdm::where('id', $idPerson)
-            ->exists();
+        return PersonSdm::where('id_person', $idPerson)->exists();   // FIX
     }
 
+    /**
+     * Cari Person berdasarkan NIK
+     */
     public function findByNik(string $nik): ?Person
     {
         return $this->personService->findByNik($nik);
     }
+
+    /**
+     * Cek duplikasi nomor Kartu Pegawai
+     */
+    public function existsByKarpeg(string $nomorKarpeg): bool
+    {
+        return PersonSdm::where('nomor_karpeg', $nomorKarpeg)->exists();
+    }
+
+    public function getQueryWithPerson()
+    {
+    return PersonSdm::with('person') // pastikan relasi 'person' ada di model
+        ->select(['id_sdm', 'uuid_person', 'nomor_sk', 'nomor_karpeg', 'tmt', 'tmt_pensiun']);
+    }
+
+    
+
 }

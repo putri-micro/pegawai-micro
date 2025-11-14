@@ -6,7 +6,6 @@ use App\Traits\SkipsEmptyAudit;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 
@@ -20,18 +19,16 @@ final class PersonSdm extends Model implements Auditable
 
     public $timestamps = false;
 
-    public $incrementing = true;
-
-    protected $table = 'person_sdm';
-
+    // primary key
     protected $primaryKey = 'id_sdm';
-
+    public $incrementing = true;
     protected $keyType = 'int';
 
+    protected $table = 'person_sdm';
     protected $dateFormat = 'Y-m-d';
 
     protected $fillable = [
-        'id',
+        'id_person',        // ✔ benar (FK)
         'nomor_karpeg',
         'nomor_sk',
         'tmt',
@@ -42,9 +39,7 @@ final class PersonSdm extends Model implements Auditable
 
     protected $casts = [
         'id_sdm' => 'integer',
-        'id' => 'integer',
-        'id_jenis_sdm' => 'integer',
-        'id_status_sdm' => 'integer',
+        'id_person' => 'integer',
         'tmt' => 'date',
         'tmt_pensiun' => 'date',
     ];
@@ -52,11 +47,6 @@ final class PersonSdm extends Model implements Auditable
     public function setNomorKarpegAttribute($v): void
     {
         $this->attributes['nomor_karpeg'] = $v ? trim(strip_tags($v)) : null;
-    }
-
-    public function setNuptkAttribute($v): void
-    {
-        $this->attributes['nuptk'] = $v ? trim(strip_tags($v)) : null;
     }
 
     public function setNomorSkAttribute($v): void
