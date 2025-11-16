@@ -49,6 +49,11 @@
                                     </span>
                                 </div>
 
+                                <div class="text-end mt-2">
+                                     <a href="{{ route('forgot.page') }}" class="text-primary">Lupa password?</a>
+                                </div>
+
+
                                 {{-- reCAPTCHA --}}
                                 <div class="form-group text-center mb-4">
                                      {!! NoCaptcha::display() !!}
@@ -63,6 +68,11 @@
                                     <span class="indicator-label">Masuk</span>
                                 </button>
                             </div>
+
+                             <div class="text-center mt-4">
+                                <a href="{{ route('register.page') }}" class="text-primary">Daftar akun baru</a>
+                             </div>
+
                         </form>
                     </div>
                 </div>

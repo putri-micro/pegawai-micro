@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\Otp;
+use App\Models\App\Otp;
 use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
 
