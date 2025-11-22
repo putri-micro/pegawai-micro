@@ -28,7 +28,7 @@ final class SdmKeluarga extends Model implements Auditable
 
     protected $fillable = [
         'id_sdm',
-        'id_person',
+        'id',
         'id_hubungan_keluarga',
         'status_tanggungan',
         'pekerjaan',
@@ -41,7 +41,7 @@ final class SdmKeluarga extends Model implements Auditable
     protected $casts = [
         'id_keluarga' => 'integer',
         'id_sdm' => 'integer',
-        'id_person' => 'integer',
+        'id' => 'integer',
         'id_hubungan_keluarga' => 'integer',
         'penghasilan' => 'integer',
     ];

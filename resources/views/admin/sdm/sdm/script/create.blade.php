@@ -129,7 +129,7 @@
         $('#person_info').hide();
         $('#sdm_form').hide();
         $('#btn_save').hide();
-        $('#id_person').val('');
+        $('#id').val('');
         $('#search_nik').val('');
         $('#person_nama, #person_nik, #person_tempat_lahir, #person_tanggal_lahir, #person_alamat').text('');
     }

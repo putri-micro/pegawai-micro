@@ -25,7 +25,7 @@ final readonly class SdmKeluargaService
     public function getListData(string $uuid, Request $request): Collection
     {
         $idSdm = PersonSdm::query()
-            ->join('person', 'person.id_person', '=', 'person_sdm.id_person')
+            ->join('person', 'person.id', '=', 'person_sdm.id')
             ->where('person.uuid_person', $uuid)
             ->value('person_sdm.id_sdm');
 
@@ -34,12 +34,12 @@ final readonly class SdmKeluargaService
         }
 
         return SdmKeluarga::query()
-            ->leftJoin('person as anggota', 'anggota.id_person', '=', 'sdm_keluarga.id_person')
+            ->leftJoin('person as anggota', 'anggota.id', '=', 'sdm_keluarga.id')
             ->leftJoin('ref_hubungan_keluarga', 'ref_hubungan_keluarga.id_hubungan_keluarga', '=', 'sdm_keluarga.id_hubungan_keluarga')
             ->select([
                 'sdm_keluarga.id_keluarga',
                 'sdm_keluarga.id_sdm',
-                'sdm_keluarga.id_person',
+                'sdm_keluarga.id',
                 'ref_hubungan_keluarga.hubungan_keluarga as hubungan',
                 'sdm_keluarga.status_tanggungan',
                 'sdm_keluarga.pekerjaan',
@@ -63,7 +63,7 @@ final readonly class SdmKeluargaService
     public function getDetailData(string $id): ?SdmKeluarga
     {
         return SdmKeluarga::query()
-            ->leftJoin('person as anggota', 'anggota.id_person', '=', 'sdm_keluarga.id_person')
+            ->leftJoin('person as anggota', 'anggota.id', '=', 'sdm_keluarga.id')
             ->leftJoin('ref_hubungan_keluarga', 'ref_hubungan_keluarga.id_hubungan_keluarga', '=', 'sdm_keluarga.id_hubungan_keluarga')
             ->select([
                 'sdm_keluarga.*',
@@ -96,22 +96,22 @@ final readonly class SdmKeluargaService
     public function resolveIdSdmFromUuid(string $uuid): ?int
     {
         return PersonSdm::query()
-            ->join('person', 'person.id_person', '=', 'person_sdm.id_person')
+            ->join('person', 'person.id', '=', 'person_sdm.id')
             ->where('person.uuid_person', $uuid)
             ->value('person_sdm.id_sdm');
     }
 
-    public function checkDuplicate(int $idSdm, int $idPerson): bool
+    public function checkDuplicate(int $idSdm, int $id): bool
     {
         return SdmKeluarga::where('id_sdm', $idSdm)
-            ->where('id_person', $idPerson)
+            ->where('id', $id)
             ->exists();
     }
 
-    public function checkDuplicateForUpdate(SdmKeluarga $keluarga, int $idPerson): bool
+    public function checkDuplicateForUpdate(SdmKeluarga $keluarga, int $id): bool
     {
         return SdmKeluarga::where('id_sdm', $keluarga->id_sdm)
-            ->where('id_person', $idPerson)
+            ->where('id', $id)
             ->where('id_keluarga', '!=', $keluarga->id_keluarga)
             ->exists();
     }

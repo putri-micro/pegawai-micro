@@ -37,9 +37,9 @@ final class PersonAsuransiController extends Controller
             },
             [
                 'action' => fn($row) => implode(' ', [
-                    $this->transactionService->actionButton($row->id_person_asuransi, 'detail'),
-                    $this->transactionService->actionButton($row->id_person_asuransi, 'edit'),
-                    $this->transactionService->actionButton($row->id_person_asuransi, 'delete'),
+                    $this->transactionService->actionButton($row->id_asuransi, 'detail'),
+                    $this->transactionService->actionButton($row->id_asuransi, 'edit'),
+                    $this->transactionService->actionButton($row->id_asuransi, 'delete'),
                 ]),
             ]
         );
@@ -56,7 +56,7 @@ final class PersonAsuransiController extends Controller
 
     public function store(PersonAsuransiStoreRequest $request): JsonResponse
     {
-        $idPerson = $this->personAsuransiService->resolvePersonId($request->id_person ?? null, $request->uuid_person ?? null);
+        $idPerson = $this->personAsuransiService->resolvePersonId($request->id ?? null, $request->uuid_person ?? null);
         if (!$idPerson) {
             return $this->responseService->errorResponse('Person tidak ditemukan', 404);
         }
@@ -74,7 +74,7 @@ final class PersonAsuransiController extends Controller
                 'id_jenis_asuransi', 'nomor_registrasi', 'kartu_anggota',
                 'tanggal_mulai', 'tanggal_berakhir', 'keterangan',
             ]);
-            $payload['id_person'] = $idPerson;
+            $payload['id'] = $idPerson;
             $payload['status_aktif'] = $status;
 
             $data = $this->personAsuransiService->create($payload);
@@ -110,7 +110,7 @@ final class PersonAsuransiController extends Controller
 
         return $this->transactionService->handleWithTransaction(function () use ($request, $data) {
             $payload = $request->only([
-                'id_jenis_asuransi', 'id_person', 'nomor_registrasi', 'kartu_anggota',
+                'id_jenis_asuransi', 'id', 'nomor_registrasi', 'kartu_anggota',
                 'status_aktif', 'tanggal_mulai', 'tanggal_berakhir', 'keterangan',
             ]);
             $updatedData = $this->personAsuransiService->update($data, $payload);

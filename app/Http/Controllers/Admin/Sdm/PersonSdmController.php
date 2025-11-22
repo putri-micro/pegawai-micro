@@ -39,7 +39,7 @@ final class PersonSdmController extends Controller
         ]);
     }
 
-    public function list(Request $request): JsonResponse
+   public function list(Request $request): JsonResponse
     {
         return $this->transactionService->handleWithDataTable(
             function () use ($request) {

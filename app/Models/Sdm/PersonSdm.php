@@ -17,6 +17,8 @@ final class PersonSdm extends Model implements Auditable
         SkipsEmptyAudit::transformAudit insteadof AuditableTrait;
     }
 
+    
+
     public $timestamps = false;
 
     // primary key

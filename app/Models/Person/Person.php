@@ -108,10 +108,10 @@ final class Person extends Model implements Auditable
         $this->attributes['nik'] = trim(strip_tags($value));
     }
 
-    public function setNomorKkAttribute($value): void
-    {
-        $this->attributes['kk'] = trim(strip_tags($value));
-    }
+    public function setKkAttribute($value): void
+{
+     $this->attributes['kk'] = trim(strip_tags($value));
+}
 
     public function setIdDesaAttribute($value): void
     {
@@ -123,10 +123,10 @@ final class Person extends Model implements Auditable
         $this->attributes['npwp'] = $value ? trim(strip_tags($value)) : null;
     }
 
-    public function setNomorHpAttribute($value): void
-    {
-        $this->attributes['no_hp'] = $value ? trim(strip_tags($value)) : null;
-    }
+   public function setNoHpAttribute($value): void
+{
+     $this->attributes['no_hp'] = $value ? trim(strip_tags($value)) : null;
+}
 
     public function setEmailAttribute($value): void
     {

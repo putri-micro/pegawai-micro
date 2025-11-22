@@ -44,7 +44,7 @@
                                 <p class="mb-1"><strong>Alamat:</strong> <span id="person_alamat"></span></p>
                             </div>
                         </div>
-                        <input type="hidden" id="id_person" name="id_person">
+                        <input type="hidden" id="id" name="id">
                     </div>
                     <!-- Asuransi Data Form -->
                     <div class="row" id="asuransi_form" style="display:none;">

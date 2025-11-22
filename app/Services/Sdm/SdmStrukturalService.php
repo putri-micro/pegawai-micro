@@ -26,7 +26,7 @@ final readonly class SdmStrukturalService
     public function getListData(string $uuid): Collection
     {
         $idSdm = PersonSdm::query()
-            ->join('person', 'person.id_person', '=', 'person_sdm.id_person')
+            ->join('person', 'person.id', '=', 'person_sdm.id')
             ->where('person.uuid_person', $uuid)
             ->value('person_sdm.id_sdm');
 
@@ -105,7 +105,7 @@ final readonly class SdmStrukturalService
     public function resolveIdSdmFromUuid(string $uuid): ?int
     {
         return PersonSdm::query()
-            ->join('person', 'person.id_person', '=', 'person_sdm.id_person')
+            ->join('person', 'person.id', '=', 'person_sdm.id')
             ->where('person.uuid_person', $uuid)
             ->value('person_sdm.id_sdm');
     }
@@ -151,7 +151,7 @@ final readonly class SdmStrukturalService
         }
 
         $personSdm = PersonSdm::query()
-            ->join('person', 'person.id_person', '=', 'person_sdm.id_person')
+            ->join('person', 'person.id', '=', 'person_sdm.id')
             ->select([
                 'person.uuid_person',
                 'person.nama',
@@ -179,7 +179,7 @@ final readonly class SdmStrukturalService
         }
 
         $personSdm = PersonSdm::query()
-            ->join('person', 'person.id_person', '=', 'person_sdm.id_person')
+            ->join('person', 'person.id', '=', 'person_sdm.id')
             ->select([
                 'person.uuid_person',
                 'person.nama',

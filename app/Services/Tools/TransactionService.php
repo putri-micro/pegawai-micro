@@ -71,19 +71,25 @@ final class TransactionService
         </button>";
     }
 
-    public function actionLink(string $route, string $type, string $title): string
-    {
-        $icons = ['histori' => 'bi bi-folder-plus'];
+    // Di TransactionService - TAMBAHKAN VALIDASI
+public function actionLink(string $route, string $type, string $title): string
+{
+    $icons = ['histori' => 'bi bi-folder-plus'];
 
-        $icon = $icons[$type] ?? 'bi-question-circle';
+    $icon = $icons[$type] ?? 'bi-question-circle';
 
-        return "
-            <a href='$route' 
-            title='$title' 
-            class='btn btn-icon btn-bg-light btn-active-text-primary btn-sm me-1'>
-                <span class='bi $icon' aria-hidden='true'></span>
-            </a>";
+    // ✅ VALIDASI: JIKA ROUTE KOSONG, RETURN STRING KOSONG
+    if (empty($route) || $route === '#' || str_contains($route, 'Missing')) {
+        return '';
     }
+
+    return "
+        <a href='{$route}' 
+        title='{$title}' 
+        class='btn btn-icon btn-bg-light btn-active-text-primary btn-sm me-1'>
+            <span class='bi {$icon}' aria-hidden='true'></span>
+        </a>";
+}
 
     public function handleWithShow(callable $callback): JsonResponse
     {

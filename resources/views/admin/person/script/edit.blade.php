@@ -147,14 +147,14 @@
                     formData.append('kewarganegaraan', $('#edit_kewarganegaraan').val());
                     formData.append('golongan_darah', $('#edit_golongan_darah').val());
                     formData.append('nik', $('#edit_nik').val());
-                    formData.append('nomor_kk', $('#edit_kk').val());
+                    formData.append('kk', $('#edit_kk').val());
                     formData.append('alamat', $('#edit_alamat').val());
                     formData.append('agama', $('#edit_agama').val());
                     formData.append('rt', $('#edit_rt').val());
                     formData.append('rw', $('#edit_rw').val());
                     formData.append('id_desa', $('#edit_id_desa').val());
                     formData.append('npwp', $('#edit_npwp').val());
-                    formData.append('nomor_hp', $('#edit_nomor_hp').val());
+                    formData.append('no_hp', $('#edit_hp').val());
                     formData.append('email', $('#edit_email').val());
 
                     const fileInput = $('#edit_foto')[0];

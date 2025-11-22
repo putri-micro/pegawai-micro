@@ -30,7 +30,7 @@
                         $('#person_tempat_lahir').text(data.tempat_lahir);
                         $('#person_tanggal_lahir').text(formatter.formatDate(response.data.tanggal_lahir));
                         $('#person_alamat').text(`${data.desa}, ${data.kecamatan}, ${data.kabupaten}, ${data.provinsi}`.replace(/^,\s*|,\s*$/g, '').replace(/,\s*,/g, ','));
-                        $('#id_person').val(data.id_person);
+                        $('#id').val(data.id);
                         $('#person_info').show();
                         $('#keluarga_form').show();
                         $('#btn_save').show();
@@ -60,7 +60,7 @@
         $("#bt_submit_create").on("submit", function (e) {
             e.preventDefault();
 
-            if (!$('#id_person').val()) {
+            if (!$('#id').val()) {
                 Swal.fire('Warning', 'Pilih person terlebih dahulu dengan mencari NIK', 'warning');
                 return;
             }
@@ -84,7 +84,7 @@
                     DataManager.openLoading();
                     const input = {
                         "uuid_person": currentPersonId,
-                        "id_person": $("#id_person").val(),
+                        "id": $("#id").val(),
                         "id_hubungan_keluarga": $("#id_hubungan_keluarga").val(),
                         "status_tanggungan": $("#status_tanggungan").val(),
                         "pekerjaan": $("#pekerjaan").val(),
@@ -126,7 +126,7 @@
         $('#person_info').hide();
         $('#keluarga_form').hide();
         $('#btn_save').hide();
-        $('#id_person').val('');
+        $('#id').val('');
         $('#id_sdm').val('');
         $('#search_nik').val('');
         $('#person_nama, #person_nik, #person_tempat_lahir, #person_tanggal_lahir, #person_alamat').text('');

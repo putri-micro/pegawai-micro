@@ -60,12 +60,12 @@ final class SdmKeluargaController extends Controller
         if (!$idSdm) {
             return $this->responseService->errorResponse('SDM tidak ditemukan');
         }
-        if ($this->sdmKeluargaService->checkDuplicate($idSdm, $request->id_person)) {
+        if ($this->sdmKeluargaService->checkDuplicate($idSdm, $request->id)) {
             return $this->responseService->errorResponse('Anggota keluarga ini sudah terdaftar untuk SDM tersebut.', 422);
         }
         return $this->transactionService->handleWithTransaction(function () use ($request, $idSdm) {
             $payload = $request->only([
-                'id_person', 'id_hubungan_keluarga', 'status_tanggungan',
+                'id', 'id_hubungan_keluarga', 'status_tanggungan',
                 'pekerjaan', 'pendidikan_terakhir', 'penghasilan',
             ]);
             $payload['id_sdm'] = $idSdm;
@@ -89,14 +89,14 @@ final class SdmKeluargaController extends Controller
         if (!$data) {
             return $this->responseService->errorResponse('Data tidak ditemukan');
         }
-        if ($request->filled('id_person')) {
-            if ($this->sdmKeluargaService->checkDuplicateForUpdate($data, $request->id_person)) {
+        if ($request->filled('id')) {
+            if ($this->sdmKeluargaService->checkDuplicateForUpdate($data, $request->id)) {
                 return $this->responseService->errorResponse('Anggota keluarga ini sudah terdaftar untuk SDM tersebut.', 422);
             }
         }
         return $this->transactionService->handleWithTransaction(function () use ($request, $data) {
             $payload = $request->only([
-                'id_person', 'id_hubungan_keluarga', 'status_tanggungan',
+                'id', 'id_hubungan_keluarga', 'status_tanggungan',
                 'pekerjaan', 'pendidikan_terakhir', 'penghasilan',
             ]);
             $updatedData = $this->sdmKeluargaService->update($data, $payload);

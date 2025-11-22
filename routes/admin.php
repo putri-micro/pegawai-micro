@@ -49,6 +49,10 @@ Route::prefix('sdm')->group(function () {
         ->name('sdm.sdm.histori');
     Route::get('find/by/nik/{id}', [PersonSdmController::class, 'find_by_nik'])
         ->name('sdm.sdm.find_by_nik');
+         Route::get('histori', function () {
+        return redirect()->route('sdm.sdm.index')
+            ->with('error', 'Parameter ID tidak ditemukan');
+    });
 
     Route::prefix('riwayat-pendidikan')->group(function () {
         Route::get('/{id}', [SdmRiwayatPendidikanController::class, 'index'])

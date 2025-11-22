@@ -44,11 +44,30 @@
             },
             order: [],
             ordering: true,
-            columns: [{
+            columns: [
+                {
                     data: "action",
                     name: "action",
                     orderable: false,
-                    searchable: false
+                    searchable: false,
+                    render: function(data, type, row) {
+                        const detailBtn = `<button type="button" data-id="${row.id_sdm}" title="Detail" data-bs-toggle="modal" data-bs-target="#form_detail" class="btn btn-icon btn-bg-light btn-active-text-primary btn-sm m-1">
+                            <span class="bi bi-file-text" aria-hidden="true"></span>
+                        </button>`;
+                        
+                        const editBtn = `<button type="button" data-id="${row.id_sdm}" title="Edit" data-bs-toggle="modal" data-bs-target="#form_edit" class="btn btn-icon btn-bg-light btn-active-text-primary btn-sm m-1">
+                            <span class="bi bi-pencil" aria-hidden="true"></span>
+                        </button>`;
+                        
+                        let historiBtn = '';
+                        if (row.uuid_person) {
+                            historiBtn = `<a href="/admin/sdm/histori/${row.uuid_person}" title="Riwayat" class="btn btn-icon btn-bg-light btn-active-text-primary btn-sm me-1">
+                                <span class="bi bi-folder-plus" aria-hidden="true"></span>
+                            </a>`;
+                        }
+                        
+                        return `${detailBtn} ${editBtn} ${historiBtn}`;
+                    }
                 },
                 {
                     data: 'nama_lengkap',
@@ -78,6 +97,7 @@
                 },
             ],
         });
+
         const performOptimizedSearch = _.debounce(function(query) {
             try {
                 if (query.length >= 3 || query.length === 0) {
