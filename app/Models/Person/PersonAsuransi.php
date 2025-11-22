@@ -23,7 +23,7 @@ final class PersonAsuransi extends Model implements Auditable
 
     protected $table = 'person_asuransi';
 
-    protected $primaryKey = 'id_person_asuransi';
+    protected $primaryKey = 'id_asuransi';
 
     protected $keyType = 'int';
 
@@ -31,7 +31,7 @@ final class PersonAsuransi extends Model implements Auditable
 
     protected $fillable = [
         'id_jenis_asuransi',
-        'id_person',
+        'id',
         'nomor_registrasi',
         'kartu_anggota',
         'status_aktif',
@@ -40,12 +40,12 @@ final class PersonAsuransi extends Model implements Auditable
         'keterangan',
     ];
 
-    protected $guarded = ['id_person_asuransi'];
+    protected $guarded = ['id_asuransi'];
 
     protected $casts = [
-        'id_person_asuransi' => 'integer',
+        'id_asuransi' => 'integer',
         'id_jenis_asuransi' => 'integer',
-        'id_person' => 'integer',
+        'id' => 'integer',
         'tanggal_mulai' => 'date',
         'tanggal_berakhir' => 'date',
     ];

@@ -29,10 +29,10 @@ final readonly class PersonAsuransiService
         }
 
         return PersonAsuransi::query()
-            ->leftJoin('person', 'person.id_person', '=', 'person_asuransi.id_person')
+            ->leftJoin('person', 'person.id', '=', 'person_asuransi.id')
             ->leftJoin('ref_jenis_asuransi', 'ref_jenis_asuransi.id_jenis_asuransi', '=', 'person_asuransi.id_jenis_asuransi')
             ->select([
-                'person_asuransi.id_person_asuransi',
+                'person_asuransi.id_asuransi',
                 'person_asuransi.id_jenis_asuransi',
                 'ref_jenis_asuransi.jenis_asuransi',
                 'ref_jenis_asuransi.nama_produk',
@@ -41,7 +41,7 @@ final readonly class PersonAsuransiService
                 'person_asuransi.status_aktif',
                 'person_asuransi.tanggal_mulai',
                 'person_asuransi.tanggal_berakhir',
-                'person.id_person',
+                'person.id',
                 'person.nama',
                 'person.nik',
                 'person.uuid_person',
@@ -64,14 +64,14 @@ final readonly class PersonAsuransiService
     public function getDetailData(string $id): ?PersonAsuransi
     {
         return PersonAsuransi::query()
-            ->leftJoin('person', 'person.id_person', '=', 'person_asuransi.id_person')
+            ->leftJoin('person', 'person.id', '=', 'person_asuransi.id')
             ->leftJoin('ref_jenis_asuransi', 'ref_jenis_asuransi.id_jenis_asuransi', '=', 'person_asuransi.id_jenis_asuransi')
             ->select([
                 'person_asuransi.*',
                 'person.nama', 'person.nik', 'person.uuid_person',
                 'ref_jenis_asuransi.jenis_asuransi', 'ref_jenis_asuransi.nama_produk',
             ])
-            ->where('person_asuransi.id_person_asuransi', $id)
+            ->where('person_asuransi.id_asuransi', $id)
             ->first();
     }
 
@@ -99,14 +99,14 @@ final readonly class PersonAsuransiService
         }
 
         if ($uuid_person) {
-            return Person::where('uuid_person', $uuid_person)->value('id_person');
+            return Person::where('uuid_person', $uuid_person)->value('id');
         }
         return null;
     }
 
     public function checkActivePolisExists(int $idPerson, int $idJenisAsuransi): bool
     {
-        return PersonAsuransi::where('id_person', $idPerson)
+        return PersonAsuransi::where('id', $idPerson)
             ->where('id_jenis_asuransi', $idJenisAsuransi)
             ->where('status_aktif', 'Aktif')
             ->exists();
@@ -114,10 +114,10 @@ final readonly class PersonAsuransiService
 
     public function checkActivePolisExistsForUpdate(PersonAsuransi $personAsuransi, int $idJenisAsuransi): bool
     {
-        return PersonAsuransi::where('id_person', $personAsuransi->id_person)
+        return PersonAsuransi::where('id', $personAsuransi->id)
             ->where('id_jenis_asuransi', $idJenisAsuransi)
             ->where('status_aktif', 'Aktif')
-            ->where('id_person_asuransi', '!=', $personAsuransi->id_person_asuransi)
+            ->where('id_asuransi', '!=', $personAsuransi->id_asuransi)
             ->exists();
     }
 

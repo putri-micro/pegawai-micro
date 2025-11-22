@@ -17,7 +17,7 @@ class PersonAsuransiStoreRequest extends FormRequest
     {
         return [
             'uuid_person' => 'required_without:id_person|uuid|exists:person,uuid_person',
-            'id_person' => 'required_without:uuid_person|integer|exists:person,id_person',
+            'id' => 'required_without:uuid_person|integer|exists:person,id',
             'id_jenis_asuransi' => 'required|integer|exists:ref_jenis_asuransi,id_jenis_asuransi',
             'nomor_registrasi' => 'nullable|string|max:16',
             'kartu_anggota' => 'nullable|string|max:16',
@@ -32,7 +32,7 @@ class PersonAsuransiStoreRequest extends FormRequest
     {
         return [
             'uuid_person' => 'UUID Person',
-            'id_person' => 'ID Person',
+            'id' => 'ID Person',
             'id_jenis_asuransi' => 'Jenis Asuransi',
             'nomor_registrasi' => 'Nomor Registrasi',
             'kartu_anggota' => 'Kartu Anggota',
@@ -60,9 +60,9 @@ class PersonAsuransiStoreRequest extends FormRequest
             'uuid_person.required_without' => 'Field :attribute wajib diisi jika id_person tidak diisi.',
             'uuid_person.uuid' => 'Field :attribute harus berupa UUID.',
             'uuid_person.exists' => 'Field :attribute tidak ditemukan.',
-            'id_person.required_without' => 'Field :attribute wajib diisi jika uuid_person tidak diisi.',
-            'id_person.integer' => 'Field :attribute harus berupa angka.',
-            'id_person.exists' => 'Field :attribute tidak ditemukan.',
+            'id.required_without' => 'Field :attribute wajib diisi jika uuid_person tidak diisi.',
+            'id.integer' => 'Field :attribute harus berupa angka.',
+            'id.exists' => 'Field :attribute tidak ditemukan.',
             'id_jenis_asuransi.required' => 'Field :attribute wajib diisi.',
             'id_jenis_asuransi.integer' => 'Field :attribute harus berupa angka.',
             'id_jenis_asuransi.exists' => 'Field :attribute tidak ditemukan.',
