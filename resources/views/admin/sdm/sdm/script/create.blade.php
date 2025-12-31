@@ -74,7 +74,7 @@
                 Swal.fire('Warning', 'Pilih person terlebih dahulu dengan mencari NIK', 'warning');
                 return;
             }
-           
+
             Swal.fire({
                 title: 'Kamu yakin?',
                 text: "Apakah datanya benar dan apa yang anda inginkan?",
@@ -97,9 +97,16 @@
                     const action = "{{ route('admin.sdm.sdm.store') }}";
                     DataManager.postData(action, input).then(response => {
                         if (response.success) {
-                            Swal.fire('Success', response.message, 'success');
+                            Swal.fire({
+                                title: 'Success',
+                                text: response.message,
+                                icon: 'success',
+                                timer: 1000,
+                                showConfirmButton: false
+                            });
                             setTimeout(function () {
-                                location.reload();
+                                $('#example').DataTable().ajax.reload(null, false);
+                                $('#form_create').modal('hide');
                             }, 1000);
                         }
                         if (!response.success && response.errors) {

@@ -13,8 +13,7 @@ final readonly class SdmKeluargaService
 {
     public function __construct(
         private PersonService $personService,
-    )
-    {
+    ) {
     }
 
     public function getPersonDetailByUuid(string $uuid): ?Person
@@ -45,13 +44,13 @@ final readonly class SdmKeluargaService
                 'sdm_keluarga.pekerjaan',
                 'sdm_keluarga.pendidikan_terakhir',
                 'sdm_keluarga.penghasilan',
-                'anggota.nama as nama_anggota',
+                'anggota.nama_lengkap as nama_anggota',
                 'anggota.nik  as nik_anggota',
                 'anggota.uuid_person as uuid_anggota',
             ])
             ->where('sdm_keluarga.id_sdm', $idSdm)
             ->when($request->query('id_hubungan_keluarga'), fn($q, $v) => $q->where('sdm_keluarga.id_hubungan_keluarga', $v))
-            ->orderBy('anggota.nama')
+            ->orderBy('anggota.nama_lengkap')
             ->get();
     }
 
@@ -67,7 +66,7 @@ final readonly class SdmKeluargaService
             ->leftJoin('ref_hubungan_keluarga', 'ref_hubungan_keluarga.id_hubungan_keluarga', '=', 'sdm_keluarga.id_hubungan_keluarga')
             ->select([
                 'sdm_keluarga.*',
-                'anggota.nama as nama_anggota',
+                'anggota.nama_lengkap as nama_anggota',
                 'anggota.nik  as nik_anggota',
                 'anggota.uuid_person as uuid_anggota',
                 'ref_hubungan_keluarga.hubungan_keluarga as hubungan',

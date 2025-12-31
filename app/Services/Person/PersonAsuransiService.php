@@ -11,8 +11,7 @@ final readonly class PersonAsuransiService
 {
     public function __construct(
         private PersonService $personService,
-    )
-    {
+    ) {
     }
 
     public function getPersonDetailByUuid(string $uuid): ?Person
@@ -42,7 +41,7 @@ final readonly class PersonAsuransiService
                 'person_asuransi.tanggal_mulai',
                 'person_asuransi.tanggal_berakhir',
                 'person.id',
-                'person.nama',
+                'person.nama_lengkap as nama',
                 'person.nik',
                 'person.uuid_person',
             ])
@@ -52,7 +51,7 @@ final readonly class PersonAsuransiService
             })
             ->when($request->query('id_jenis_asuransi'), fn($q, $v) => $q->where('person_asuransi.id_jenis_asuransi', $v))
             ->when($request->query('status'), fn($q, $v) => $q->where('person_asuransi.status_aktif', $v))
-            ->orderBy('person.nama')
+            ->orderBy('person.nama_lengkap')
             ->get();
     }
 
@@ -68,8 +67,11 @@ final readonly class PersonAsuransiService
             ->leftJoin('ref_jenis_asuransi', 'ref_jenis_asuransi.id_jenis_asuransi', '=', 'person_asuransi.id_jenis_asuransi')
             ->select([
                 'person_asuransi.*',
-                'person.nama', 'person.nik', 'person.uuid_person',
-                'ref_jenis_asuransi.jenis_asuransi', 'ref_jenis_asuransi.nama_produk',
+                'person.nama_lengkap as nama',
+                'person.nik',
+                'person.uuid_person',
+                'ref_jenis_asuransi.jenis_asuransi',
+                'ref_jenis_asuransi.nama_produk',
             ])
             ->where('person_asuransi.id_asuransi', $id)
             ->first();

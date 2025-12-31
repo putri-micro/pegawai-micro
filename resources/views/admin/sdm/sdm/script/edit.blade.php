@@ -27,7 +27,7 @@
                 $("#edit_nomor_sk").val(data.nomor_sk);
                 $('#edit_nomor_karpeg').val(response.data.nomor_karpeg);
                 edit_tmt.setDate(response.data.tmt);
-                edit_tmt_pensiun.setDate(response.data.tmt_pensiun);              
+                edit_tmt_pensiun.setDate(response.data.tmt_pensiun);
             } else {
                 Swal.fire("Warning", response.message, "warning");
             }
@@ -61,8 +61,17 @@
                     };
                     DataManager.postData(updateUrl, input).then(response => {
                         if (response.success) {
-                            Swal.fire('Berhasil', response.message, 'success');
-                            setTimeout(() => location.reload(), 1000);
+                            Swal.fire({
+                                title: 'Berhasil',
+                                text: response.message,
+                                icon: 'success',
+                                timer: 1000,
+                                showConfirmButton: false
+                            });
+                            setTimeout(() => {
+                                $('#example').DataTable().ajax.reload(null, false);
+                                $('#form_edit').modal('hide');
+                            }, 1000);
                         } else if (response.errors) {
                             const validationErrorFilter = new ValidationErrorFilter("edit_");
                             validationErrorFilter.filterValidationErrors(response);

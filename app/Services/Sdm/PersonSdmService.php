@@ -6,13 +6,13 @@ use App\Models\Person\Person;
 use App\Models\Sdm\PersonSdm;
 use App\Services\Person\PersonService;
 use Illuminate\Support\Collection;
-use Illuminate\Http\Request;
 
 final readonly class PersonSdmService
 {
     public function __construct(
         private PersonService $personService,
-    ) {}
+    ) {
+    }
 
     /**
      * Ambil detail Person (biodata) berdasarkan UUID
@@ -46,34 +46,21 @@ final readonly class PersonSdmService
     /**
      * Ambil seluruh data list SDM
      */
-   // Di PersonSdmService - PERBAIKI getListData
-public function getListData(Request $request)
-{
-    $query = PersonSdm::query()
-        ->join('person', 'person.id', '=', 'person_sdm.id') // Ubah ke INNER JOIN
-        ->select([
-            'person_sdm.id_sdm',
-            'person_sdm.id', // ✅ PASTIKAN ID ADA
-            'person_sdm.nomor_karpeg',
-            'person_sdm.nomor_sk',
-            'person_sdm.tmt',
-            'person_sdm.tmt_pensiun',
-            'person.nama_lengkap',
-            'person.uuid_person',
-        ]);
-
-    // Handle search
-    if ($request->has('search') && !empty($request->search['value'])) {
-        $search = $request->search['value'];
-        $query->where(function($q) use ($search) {
-            $q->where('person.nama_lengkap', 'like', "%{$search}%")
-              ->orWhere('person_sdm.nomor_sk', 'like', "%{$search}%")
-              ->orWhere('person_sdm.nomor_karpeg', 'like', "%{$search}%");
-        });
+    public function getListData()
+    {
+        return PersonSdm::query()
+            ->join('person', 'person.id', '=', 'person_sdm.id')
+            ->select([
+                'person_sdm.id_sdm',
+                'person_sdm.id',
+                'person_sdm.nomor_karpeg',
+                'person_sdm.nomor_sk',
+                'person_sdm.tmt',
+                'person_sdm.tmt_pensiun',
+                'person.nama_lengkap',
+                'person.uuid_person',
+            ]);
     }
-
-    return $query;
-}
 
     /**
      * Simpan data baru SDM
@@ -144,10 +131,10 @@ public function getListData(Request $request)
 
     public function getQueryWithPerson()
     {
-    return PersonSdm::with('person') // pastikan relasi 'person' ada di model
-        ->select(['id_sdm', 'uuid_person', 'nomor_sk', 'nomor_karpeg', 'tmt', 'tmt_pensiun']);
+        return PersonSdm::with('person') // pastikan relasi 'person' ada di model
+            ->select(['id_sdm', 'uuid_person', 'nomor_sk', 'nomor_karpeg', 'tmt', 'tmt_pensiun']);
     }
 
-    
+
 
 }

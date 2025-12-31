@@ -32,6 +32,8 @@ Route::prefix('person')->group(function () {
         ->name('person.store');
     Route::post('update/{id}', [PersonController::class, 'update'])
         ->name('person.update');
+    Route::post('destroy/{id}', [PersonController::class, 'destroy'])
+        ->name('person.destroy');
 });
 
 Route::prefix('sdm')->group(function () {
@@ -49,7 +51,7 @@ Route::prefix('sdm')->group(function () {
         ->name('sdm.sdm.histori');
     Route::get('find/by/nik/{id}', [PersonSdmController::class, 'find_by_nik'])
         ->name('sdm.sdm.find_by_nik');
-         Route::get('histori', function () {
+    Route::get('histori', function () {
         return redirect()->route('sdm.sdm.index')
             ->with('error', 'Parameter ID tidak ditemukan');
     });

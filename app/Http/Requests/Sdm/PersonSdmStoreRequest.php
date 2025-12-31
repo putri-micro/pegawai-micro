@@ -16,16 +16,18 @@ class PersonSdmStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nomor_karpeg'   => 'nullable|string|max:20',
-            'nomor_sk'       => 'nullable|string|max:50',
-            'tmt'            => 'nullable|date',
-            'tmt_pensiun'    => 'nullable|date',
+            'id' => 'required|integer|exists:person,id',
+            'nomor_karpeg' => 'nullable|string|max:20',
+            'nomor_sk' => 'nullable|string|max:50',
+            'tmt' => 'nullable|date',
+            'tmt_pensiun' => 'nullable|date',
         ];
     }
 
     public function attributes(): array
     {
         return [
+            'id' => 'Person',
             'nomor_karpeg' => 'Nomor Karpeg',
             'nomor_sk' => 'Nomor SK',
             'tmt' => 'TMT',

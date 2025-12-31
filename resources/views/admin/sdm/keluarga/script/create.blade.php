@@ -94,9 +94,16 @@
                     const action = "{{ route('admin.sdm.keluarga.store') }}";
                     DataManager.postData(action, input).then(response => {
                         if (response.success) {
-                            Swal.fire('Success', response.message, 'success');
+                            Swal.fire({
+                                title: 'Success',
+                                text: response.message,
+                                icon: 'success',
+                                timer: 1000,
+                                showConfirmButton: false
+                            });
                             setTimeout(function () {
-                                location.reload();
+                                $('#example').DataTable().ajax.reload(null, false);
+                                $('#form_create').modal('hide');
                             }, 1000);
                         }
                         if (!response.success && response.errors) {

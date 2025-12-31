@@ -13,9 +13,8 @@ final readonly class SdmStrukturalService
 {
     public function __construct(
         private FileUploadService $fileUploadService,
-        private PersonService     $personService,
-    )
-    {
+        private PersonService $personService,
+    ) {
     }
 
     public function getPersonDetailByUuid(string $uuid): ?Person
@@ -46,19 +45,19 @@ final readonly class SdmStrukturalService
             ->leftJoin('master_unit', 'master_unit.id_unit', '=', 'sdm_struktural.id_unit')
             ->leftJoin('ref_eselon', 'ref_eselon.id_eselon', '=', 'master_jabatan.id_eselon')
             ->select([
-                'sdm_struktural.*',
-                'master_periode.periode',
-                'master_jabatan.jabatan as nama_jabatan',
-                'master_unit.unit as nama_unit',
-                'ref_eselon.eselon',
-            ])
+                    'sdm_struktural.*',
+                    'master_periode.periode',
+                    'master_jabatan.jabatan as nama_jabatan',
+                    'master_unit.unit as nama_unit',
+                    'ref_eselon.eselon',
+                ])
             ->where('sdm_struktural.id_sdm', $idSdm)
             ->orderByDesc('sdm_struktural.tanggal_sk')
             ->orderBy('master_jabatan.jabatan')
             ->get();
 
         return $data->map(function ($row) use ($latestId) {
-            $row->is_latest = (int)($row->id_struktural == $latestId);
+            $row->is_latest = (int) ($row->id_struktural == $latestId);
 
             return $row;
         });
@@ -76,11 +75,11 @@ final readonly class SdmStrukturalService
             ->leftJoin('master_unit', 'master_unit.id_unit', '=', 'sdm_struktural.id_unit')
             ->leftJoin('ref_eselon', 'ref_eselon.id_eselon', '=', 'master_jabatan.id_eselon')
             ->select([
-                'sdm_struktural.*',
-                'master_jabatan.jabatan as nama_jabatan',
-                'master_unit.unit as nama_unit',
-                'ref_eselon.eselon',
-            ])
+                    'sdm_struktural.*',
+                    'master_jabatan.jabatan as nama_jabatan',
+                    'master_unit.unit as nama_unit',
+                    'ref_eselon.eselon',
+                ])
             ->where('sdm_struktural.id_struktural', $id)
             ->first();
     }
@@ -133,8 +132,8 @@ final readonly class SdmStrukturalService
             ->where('id_sdm', $idSdm)
             ->whereNull('tanggal_keluar')
             ->update([
-                'tanggal_keluar' => now()->format('Y-m-d'),
-            ]);
+                    'tanggal_keluar' => now()->format('Y-m-d'),
+                ]);
     }
 
     public function update(SdmStruktural $struktural, array $data): SdmStruktural
@@ -153,9 +152,9 @@ final readonly class SdmStrukturalService
         $personSdm = PersonSdm::query()
             ->join('person', 'person.id', '=', 'person_sdm.id')
             ->select([
-                'person.uuid_person',
-                'person.nama',
-            ])
+                    'person.uuid_person',
+                    'person.nama_lengkap as nama',
+                ])
             ->where('person_sdm.id_sdm', $idSdm)
             ->first();
 
@@ -181,9 +180,9 @@ final readonly class SdmStrukturalService
         $personSdm = PersonSdm::query()
             ->join('person', 'person.id', '=', 'person_sdm.id')
             ->select([
-                'person.uuid_person',
-                'person.nama',
-            ])
+                    'person.uuid_person',
+                    'person.nama_lengkap as nama',
+                ])
             ->where('person_sdm.id_sdm', $idSdm)
             ->first();
 

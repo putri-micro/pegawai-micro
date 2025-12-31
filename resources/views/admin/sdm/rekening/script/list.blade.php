@@ -3,7 +3,7 @@
         $.fn.dataTable.ext.errMode = 'none';
         const table = $('#example').DataTable({
             dom: "lBfrtip",
-            stateSave: true,
+            stateSave: false,
             stateDuration: -1,
             pageLength: 10,
             lengthMenu: [
@@ -17,18 +17,18 @@
                 className: 'btn btn-sm btn-dark rounded-2',
                 columns: ':not(.noVis)'
             },
-                {
-                    extend: "csv",
-                    titleAttr: 'Csv',
-                    action: newexportaction,
-                    className: 'btn btn-sm btn-dark rounded-2',
-                },
-                {
-                    extend: "excel",
-                    titleAttr: 'Excel',
-                    action: newexportaction,
-                    className: 'btn btn-sm btn-dark rounded-2',
-                },
+            {
+                extend: "csv",
+                titleAttr: 'Csv',
+                action: newexportaction,
+                className: 'btn btn-sm btn-dark rounded-2',
+            },
+            {
+                extend: "excel",
+                titleAttr: 'Excel',
+                action: newexportaction,
+                className: 'btn btn-sm btn-dark rounded-2',
+            },
             ],
             processing: true,
             serverSide: true,
@@ -51,63 +51,63 @@
                 orderable: false,
                 searchable: false
             },
-                {
-                    data: 'no_rekening',
-                    name: 'no_rekening'
-                },
-                {
-                    data: 'bank',
-                    name: 'bank'
-                },
-                {
-                    data: 'nama_pemilik',
-                    name: 'nama_pemilik',
-                    render: function (data) {
-                        return data;
-                    }
-                },
-                {
-                    data: 'kode_bank',
-                    name: 'kode_bank',
-                    render: function (data) {
-                        return data;
-                    }
-                },
-                {
-                    data: 'cabang_bank',
-                    name: 'cabang_bank',
-                    render: function (data) {
-                        return data;
-                    }
-                },
-                {
-                    data: 'jenis_rekening',
-                    name: 'jenis_rekening',
-                    render: function (data) {
-                        return data || 'Tabungan';
-                    }
-                },
-                {
-                    data: 'status_aktif',
-                    name: 'status_aktif',
-                    render: function (data) {
-                        const statusClass = {
-                            'Aktif': 'badge-success',
-                            'Nonaktif': 'badge-warning',
-                            'Ditutup': 'badge-danger'
-                        };
-                        const cssClass = statusClass[data] || 'badge-secondary';
-                        return `<span class="badge ${cssClass}">${data || 'Aktif'}</span>`;
-                    }
-                },
-                {
-                    data: 'rekening_utama',
-                    name: 'rekening_utama',
-                    render: function (data) {
-                        return data === 'y' ? '<span class="badge badge-success">Ya</span>' :
-                            '<span class="badge badge-secondary">Tidak</span>';
-                    }
-                },
+            {
+                data: 'no_rekening',
+                name: 'no_rekening'
+            },
+            {
+                data: 'bank',
+                name: 'bank'
+            },
+            {
+                data: 'nama_pemilik',
+                name: 'nama_pemilik',
+                render: function (data) {
+                    return data;
+                }
+            },
+            {
+                data: 'kode_bank',
+                name: 'kode_bank',
+                render: function (data) {
+                    return data;
+                }
+            },
+            {
+                data: 'cabang_bank',
+                name: 'cabang_bank',
+                render: function (data) {
+                    return data;
+                }
+            },
+            {
+                data: 'jenis_rekening',
+                name: 'jenis_rekening',
+                render: function (data) {
+                    return data || 'Tabungan';
+                }
+            },
+            {
+                data: 'status_aktif',
+                name: 'status_aktif',
+                render: function (data) {
+                    const statusClass = {
+                        'Aktif': 'badge-success',
+                        'Nonaktif': 'badge-warning',
+                        'Ditutup': 'badge-danger'
+                    };
+                    const cssClass = statusClass[data] || 'badge-secondary';
+                    return `<span class="badge ${cssClass}">${data || 'Aktif'}</span>`;
+                }
+            },
+            {
+                data: 'rekening_utama',
+                name: 'rekening_utama',
+                render: function (data) {
+                    return data === 'y' ? '<span class="badge badge-success">Ya</span>' :
+                        '<span class="badge badge-secondary">Tidak</span>';
+                }
+            },
             ],
         });
 

@@ -17,18 +17,18 @@
                 className: 'btn btn-sm btn-dark rounded-2',
                 columns: ':not(.noVis)'
             },
-                {
-                    extend: 'csv',
-                    titleAttr: 'Csv',
-                    action: newexportaction,
-                    className: 'btn btn-sm btn-dark rounded-2',
-                },
-                {
-                    extend: 'excel',
-                    titleAttr: 'Excel',
-                    action: newexportaction,
-                    className: 'btn btn-sm btn-dark rounded-2',
-                },
+            {
+                extend: 'csv',
+                titleAttr: 'Csv',
+                action: newexportaction,
+                className: 'btn btn-sm btn-dark rounded-2',
+            },
+            {
+                extend: 'excel',
+                titleAttr: 'Excel',
+                action: newexportaction,
+                className: 'btn btn-sm btn-dark rounded-2',
+            },
             ],
             processing: true,
             serverSide: true,
@@ -46,40 +46,40 @@
                 orderable: false,
                 searchable: false
             },
-                {
-                    data: 'nama_lengkap',
-                    name: 'nama_lengkap'
-                },
-                {
-                    data: 'jk',
-                    name: 'jk',
-                    render: function (data) {
-                        return data === 'L' ? 'Laki-laki' : (data === 'P' ? 'Perempuan' : data);
-                    }
-                },
-                {
-                    data: 'tempat_lahir',
-                    name: 'tempat_lahir'
-                },
-                {
-                    data: 'tanggal_lahir',
-                    name: 'tanggal_lahir',
-                    render: function (data) {
-                        return data == null ? '' : formatter.formatDate(data);
-                    }
-                },
-                {
-                    data: 'nik',
-                    name: 'nik'
-                },
-                {
-                    data: 'no_hp',
-                    name: 'no_hp'
-                },
-                {
-                    data: 'email',
-                    name: 'email'
+            {
+                data: 'nama_lengkap',
+                name: 'nama_lengkap'
+            },
+            {
+                data: 'jk',
+                name: 'jk',
+                render: function (data) {
+                    return data === 'L' ? 'Laki-laki' : (data === 'P' ? 'Perempuan' : data);
                 }
+            },
+            {
+                data: 'tempat_lahir',
+                name: 'tempat_lahir'
+            },
+            {
+                data: 'tanggal_lahir',
+                name: 'tanggal_lahir',
+                render: function (data) {
+                    return data == null ? '' : formatter.formatDate(data);
+                }
+            },
+            {
+                data: 'nik',
+                name: 'nik'
+            },
+            {
+                data: 'no_hp',
+                name: 'no_hp'
+            },
+            {
+                data: 'email',
+                name: 'email'
+            }
             ],
         });
         const performOptimizedSearch = _.debounce(function (query) {

@@ -10,8 +10,7 @@ final readonly class PersonService
 {
     public function __construct(
         private FileUploadService $fileUploadService,
-    )
-    {
+    ) {
     }
 
     public function getListData(): Collection
@@ -84,6 +83,15 @@ final readonly class PersonService
         return $this->fileUploadService->uploadByType($foto, 'person_foto');
     }
 
+    public function delete(Person $person): bool
+    {
+        if ($person->foto) {
+            $this->fileUploadService->deleteFileByType($person->foto, 'person_foto');
+        }
+
+        return $person->delete();
+    }
+
     public function findByNik(string $nik): ?Person
     {
         return Person::query()
@@ -115,11 +123,23 @@ final readonly class PersonService
             ->leftJoin('ref_almt_kabupaten', 'ref_almt_kecamatan.id_kabupaten', '=', 'ref_almt_kabupaten.id_kabupaten')
             ->leftJoin('ref_almt_provinsi', 'ref_almt_kabupaten.id_provinsi', '=', 'ref_almt_provinsi.id_provinsi')
             ->select([
-                'person.id', 'person.uuid_person', 'person.nama_lengkap', 'person.nama_panggilan', 'person.jk',
-                'person.tempat_lahir', 'person.tanggal_lahir', 'person.nik', 'person.kk',
-                'person.npwp', 'person.no_hp', 'person.foto', 'person.alamat',
-                'ref_almt_desa.desa', 'ref_almt_kecamatan.kecamatan',
-                'ref_almt_kabupaten.kabupaten', 'ref_almt_provinsi.provinsi',
+                'person.id',
+                'person.uuid_person',
+                'person.nama_lengkap',
+                'person.nama_panggilan',
+                'person.jk',
+                'person.tempat_lahir',
+                'person.tanggal_lahir',
+                'person.nik',
+                'person.kk',
+                'person.npwp',
+                'person.no_hp',
+                'person.foto',
+                'person.alamat',
+                'ref_almt_desa.desa',
+                'ref_almt_kecamatan.kecamatan',
+                'ref_almt_kabupaten.kabupaten',
+                'ref_almt_provinsi.provinsi',
             ])
             ->where('person.uuid_person', $uuid)
             ->first();

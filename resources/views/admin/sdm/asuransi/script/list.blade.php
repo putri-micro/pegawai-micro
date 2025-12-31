@@ -4,7 +4,7 @@
         $.fn.dataTable.ext.errMode = 'none';
         const table = $('#example').DataTable({
             dom: 'lBfrtip',
-            stateSave: true,
+            stateSave: false,
             stateDuration: -1,
             pageLength: 10,
             lengthMenu: [
@@ -18,18 +18,18 @@
                 className: 'btn btn-sm btn-dark rounded-2',
                 columns: ':not(.noVis)'
             },
-                {
-                    extend: 'csv',
-                    titleAttr: 'Csv',
-                    action: newexportaction,
-                    className: 'btn btn-sm btn-dark rounded-2',
-                },
-                {
-                    extend: 'excel',
-                    titleAttr: 'Excel',
-                    action: newexportaction,
-                    className: 'btn btn-sm btn-dark rounded-2',
-                },
+            {
+                extend: 'csv',
+                titleAttr: 'Csv',
+                action: newexportaction,
+                className: 'btn btn-sm btn-dark rounded-2',
+            },
+            {
+                extend: 'excel',
+                titleAttr: 'Excel',
+                action: newexportaction,
+                className: 'btn btn-sm btn-dark rounded-2',
+            },
             ],
             processing: true,
             serverSide: true,
@@ -51,48 +51,48 @@
                 orderable: false,
                 searchable: false
             },
-                {
-                    data: 'nama',
-                    name: 'nama'
-                },
-                {
-                    data: 'nik',
-                    name: 'nik'
-                },
-                {
-                    data: 'nomor_registrasi',
-                    name: 'nomor_registrasi'
-                },
-                {
-                    data: 'kartu_anggota',
-                    name: 'kartu_anggota'
-                },
-                {
-                    data: 'jenis_asuransi',
-                    name: 'jenis_asuransi'
-                },
-                {
-                    data: 'nama_produk',
-                    name: 'nama_produk'
-                },
-                {
-                    data: 'status_aktif',
-                    name: 'status_aktif'
-                },
-                {
-                    data: 'tanggal_mulai',
-                    name: 'tanggal_mulai',
-                    render: function (data) {
-                        return formatter.formatDate(data);
-                    }
-                },
-                {
-                    data: 'tanggal_berakhir',
-                    name: 'tanggal_berakhir',
-                    render: function (data) {
-                        return formatter.formatDate(data);
-                    }
-                },
+            {
+                data: 'nama',
+                name: 'nama'
+            },
+            {
+                data: 'nik',
+                name: 'nik'
+            },
+            {
+                data: 'nomor_registrasi',
+                name: 'nomor_registrasi'
+            },
+            {
+                data: 'kartu_anggota',
+                name: 'kartu_anggota'
+            },
+            {
+                data: 'jenis_asuransi',
+                name: 'jenis_asuransi'
+            },
+            {
+                data: 'nama_produk',
+                name: 'nama_produk'
+            },
+            {
+                data: 'status_aktif',
+                name: 'status_aktif'
+            },
+            {
+                data: 'tanggal_mulai',
+                name: 'tanggal_mulai',
+                render: function (data) {
+                    return formatter.formatDate(data);
+                }
+            },
+            {
+                data: 'tanggal_berakhir',
+                name: 'tanggal_berakhir',
+                render: function (data) {
+                    return formatter.formatDate(data);
+                }
+            },
             ],
         });
         const performOptimizedSearch = _.debounce(function (query) {

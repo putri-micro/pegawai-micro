@@ -56,6 +56,7 @@ final class SdmKeluargaController extends Controller
 
     public function store(SdmKeluargaStoreRequest $request): JsonResponse
     {
+        // dd($request->all());
         $idSdm = $this->sdmKeluargaService->resolveIdSdmFromUuid($request->uuid_person);
         if (!$idSdm) {
             return $this->responseService->errorResponse('SDM tidak ditemukan');

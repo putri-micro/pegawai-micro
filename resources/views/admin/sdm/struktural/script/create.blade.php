@@ -91,15 +91,24 @@
                     if (filesk_masuk) {
                         formData.append('file_sk_masuk', filesk_masuk);
                     }
-                    if (filesk_keluar) {    
+                    if (filesk_keluar) {
                         formData.append('file_sk_keluar', filesk_keluar);
                     }
                     const createUrl = "{{ route('admin.sdm.struktural.store') }}";
 
                     DataManager.formData(createUrl, formData).then(response => {
                         if (response.success) {
-                            Swal.fire("Success", response.message, "success");
-                            setTimeout(() => location.reload(), 1000);
+                            Swal.fire({
+                                title: "Success",
+                                text: response.message,
+                                icon: "success",
+                                timer: 1000,
+                                showConfirmButton: false
+                            });
+                            setTimeout(() => {
+                                $('#example').DataTable().ajax.reload(null, false);
+                                $('#form_create').modal('hide');
+                            }, 1000);
                         } else if (response.errors) {
                             const validationErrorFilter = new ValidationErrorFilter();
                             validationErrorFilter.filterValidationErrors(response);

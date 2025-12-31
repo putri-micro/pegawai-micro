@@ -3,7 +3,7 @@
         $.fn.dataTable.ext.errMode = 'none';
         const table = $('#example').DataTable({
             dom: "lBfrtip",
-            stateSave: true,
+            stateSave: false,
             stateDuration: -1,
             pageLength: 10,
             lengthMenu: [
@@ -17,18 +17,18 @@
                 className: 'btn btn-sm btn-dark rounded-2',
                 columns: ':not(.noVis)'
             },
-                {
-                    extend: "csv",
-                    titleAttr: 'Csv',
-                    action: newexportaction,
-                    className: 'btn btn-sm btn-dark rounded-2',
-                },
-                {
-                    extend: "excel",
-                    titleAttr: 'Excel',
-                    action: newexportaction,
-                    className: 'btn btn-sm btn-dark rounded-2',
-                },
+            {
+                extend: "csv",
+                titleAttr: 'Csv',
+                action: newexportaction,
+                className: 'btn btn-sm btn-dark rounded-2',
+            },
+            {
+                extend: "excel",
+                titleAttr: 'Excel',
+                action: newexportaction,
+                className: 'btn btn-sm btn-dark rounded-2',
+            },
             ],
             processing: true,
             serverSide: true,
@@ -46,53 +46,53 @@
                 orderable: false,
                 searchable: false
             },
-                {
-                    data: 'nama_anggota',
-                    name: 'nama_anggota'
-                },
-                {
-                    data: 'nik_anggota',
-                    name: 'nik_anggota'
-                },
-                {
-                    data: 'hubungan',
-                    name: 'hubungan'
-                },
-                {
-                    data: 'status_tanggungan',
-                    name: 'status_tanggungan',
-                    render: function (data) {
+            {
+                data: 'nama_anggota',
+                name: 'nama_anggota'
+            },
+            {
+                data: 'nik_anggota',
+                name: 'nik_anggota'
+            },
+            {
+                data: 'hubungan',
+                name: 'hubungan'
+            },
+            {
+                data: 'status_tanggungan',
+                name: 'status_tanggungan',
+                render: function (data) {
+                    return data;
+                }
+            },
+            {
+                data: 'pekerjaan',
+                name: 'pekerjaan',
+                render: function (data) {
+                    return data;
+                }
+            },
+            {
+                data: 'pendidikan_terakhir',
+                name: 'pendidikan_terakhir',
+                render: function (data) {
+                    return data;
+                }
+            },
+            {
+                data: 'penghasilan',
+                name: 'penghasilan',
+                render: function (data) {
+                    if (!data || data === null || data === '') return '-';
+                    try {
+                        const number = parseFloat(data);
+                        if (isNaN(number)) return '-';
+                        return 'Rp ' + new Intl.NumberFormat('id-ID').format(number);
+                    } catch (e) {
                         return data;
                     }
-                },
-                {
-                    data: 'pekerjaan',
-                    name: 'pekerjaan',
-                    render: function (data) {
-                        return data;
-                    }
-                },
-                {
-                    data: 'pendidikan_terakhir',
-                    name: 'pendidikan_terakhir',
-                    render: function (data) {
-                        return data;
-                    }
-                },
-                {
-                    data: 'penghasilan',
-                    name: 'penghasilan',
-                    render: function (data) {
-                        if (!data || data === null || data === '') return '-';
-                        try {
-                            const number = parseFloat(data);
-                            if (isNaN(number)) return '-';
-                            return 'Rp ' + new Intl.NumberFormat('id-ID').format(number);
-                        } catch (e) {
-                            return data;
-                        }
-                    }
-                },
+                }
+            },
             ],
         });
         const performOptimizedSearch = _.debounce(function (query) {

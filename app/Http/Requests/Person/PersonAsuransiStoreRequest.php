@@ -57,7 +57,7 @@ class PersonAsuransiStoreRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'uuid_person.required_without' => 'Field :attribute wajib diisi jika id_person tidak diisi.',
+            'uuid_person.required_without' => 'Field :attribute wajib diisi jika id tidak diisi.',
             'uuid_person.uuid' => 'Field :attribute harus berupa UUID.',
             'uuid_person.exists' => 'Field :attribute tidak ditemukan.',
             'id.required_without' => 'Field :attribute wajib diisi jika uuid_person tidak diisi.',
