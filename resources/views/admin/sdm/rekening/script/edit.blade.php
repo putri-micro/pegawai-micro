@@ -1,5 +1,39 @@
 <script defer>
     $("#form_edit").on("show.bs.modal", function (e) {
+        const $bankSelect = $("#edit_bank");
+        let bankListLoaded = false;
+        let pendingBankValue = null;
+
+        const loadBanks = () => {
+            return DataManager.fetchData("{{ route('api.ref.bank') }}").then(response => {
+                if (response.success) {
+                    $bankSelect.empty().append('<option></option>');
+                    response.data.forEach(item => {
+                        $bankSelect.append(`<option value="${item.nama_bank}" data-kode="${item.kode_swift}">${item.nama_bank}</option>`);
+                    });
+                    $bankSelect.select2({
+                        dropdownParent: $('#form_edit')
+                    });
+                    bankListLoaded = true;
+                    if (pendingBankValue) {
+                        $bankSelect.val(pendingBankValue).trigger("change");
+                        pendingBankValue = null;
+                    }
+                }
+            });
+        };
+
+        loadBanks();
+
+        $("#edit_bank").on("change", function () {
+            const selectedOption = $(this).find('option:selected');
+            const kodeSwift = selectedOption.data('kode');
+            if (kodeSwift && !$("#edit_kode_bank").val()) {
+                $("#edit_kode_bank").val(kodeSwift);
+            }
+        });
+
+
         const button = $(e.relatedTarget);
         const id = button.data("id");
         const detail = "{{ route('admin.sdm.rekening.show', ':id') }}";
@@ -8,13 +42,18 @@
             if (response.success) {
                 const data = response.data;
                 $("#edit_no_rekening").val(data.no_rekening);
-                $("#edit_bank").val(data.bank);
                 $("#edit_nama_pemilik").val(data.nama_pemilik);
                 $("#edit_kode_bank").val(data.kode_bank);
                 $("#edit_cabang_bank").val(data.cabang_bank);
                 $("#edit_jenis_rekening").val(data.jenis_rekening).trigger("change");
                 $("#edit_status_aktif").val(data.status_aktif).trigger("change");
                 $("#edit_rekening_utama").val(data.rekening_utama).trigger("change");
+
+                if (bankListLoaded) {
+                    $("#edit_bank").val(data.bank).trigger("change");
+                } else {
+                    pendingBankValue = data.bank;
+                }
 
             } else {
                 Swal.fire("Warning", response.message, "warning");
@@ -95,8 +134,17 @@
 
                     DataManager.postData(updateUrl, input).then(response => {
                         if (response.success) {
-                            Swal.fire("Success", response.message, "success");
-                            setTimeout(() => location.reload(), 1000);
+                            $('#form_edit').modal('hide');
+                            Swal.fire({
+                                title: 'Success',
+                                text: response.message,
+                                icon: 'success',
+                                confirmButtonText: "OK",
+                                timer: 1500,
+                                timerProgressBar: true
+                            }).then(() => {
+                                $('#example').DataTable().ajax.reload();
+                            });
                         } else if (response.errors) {
                             const validationErrorFilter = new ValidationErrorFilter(
                                 "edit_");

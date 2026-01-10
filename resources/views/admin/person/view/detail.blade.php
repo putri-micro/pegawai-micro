@@ -1,5 +1,5 @@
 <div class="modal fade" id="form_detail" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
-     aria-hidden="true">
+    aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -9,23 +9,23 @@
             <div class="modal-body">
                 <div class="row">
                     <!-- Kolom 1: Foto -->
-                    <div class="col-md-3">
-                        <div class="d-flex flex-column align-items-center mb-4">
+                    <div class="col-md-2">
+                        <div class="d-flex flex-column align-items-start mb-4">
                             <h6 class="text-primary fw-bold mb-3">Foto Profil</h6>
                             <div id="detail_foto_section" class="text-center">
                                 <div class="symbol symbol-150px symbol-fixed position-relative rounded border">
-                                    <img id="detail_foto_preview"
-                                         alt="Foto Person" class="w-150px h-150px object-fit-cover rounded"/>
+                                    <img id="detail_foto_preview" alt="Foto Person"
+                                        class="w-150px h-150px object-fit-cover rounded" />
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Kolom 2: Data Dasar -->
-                    <div class="col-md-4">
+                    <div class="col-md-5">
                         <h6 class="text-primary fw-bold mb-3 border-bottom border-primary pb-2">Data Dasar</h6>
 
-                       <div class="d-flex flex-column mb-3">
+                        <div class="d-flex flex-column mb-3">
                             <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
                                 <span>Nama Lengkap</span>
                             </label>
@@ -38,7 +38,7 @@
                             </label>
                             <p id="detail_nama_panggilan" class="fw-light fs-sm-8 fs-lg-6"></p>
                         </div>
-                        
+
                         <div class="d-flex flex-column mb-3">
                             <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
                                 <span>Jenis Kelamin</span>
@@ -60,7 +60,7 @@
                             <p id="detail_tanggal_lahir" class="fw-light fs-sm-8 fs-lg-6"></p>
                         </div>
 
-                         <div class="d-flex flex-column mb-3">
+                        <div class="d-flex flex-column mb-3">
                             <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
                                 <span>Agama</span>
                             </label>
@@ -179,7 +179,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-sm btn-dark fs-sm-8 fs-lg-6" data-bs-dismiss="modal"
-                        aria-label="Close">Tutup
+                    aria-label="Close">Tutup
                 </button>
             </div>
         </div>

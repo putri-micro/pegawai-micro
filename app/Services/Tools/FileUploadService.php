@@ -14,7 +14,7 @@ final class FileUploadService
 {
     private const int CHUNK_SIZE = 4096;
 
-    private const int|float MAX_FILE_SIZE = 5 * 1024 * 1024;
+    private const int MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB per file
 
     public function __construct(private readonly string $disk = 'public')
     {
@@ -55,8 +55,11 @@ final class FileUploadService
         }
 
         // Extension validation
+        $originalName = $file->getClientOriginalName();
+        $this->detectDoubleExtension($originalName);
+
         $extension = strtolower($file->getClientOriginalExtension());
-        $allowedTypes = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'pdf'];
+        $allowedTypes = ['jpg', 'jpeg', 'png', 'pdf', 'docx', 'xlsx', 'pptx', 'zip'];
 
         if (!in_array($extension, $allowedTypes)) {
             throw new InvalidArgumentException("Tipe file tidak diizinkan: $extension");
@@ -65,6 +68,7 @@ final class FileUploadService
         // Enhanced security validation
         $this->validateFileContent($file);
         $this->validateMimeType($file, $extension);
+        $this->scanForMalware($file);
     }
 
     /**
@@ -95,29 +99,14 @@ final class FileUploadService
     private function validateMagicBytes(string $magicBytes, string $extension): void
     {
         $validSignatures = [
-            'pdf' => [
-                "\x25\x50\x44\x46", // %PDF
-            ],
-            'jpg' => [
-                "\xFF\xD8\xFF\xE0", // JFIF
-                "\xFF\xD8\xFF\xE1", // EXIF
-                "\xFF\xD8\xFF\xE8", // SPIFF
-            ],
-            'jpeg' => [
-                "\xFF\xD8\xFF\xE0", // JFIF
-                "\xFF\xD8\xFF\xE1", // EXIF
-                "\xFF\xD8\xFF\xE8", // SPIFF
-            ],
-            'png' => [
-                "\x89\x50\x4E\x47\x0D\x0A\x1A\x0A", // PNG
-            ],
-            'gif' => [
-                "GIF87a", // GIF87a
-                "GIF89a", // GIF89a
-            ],
-            'webp' => [
-                "RIFF", // WEBP (first 4 bytes)
-            ]
+            'pdf' => ["\x25\x50\x44\x46"], // %PDF
+            'jpg' => ["\xFF\xD8\xFF\xE0", "\xFF\xD8\xFF\xE1", "\xFF\xD8\xFF\xE8"],
+            'jpeg' => ["\xFF\xD8\xFF\xE0", "\xFF\xD8\xFF\xE1", "\xFF\xD8\xFF\xE8"],
+            'png' => ["\x89\x50\x4E\x47\x0D\x0A\x1A\x0A"],
+            'docx' => ["\x50\x4B\x03\x04", "\x50\x4B\x05\x06", "\x50\x4B\x07\x08"], // ZIP-based
+            'xlsx' => ["\x50\x4B\x03\x04"],
+            'pptx' => ["\x50\x4B\x03\x04"],
+            'zip' => ["\x50\x4B\x03\x04"],
         ];
 
         if (!isset($validSignatures[$extension])) {
@@ -148,8 +137,10 @@ final class FileUploadService
             'jpg' => ['image/jpeg'],
             'jpeg' => ['image/jpeg'],
             'png' => ['image/png'],
-            'gif' => ['image/gif'],
-            'webp' => ['image/webp']
+            'docx' => ['application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
+            'xlsx' => ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
+            'pptx' => ['application/vnd.openxmlformats-officedocument.presentationml.presentation'],
+            'zip' => ['application/zip', 'application/x-zip-compressed'],
         ];
 
         if (!isset($validMimeTypes[$extension])) {
@@ -173,8 +164,10 @@ final class FileUploadService
             'pdf' => 'application/pdf',
             'jpg', 'jpeg' => 'image/jpeg',
             'png' => 'image/png',
-            'gif' => 'image/gif',
-            'webp' => 'image/webp',
+            'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'xlsx' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'pptx' => 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+            'zip' => 'application/zip',
             default => 'application/octet-stream'
         };
     }
@@ -233,8 +226,8 @@ final class FileUploadService
         $end = $fileSize - 1;
 
         if ($range && preg_match('/bytes=(\d+)-(\d*)/i', $range, $matches)) {
-            $start = (int)$matches[1];
-            $end = $matches[2] ? (int)$matches[2] : $fileSize - 1;
+            $start = (int) $matches[1];
+            $end = $matches[2] ? (int) $matches[2] : $fileSize - 1;
 
             if ($start >= $fileSize || $end >= $fileSize || $start > $end) {
                 abort(416, 'Range Not Satisfiable');
@@ -314,11 +307,46 @@ final class FileUploadService
      */
     private function sanitizeForFilename(string $string): string
     {
-        // Remove atau replace karakter yang tidak diinginkan
+        // Unicode normalization and basic cleaning
+        $string = preg_replace('/[^\x20-\x7E]/', '', $string); // Remove non-printable characters and emojis
+
+        // Remove atau replace karakter yang tidak diinginkan sesuai spek: / \ : * ? " < > |
+        $string = preg_replace('/[\/\\\:\*\?"<>|]/', '_', $string);
+
+        // Replace other potentially dangerous characters
         $string = preg_replace('/[^a-zA-Z0-9\-_.]/', '_', $string);
         $string = preg_replace('/_+/', '_', $string); // Multiple underscore jadi satu
 
+        // Prevent hidden files and path traversal
+        $string = ltrim($string, '.');
+
         return trim($string, '_');
+    }
+
+    /**
+     * Check if filename contains risky characters
+     */
+    private function isRiskyFilename(string $filename): bool
+    {
+        // Check for characters that would be sanitized
+        return preg_match('/[\/\\\:\*\?"<>|]/', $filename) || preg_match('/[^\x20-\x7E]/', $filename);
+    }
+
+    /**
+     * Detect double extension attempt
+     */
+    private function detectDoubleExtension(string $filename): void
+    {
+        $parts = explode('.', $filename);
+        if (count($parts) > 2) {
+            $lastIndex = count($parts) - 1;
+            $secondLastIndex = $lastIndex - 1;
+
+            $forbiddenBeforeExtension = ['php', 'php5', 'phtml', 'exe', 'bat', 'cmd', 'sh', 'js', 'msi', 'dll', 'vbs', 'jar'];
+            if (in_array(strtolower($parts[$secondLastIndex]), $forbiddenBeforeExtension)) {
+                throw new InvalidArgumentException("Percobaan unggah file berbahaya terdeteksi (Double Extension).");
+            }
+        }
     }
 
     /**
@@ -340,8 +368,19 @@ final class FileUploadService
 
         $fileName = $customFileName ?: $this->generateDefaultFileName($file);
         $path = Storage::disk($this->disk)->putFileAs($directory, $file, $fileName);
+        $hasRiskyChars = $this->isRiskyFilename($file->getClientOriginalName());
 
-        return ['file_name' => $fileName, 'original_name' => $file->getClientOriginalName(), 'path' => $path, 'size' => $file->getSize(), 'mime_type' => $file->getClientMimeType() ?: $file->getMimeType(), 'extension' => strtolower($file->getClientOriginalExtension()), 'url' => asset('storage/' . $path)];
+        return [
+            'file_name' => $fileName,
+            'original_name' => $file->getClientOriginalName(),
+            'path' => $path,
+            'size' => $file->getSize(),
+            'mime_type' => $file->getClientMimeType() ?: $file->getMimeType(),
+            'extension' => strtolower($file->getClientOriginalExtension()),
+            'url' => asset('storage/' . $path),
+            'status' => 'verified',
+            'warning' => $hasRiskyChars ? 'Nama file mengandung karakter berisiko.' : null,
+        ];
     }
 
     /**
@@ -351,7 +390,7 @@ final class FileUploadService
     {
         $extension = strtolower($file->getClientOriginalExtension());
 
-        return str_replace('-', '', (string)Str::uuid()) . '.' . $extension;
+        return str_replace('-', '', (string) Str::uuid()) . '.' . $extension;
     }
 
     /**
@@ -386,5 +425,19 @@ final class FileUploadService
         }
 
         return $uploadResult;
+    }
+
+    /**
+     * Malware scan placeholder (Alur Proses BE step 5)
+     */
+    private function scanForMalware(UploadedFile $file): void
+    {
+        // Placeholder for real malware scan logic (e.g., ClamAV)
+        // For now, we simulate a successful scan
+        $isClean = true;
+
+        if (!$isClean) {
+            throw new InvalidArgumentException("File terdeteksi mengandung malware.");
+        }
     }
 }

@@ -26,6 +26,7 @@ final class TransactionService
             $query = $queryCallback();
 
             $dataTable = DataTables::of($query);
+            $dataTable->addIndexColumn();
             foreach ($extraColumns as $name => $callback) {
                 $dataTable->addColumn($name, $callback);
             }
@@ -35,6 +36,10 @@ final class TransactionService
 
             return $dataTable->toJson();
         } catch (Exception $exception) {
+            Log::error($exception->getMessage(), ['exception' => $exception]);
+
+            return response()->json(['draw' => 0, 'recordsTotal' => 0, 'recordsFiltered' => 0, 'data' => [], 'error' => 'Terjadi kesalahan yang tidak terduga.'], 500);
+        } catch (Throwable $exception) {
             Log::error($exception->getMessage(), ['exception' => $exception]);
 
             return response()->json(['draw' => 0, 'recordsTotal' => 0, 'recordsFiltered' => 0, 'data' => [], 'error' => 'Terjadi kesalahan yang tidak terduga.'], 500);

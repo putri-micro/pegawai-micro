@@ -1,10 +1,13 @@
 <?php
 
 use App\Http\Controllers\Admin\Master\MasterJabatanController;
+use App\Http\Controllers\Admin\Master\MasterJadwalKerjaController;
+use App\Http\Controllers\Admin\Master\MasterLiburController;
 use App\Http\Controllers\Admin\Master\MasterPeriodeController;
 use App\Http\Controllers\Admin\Master\MasterUnitController;
 use App\Http\Controllers\Admin\Person\PersonAsuransiController;
 use App\Http\Controllers\Admin\Person\PersonController;
+use App\Http\Controllers\Admin\Ref\RefBankController;
 use App\Http\Controllers\Admin\Ref\RefEselonController;
 use App\Http\Controllers\Admin\Ref\RefHubunganKeluargaController;
 use App\Http\Controllers\Admin\Ref\RefJenisAsuransiController;
@@ -134,6 +137,22 @@ Route::prefix('sdm')->group(function () {
         Route::post('destroy/{id}', [SdmStrukturalController::class, 'destroy'])
             ->name('sdm.struktural.destroy');
     });
+
+    Route::prefix('jadwal-karyawan')->group(function () {
+        Route::get('/{id}', [App\Http\Controllers\Admin\Sdm\SdmJadwalKaryawanController::class, 'index'])
+            ->name('sdm.jadwal-karyawan.index');
+        Route::get('data/{id}', [App\Http\Controllers\Admin\Sdm\SdmJadwalKaryawanController::class, 'list'])
+            ->name('sdm.jadwal-karyawan.list');
+        Route::get('show/{id}', [App\Http\Controllers\Admin\Sdm\SdmJadwalKaryawanController::class, 'show'])
+            ->name('sdm.jadwal-karyawan.show');
+        Route::post('/store', [App\Http\Controllers\Admin\Sdm\SdmJadwalKaryawanController::class, 'store'])
+            ->name('sdm.jadwal-karyawan.store');
+        Route::post('update/{id}', [App\Http\Controllers\Admin\Sdm\SdmJadwalKaryawanController::class, 'update'])
+            ->name('sdm.jadwal-karyawan.update');
+        Route::post('destroy/{id}', [App\Http\Controllers\Admin\Sdm\SdmJadwalKaryawanController::class, 'destroy'])
+            ->name('sdm.jadwal-karyawan.destroy');
+    });
+
 });
 
 Route::prefix('master')->group(function () {
@@ -174,6 +193,36 @@ Route::prefix('master')->group(function () {
             ->name('master.jabatan.store');
         Route::post('update/{id}', [MasterJabatanController::class, 'update'])
             ->name('master.jabatan.update');
+    });
+
+    Route::prefix('libur')->group(function () {
+        Route::get('/', [MasterLiburController::class, 'index'])
+            ->name('master.libur.index');
+        Route::get('data', [MasterLiburController::class, 'list'])
+            ->name('master.libur.list');
+        Route::get('show/{id}', [MasterLiburController::class, 'show'])
+            ->name('master.libur.show');
+        Route::post('/store', [MasterLiburController::class, 'store'])
+            ->name('master.libur.store');
+        Route::post('update/{id}', [MasterLiburController::class, 'update'])
+            ->name('master.libur.update');
+        Route::post('destroy/{id}', [MasterLiburController::class, 'destroy'])
+            ->name('master.libur.destroy');
+    });
+
+    Route::prefix('jadwal-kerja')->group(function () {
+        Route::get('/', [MasterJadwalKerjaController::class, 'index'])
+            ->name('master.jadwal-kerja.index');
+        Route::get('data', [MasterJadwalKerjaController::class, 'list'])
+            ->name('master.jadwal-kerja.list');
+        Route::get('show/{id}', [MasterJadwalKerjaController::class, 'show'])
+            ->name('master.jadwal-kerja.show');
+        Route::post('/store', [MasterJadwalKerjaController::class, 'store'])
+            ->name('master.jadwal-kerja.store');
+        Route::post('update/{id}', [MasterJadwalKerjaController::class, 'update'])
+            ->name('master.jadwal-kerja.update');
+        Route::post('destroy/{id}', [MasterJadwalKerjaController::class, 'destroy'])
+            ->name('master.jadwal-kerja.destroy');
     });
 
 });
@@ -229,5 +278,18 @@ Route::prefix('ref')->group(function () {
             ->name('ref.eselon.store');
         Route::post('update/{id}', [RefEselonController::class, 'update'])
             ->name('ref.eselon.update');
+    });
+
+    Route::prefix('bank')->group(function () {
+        Route::get('/', [RefBankController::class, 'index'])
+            ->name('ref.bank.index');
+        Route::get('data', [RefBankController::class, 'list'])
+            ->name('ref.bank.list');
+        Route::get('show/{id}', [RefBankController::class, 'show'])
+            ->name('ref.bank.show');
+        Route::post('/store', [RefBankController::class, 'store'])
+            ->name('ref.bank.store');
+        Route::post('update/{id}', [RefBankController::class, 'update'])
+            ->name('ref.bank.update');
     });
 });

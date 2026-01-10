@@ -26,6 +26,7 @@ Route::prefix('ref')->group(function () {
     Route::get('hubungan-keluarga', [RefController::class, 'hubunganKeluarga'])->name('api.ref.hubungan-keluarga');
     Route::get('jenis-asuransi', [RefController::class, 'jenisAsuransi'])->name('api.ref.jenis-asuransi');
     Route::get('eselon', [RefController::class, 'eselon'])->name('api.ref.eselon');
+    Route::get('bank', [RefController::class, 'bank'])->name('api.ref.bank');
 });
 
 Route::prefix('master')->group(function () {

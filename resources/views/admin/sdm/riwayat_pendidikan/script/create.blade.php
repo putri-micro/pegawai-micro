@@ -9,7 +9,27 @@
             altInput: true,
         });
 
-        $("#bt_submit_create").on("submit", function (e) {
+        $('#file_ijazah').on('change', function () {
+            const file = this.files[0];
+            if (file) {
+                const size = (file.size / 1024 / 1024).toFixed(2);
+                $('#file_ijazah_summary').html(`Ringkasan: ${file.name} (${size} MB)`).show();
+            } else {
+                $('#file_ijazah_summary').hide();
+            }
+        });
+
+        $('#file_transkip').on('change', function () {
+            const file = this.files[0];
+            if (file) {
+                const size = (file.size / 1024 / 1024).toFixed(2);
+                $('#file_transkip_summary').html(`Ringkasan: ${file.name} (${size} MB)`).show();
+            } else {
+                $('#file_transkip_summary').hide();
+            }
+        });
+
+        $("#bt_submit_create").off("submit").on("submit", function (e) {
             e.preventDefault();
             const fileIjazahInput = document.getElementById('file_ijazah');
             const fileTranskipInput = document.getElementById('file_transkip');
@@ -18,7 +38,7 @@
             const allowedTypes = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'];
 
             if (fileIjazah) {
-                if (fileIjazah.size > 5 * 1024 * 1024) {
+                if (fileIjazah.size > 10 * 1024 * 1024) {
                     Swal.fire("Warning", "Ukuran file Ijazah tidak boleh lebih dari 10MB", "warning");
                     return;
                 }
@@ -30,7 +50,7 @@
             }
 
             if (fileTranskip) {
-                if (fileTranskip.size > 5 * 1024 * 1024) {
+                if (fileTranskip.size > 10 * 1024 * 1024) {
                     Swal.fire("Warning", "Ukuran file Transkip tidak boleh lebih dari 10MB", "warning");
                     return;
                 }
@@ -74,7 +94,7 @@
                     formData.append('judul_tugas_akhir', $('#judul_tugas_akhir').val());
                     formData.append('sumber_biaya', $('#sumber_biaya').val());
                     formData.append('nama_pembimbing', $('#nama_pembimbing').val());
-                    if (fileIjazah) {     
+                    if (fileIjazah) {
                         formData.append('file_ijazah', fileIjazah);
                     }
                     if (fileTranskip) {
@@ -83,10 +103,17 @@
                     const createUrl = "{{ route('admin.sdm.riwayat-pendidikan.store') }}";
 
                     DataManager.formData(createUrl, formData).then(response => {
-                        if (response.success) {
-                            Swal.fire("Success", response.message, "success");
-                            setTimeout(() => location.reload(), 1000);
-                        }
+                        $('#form_create').modal('hide');
+                        Swal.fire({
+                            title: 'Success',
+                            text: response.message,
+                            icon: 'success',
+                            confirmButtonText: "OK",
+                            timer: 1500,
+                            timerProgressBar: true
+                        }).then(() => {
+                            $('#example').DataTable().ajax.reload();
+                        });
                         if (!response.success && response.errors) {
                             const validationErrorFilter = new ValidationErrorFilter();
                             validationErrorFilter.filterValidationErrors(response);
@@ -102,12 +129,11 @@
                 }
             });
         });
-    })
-        .on("hidden.bs.modal", function () {
-            const $m = $(this);
-            $m.find('form').trigger('reset');
-            $m.find('select, textarea').val('').trigger('change');
-            $m.find('.is-invalid, .is-valid').removeClass('is-invalid is-valid');
-            $m.find('.invalid-feedback, .valid-feedback, .text-danger').remove();
-        });
+    }).on("hidden.bs.modal", function () {
+        const $m = $(this);
+        $m.find('form').trigger('reset');
+        $m.find('select, textarea').val('').trigger('change');
+        $m.find('.is-invalid, .is-valid').removeClass('is-invalid is-valid');
+        $m.find('.invalid-feedback, .valid-feedback, .text-danger').remove();
+    });
 </script>

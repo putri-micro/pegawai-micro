@@ -16,12 +16,12 @@ class PersonUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-             'nama_lengkap'     => 'required|string|max:50',
-            'nama_panggilan'   => 'nullable|string|max:50',
+            'nama_lengkap' => 'required|string|max:50',
+            'nama_panggilan' => 'nullable|string|max:50',
             'jk' => 'required|in:L,P',
             'tempat_lahir' => 'required|string|max:30',
             'tanggal_lahir' => 'required|date',
-            'agama'            => 'nullable|string|max:50',
+            'agama' => 'nullable|string|max:50',
             'kewarganegaraan' => 'nullable|string',
             'golongan_darah' => 'nullable|in:A,B,O,AB',
             'nik' => 'nullable|string|max:16',
@@ -33,19 +33,19 @@ class PersonUpdateRequest extends FormRequest
             'npwp' => 'nullable|string|max:30',
             'no_hp' => 'nullable|string|max:16',
             'email' => 'nullable|email|max:100',
-            'foto' => 'nullable|image|max:2048|mimes:jpg,jpeg,png|mimetypes:image/jpeg,image/png',
+            'foto' => 'nullable|image|max:8192|mimes:jpg,jpeg,png|mimetypes:image/jpeg,image/png',
         ];
     }
 
     public function attributes(): array
     {
         return [
-            'nama_lengkap'    => 'Nama Lengkap',
-            'nama_panggilan'  => 'Nama Panggilan',
+            'nama_lengkap' => 'Nama Lengkap',
+            'nama_panggilan' => 'Nama Panggilan',
             'jk' => 'Jenis Kelamin',
             'tempat_lahir' => 'Tempat Lahir',
             'tanggal_lahir' => 'Tanggal Lahir',
-            'agama'           => 'Agama',
+            'agama' => 'Agama',
             'kewarganegaraan' => 'Kewarganegaraan',
             'golongan_darah' => 'Golongan Darah',
             'nik' => 'NIK',
@@ -76,10 +76,10 @@ class PersonUpdateRequest extends FormRequest
     {
         return [
             'nama_lengkap.required' => 'Field :attribute wajib diisi.',
-            'nama_lengkap.string'   => 'Field :attribute harus berupa teks.',
-            'nama_lengkap.max'      => 'Field :attribute maksimal :max karakter.',
+            'nama_lengkap.string' => 'Field :attribute harus berupa teks.',
+            'nama_lengkap.max' => 'Field :attribute maksimal :max karakter.',
             'nama_panggilan.string' => 'Field :attribute harus berupa teks.',
-            'nama_panggilan.max'    => 'Field :attribute maksimal :max karakter.',
+            'nama_panggilan.max' => 'Field :attribute maksimal :max karakter.',
             'jk.required' => 'Field :attribute wajib diisi.',
             'jk.in' => 'Field :attribute harus L atau P.',
             'tempat_lahir.required' => 'Field :attribute wajib diisi.',
@@ -87,8 +87,8 @@ class PersonUpdateRequest extends FormRequest
             'tempat_lahir.max' => 'Field :attribute maksimal :max karakter.',
             'tanggal_lahir.required' => 'Field :attribute wajib diisi.',
             'tanggal_lahir.date' => 'Field :attribute harus berupa tanggal yang valid.',
-            'agama.string'          => 'Field :attribute harus berupa teks.',
-            'agama.max'             => 'Field :attribute maksimal :max karakter.',
+            'agama.string' => 'Field :attribute harus berupa teks.',
+            'agama.max' => 'Field :attribute maksimal :max karakter.',
             'kewarganegaraan.string' => 'Field :attribute harus berupa teks.',
             'golongan_darah.in' => 'Field :attribute harus salah satu dari: A, B, O, AB.',
             'nik.string' => 'Field :attribute harus berupa teks.',
@@ -110,7 +110,7 @@ class PersonUpdateRequest extends FormRequest
             'email.email' => 'Field :attribute harus berupa email yang valid.',
             'email.max' => 'Field :attribute maksimal :max karakter.',
             'foto.image' => 'Field :attribute harus berupa gambar.',
-            'foto.max' => 'Field :attribute maksimal :max KB.',
+            'foto.max' => 'Field :attribute maksimal 8MB.',
             'foto.mimes' => 'Field :attribute harus bertipe: jpg, jpeg, png.',
             'foto.mimetypes' => 'Field :attribute harus bertipe: image/jpeg, image/png.',
         ];

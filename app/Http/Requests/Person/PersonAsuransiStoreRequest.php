@@ -16,7 +16,7 @@ class PersonAsuransiStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'uuid_person' => 'required_without:id_person|uuid|exists:person,uuid_person',
+            'uuid_person' => 'required_without:id|uuid|exists:person,uuid_person',
             'id' => 'required_without:uuid_person|integer|exists:person,id',
             'id_jenis_asuransi' => 'required|integer|exists:ref_jenis_asuransi,id_jenis_asuransi',
             'nomor_registrasi' => 'nullable|string|max:16',

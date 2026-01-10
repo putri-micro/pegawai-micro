@@ -53,7 +53,7 @@
                 } else {
                     $('#current_file_transkip_info').hide();
                 }
-                
+
                 fetchDataDropdown("{{ route('api.ref.jenjang-pendidikan') }}", "#edit_id_jenjang_pendidikan", "jenjang_pendidikan", "jenjang_pendidikan", function () {
                     $("#edit_id_jenjang_pendidikan").val(data.id_jenjang_pendidikan).trigger("change");
                 });
@@ -66,7 +66,7 @@
                 ErrorHandler.handleError(error);
             });
 
-        $("#bt_submit_edit").on("submit", function (e) {
+        $("#bt_submit_edit").off("submit").on("submit", function (e) {
             e.preventDefault();
             const fileIjazahInput = document.getElementById('edit_file_ijazah');
             const fileTranskipInput = document.getElementById('edit_file_transkip');
@@ -75,7 +75,7 @@
             const allowedTypes = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'];
 
             if (fileIjazah) {
-                if (fileIjazah.size > 5 * 1024 * 1024) {
+                if (fileIjazah.size > 10 * 1024 * 1024) {
                     Swal.fire("Warning", "Ukuran file Ijazah tidak boleh lebih dari 10MB", "warning");
                     return;
                 }
@@ -87,7 +87,7 @@
             }
 
             if (fileTranskip) {
-                if (fileTranskip.size > 5 * 1024 * 1024) {
+                if (fileTranskip.size > 10 * 1024 * 1024) {
                     Swal.fire("Warning", "Ukuran file Transkip tidak boleh lebih dari 10MB", "warning");
                     return;
                 }
@@ -138,11 +138,17 @@
                     }
                     const updateUrl = "{{ route('admin.sdm.riwayat-pendidikan.update', ':id') }}";
                     DataManager.formData(updateUrl.replace(":id", id), formData).then(response => {
-
-                        if (response.success) {
-                            Swal.fire("Success", response.message, "success");
-                            setTimeout(() => location.reload(), 1000);
-                        }
+                        $('#form_edit').modal('hide');
+                        Swal.fire({
+                            title: 'Success',
+                            text: response.message,
+                            icon: 'success',
+                            confirmButtonText: "OK",
+                            timer: 1500,
+                            timerProgressBar: true
+                        }).then(() => {
+                            $('#example').DataTable().ajax.reload();
+                        });
                         if (!response.success && response.errors) {
                             const validationErrorFilter = new ValidationErrorFilter();
                             validationErrorFilter.filterValidationErrors(response);
@@ -160,12 +166,11 @@
                 }
             });
         });
-    })
-        .on("hidden.bs.modal", function () {
-            const $m = $(this);
-            $m.find('form').trigger('reset');
-            $m.find('select, textarea').val('').trigger('change');
-            $m.find('.is-invalid, .is-valid').removeClass('is-invalid is-valid');
-            $m.find('.invalid-feedback, .valid-feedback, .text-danger').remove();
-        });
+    }).on("hidden.bs.modal", function () {
+        const $m = $(this);
+        $m.find('form').trigger('reset');
+        $m.find('select, textarea').val('').trigger('change');
+        $m.find('.is-invalid, .is-valid').removeClass('is-invalid is-valid');
+        $m.find('.invalid-feedback, .valid-feedback, .text-danger').remove();
+    });
 </script>

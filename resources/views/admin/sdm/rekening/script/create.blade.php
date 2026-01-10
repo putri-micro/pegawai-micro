@@ -1,5 +1,26 @@
 <script defer>
     $("#form_create").on("show.bs.modal", function (e) {
+        DataManager.fetchData("{{ route('api.ref.bank') }}").then(response => {
+            if (response.success) {
+                const $bankSelect = $("#bank");
+                $bankSelect.empty().append('<option></option>');
+                response.data.forEach(item => {
+                    $bankSelect.append(`<option value="${item.nama_bank}" data-kode="${item.kode_swift}">${item.nama_bank}</option>`);
+                });
+                $bankSelect.select2({
+                    dropdownParent: $('#form_create')
+                });
+            }
+        });
+
+        $("#bank").on("change", function () {
+            const selectedOption = $(this).find('option:selected');
+            const kodeSwift = selectedOption.data('kode');
+            if (kodeSwift) {
+                $("#kode_bank").val(kodeSwift);
+            }
+        });
+
         $("#bt_submit_create").on("submit", function (e) {
             e.preventDefault();
 
@@ -72,17 +93,17 @@
 
                     DataManager.postData(createUrl, input).then(response => {
                         if (response.success) {
+                            $('#form_create').modal('hide');
                             Swal.fire({
-                                title: "Success",
+                                title: 'Success',
                                 text: response.message,
-                                icon: "success",
-                                timer: 1000,
-                                showConfirmButton: false
+                                icon: 'success',
+                                confirmButtonText: "OK",
+                                timer: 1500,
+                                timerProgressBar: true
+                            }).then(() => {
+                                $('#example').DataTable().ajax.reload();
                             });
-                            setTimeout(() => {
-                                $('#example').DataTable().ajax.reload(null, false);
-                                $('#form_create').modal('hide');
-                            }, 1000);
                         } else if (response.errors) {
                             const validationErrorFilter = new ValidationErrorFilter();
                             validationErrorFilter.filterValidationErrors(response);

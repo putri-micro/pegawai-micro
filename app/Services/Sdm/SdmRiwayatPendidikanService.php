@@ -14,9 +14,8 @@ final readonly class SdmRiwayatPendidikanService
 {
     public function __construct(
         private FileUploadService $fileUploadService,
-        private PersonService     $personService,
-    )
-    {
+        private PersonService $personService,
+    ) {
     }
 
     public function getPersonDetailByUuid(string $uuid): ?Person
@@ -39,9 +38,9 @@ final readonly class SdmRiwayatPendidikanService
             ->leftJoin('person_sdm', 'person_sdm.id_sdm', '=', 'sdm_riwayat_pendidikan.id_sdm')
             ->leftJoin('ref_jenjang_pendidikan', 'ref_jenjang_pendidikan.id_jenjang_pendidikan', '=', 'sdm_riwayat_pendidikan.id_jenjang_pendidikan')
             ->select([
-                'sdm_riwayat_pendidikan.*',
-                'ref_jenjang_pendidikan.jenjang_pendidikan',
-            ])
+                    'sdm_riwayat_pendidikan.*',
+                    'ref_jenjang_pendidikan.jenjang_pendidikan',
+                ])
             ->where('sdm_riwayat_pendidikan.id_sdm', $idSdm)
             ->when($request->query('id_jenjang_pendidikan'), fn($q, $v) => $q->where('sdm_riwayat_pendidikan.id_jenjang_pendidikan', $v))
             ->orderByDesc('sdm_riwayat_pendidikan.tahun_lulus')
@@ -59,9 +58,9 @@ final readonly class SdmRiwayatPendidikanService
         return SdmRiwayatPendidikan::query()
             ->leftJoin('ref_jenjang_pendidikan', 'ref_jenjang_pendidikan.id_jenjang_pendidikan', '=', 'sdm_riwayat_pendidikan.id_jenjang_pendidikan')
             ->select([
-                'sdm_riwayat_pendidikan.*',
-                'ref_jenjang_pendidikan.jenjang_pendidikan',
-            ])
+                    'sdm_riwayat_pendidikan.*',
+                    'ref_jenjang_pendidikan.jenjang_pendidikan',
+                ])
             ->where('sdm_riwayat_pendidikan.id_riwayat_pendidikan', $id)
             ->first();
     }
@@ -109,9 +108,9 @@ final readonly class SdmRiwayatPendidikanService
         $personSdm = PersonSdm::query()
             ->join('person', 'person.id', '=', 'person_sdm.id')
             ->select([
-                'person.uuid_person',
-                'person.nama',
-            ])
+                    'person.uuid_person',
+                    'person.nama_lengkap as nama',
+                ])
             ->where('person_sdm.id_sdm', $idSdm)
             ->first();
 
@@ -137,9 +136,9 @@ final readonly class SdmRiwayatPendidikanService
         $personSdm = PersonSdm::query()
             ->join('person', 'person.id', '=', 'person_sdm.id')
             ->select([
-                'person.uuid_person',
-                'person.nama',
-            ])
+                    'person.uuid_person',
+                    'person.nama_lengkap as nama',
+                ])
             ->where('person_sdm.id_sdm', $idSdm)
             ->first();
 

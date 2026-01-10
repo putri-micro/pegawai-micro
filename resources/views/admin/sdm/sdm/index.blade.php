@@ -24,25 +24,26 @@
                     <div class="card-toolbar">
                         <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
                             <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#form_create" title="Tambah Data">Tambah Data
+                                data-bs-target="#form_create" title="Tambah Data">Tambah Data
                             </button>
                         </div>
                     </div>
                 </div>
                 <div class="card-body p-5">
-                    <div class="table-responsive mb-8 shadow p-4 mx-0 border-hover-dark border-primary border-1 border-dashed fs-sm-8 fs-lg-6 rounded-2">
+                    <div
+                        class="table-responsive mb-8 shadow p-4 mx-0 border-hover-dark border-primary border-1 border-dashed fs-sm-8 fs-lg-6 rounded-2">
                         <div class="table-responsive">
                             <table id="example"
-                                   class="table table-sm align-middle table-row-bordered table-row-solid gs-0 gy-2">
+                                class="table table-sm align-middle table-row-bordered table-row-solid gs-0 gy-2">
                                 <thead>
-                                <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0 fs-sm-8 fs-lg-6">
-                                    <th class="min-w-75px ps-5">Aksi</th>
-                                    <th class="min-w-150px">Nama</th>
-                                    <th class="min-w-150px">Nomor SK</th>
-                                    <th class="min-w-100px">KARPEG</th>
-                                    <th class="min-w-80px">TMT</th>
-                                    <th class="min-w-80px">TMT Pensiun</th>
-                                </tr>
+                                    <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0 fs-sm-8 fs-lg-6">
+                                        <th class="min-w-75px ps-5">Aksi</th>
+                                        <th class="min-w-150px">Nama</th>
+                                        <th class="min-w-150px">Nomor SK</th>
+                                        <th class="min-w-100px">KARPEG</th>
+                                        <th class="min-w-80px">TMT</th>
+                                        <th class="min-w-80px">TMT Pensiun</th>
+                                    </tr>
                                 </thead>
                                 <tbody class="text-gray-800 fw-bolder fs-sm-8 fs-lg-6">
                                 </tbody>

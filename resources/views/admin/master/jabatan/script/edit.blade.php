@@ -10,10 +10,10 @@
                     fetchDataDropdown('{{ route('api.master.unit') }}', '#edit_id_unit', 'unit', 'unit', () => {
                         $('#edit_id_unit').val(response.data.id_unit).trigger('change');
                     });
-                     fetchDataDropdown('{{ route('api.master.periode') }}', '#edit_id_periode', 'periode', 'periode', () => {
+                    fetchDataDropdown('{{ route('api.master.periode') }}', '#edit_id_periode', 'periode', 'periode', () => {
                         $('#edit_id_periode').val(response.data.id_periode).trigger('change');
                     });
-                     fetchDataDropdown('{{ route('api.ref.eselon') }}', '#edit_id_eselon', 'eselon', 'eselon', () => {
+                    fetchDataDropdown('{{ route('api.ref.eselon') }}', '#edit_id_eselon', 'eselon', 'eselon', () => {
                         $('#edit_id_eselon').val(response.data.id_eselon).trigger('change');
                     });
                     $('#edit_jabatan').val(response.data.jabatan);
@@ -21,8 +21,8 @@
                     Swal.fire('Warning', response.message, 'warning');
                 }
             }).catch(function (error) {
-            ErrorHandler.handleError(error);
-        });
+                ErrorHandler.handleError(error);
+            });
 
         $('#bt_submit_edit').on('submit', function (e) {
             e.preventDefault();
@@ -49,12 +49,17 @@
                     };
                     const update = '{{ route('admin.master.jabatan.update', [':id']) }}';
                     DataManager.putData(update.replace(':id', id), input).then(response => {
-                        if (response.success) {
-                            Swal.fire('Success', response.message, 'success');
-                            setTimeout(function () {
-                                location.reload();
-                            }, 1000);
-                        }
+                        $('#form_edit').modal('hide');
+                        Swal.fire({
+                            title: 'Success',
+                            text: response.message,
+                            icon: 'success',
+                            confirmButtonText: "OK",
+                            timer: 500,
+                            timerProgressBar: true
+                        }).then(() => {
+                            location.reload();
+                        });
 
                         if (!response.success && response.errors) {
                             const validationErrorFilter = new ValidationErrorFilter('edit_');

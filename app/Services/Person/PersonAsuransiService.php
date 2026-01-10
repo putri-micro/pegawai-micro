@@ -21,14 +21,8 @@ final readonly class PersonAsuransiService
 
     public function getListData(string $uuid, Request $request): Collection
     {
-        $nomorKK = Person::where('uuid_person', $uuid)->value('nomor_kk');
-
-        if (!$nomorKK) {
-            return collect();
-        }
-
         return PersonAsuransi::query()
-            ->leftJoin('person', 'person.id', '=', 'person_asuransi.id')
+            ->join('person', 'person.id', '=', 'person_asuransi.id')
             ->leftJoin('ref_jenis_asuransi', 'ref_jenis_asuransi.id_jenis_asuransi', '=', 'person_asuransi.id_jenis_asuransi')
             ->select([
                 'person_asuransi.id_asuransi',
@@ -45,10 +39,7 @@ final readonly class PersonAsuransiService
                 'person.nik',
                 'person.uuid_person',
             ])
-            ->where(function ($q) use ($nomorKK, $uuid) {
-                $q->where('person_asuransi.kartu_anggota', $nomorKK)
-                    ->orWhere('person.uuid_person', $uuid);
-            })
+            ->where('person.uuid_person', $uuid)
             ->when($request->query('id_jenis_asuransi'), fn($q, $v) => $q->where('person_asuransi.id_jenis_asuransi', $v))
             ->when($request->query('status'), fn($q, $v) => $q->where('person_asuransi.status_aktif', $v))
             ->orderBy('person.nama_lengkap')

@@ -1,6 +1,6 @@
 <!-- Modal Create -->
 <div class="modal fade" id="form_create" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
-     aria-hidden="true">
+    aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
@@ -18,12 +18,9 @@
                         <div class="col-md-6">
                             <div class="d-flex flex-column mb-2">
                                 <label class="fs-sm-8 fs-lg-6 fw-bolder mb-1 required">Jenjang Pendidikan</label>
-                                <select data-control="select2"
-                                        class="form-select form-select-sm fs-sm-8 fs-lg-6"
-                                        id="id_jenjang_pendidikan"
-                                        name="id_jenjang_pendidikan"
-                                        data-placeholder="Pilih Jenjang Pendidikan"
-                                        data-allow-clear="true" required>
+                                <select data-control="select2" class="form-select form-select-sm fs-sm-8 fs-lg-6"
+                                    id="id_jenjang_pendidikan" name="id_jenjang_pendidikan"
+                                    data-placeholder="Pilih Jenjang Pendidikan" data-allow-clear="true" required>
                                 </select>
                                 <div class="invalid-feedback"></div>
                             </div>
@@ -32,17 +29,16 @@
                             <div class="d-flex flex-column mb-2">
                                 <label class="fs-sm-8 fs-lg-6 fw-bolder mb-1">Nama Sekolah</label>
                                 <input type="text" name="nama_sekolah"
-                                       class="form-control form-control-sm fs-sm-8 fs-lg-6"
-                                       id="nama_sekolah" placeholder="Masukkan nama sekolah" maxlength="100">
+                                    class="form-control form-control-sm fs-sm-8 fs-lg-6" id="nama_sekolah"
+                                    placeholder="Masukkan nama sekolah" maxlength="100">
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="d-flex flex-column mb-2">
                                 <label class="fs-sm-8 fs-lg-6 fw-bolder mb-1">Negara</label>
-                                <input type="text" name="negara"
-                                       class="form-control form-control-sm fs-sm-8 fs-lg-6"
-                                       id="negara" placeholder="Masukkan negara" value="Indonesia" maxlength="50">
+                                <input type="text" name="negara" class="form-control form-control-sm fs-sm-8 fs-lg-6"
+                                    id="negara" placeholder="Masukkan negara" value="Indonesia" maxlength="50">
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
@@ -50,9 +46,8 @@
                             <div class="d-flex flex-column mb-2">
                                 <label class="fs-sm-8 fs-lg-6 fw-bolder mb-1">Status Sekolah</label>
                                 <select data-control="select2" name="status_sekolah"
-                                        class="form-select form-select-sm fs-sm-8 fs-lg-6"
-                                        id="status_sekolah" data-allow-clear="true"
-                                        data-placeholder="Pilih Status Sekolah">
+                                    class="form-select form-select-sm fs-sm-8 fs-lg-6" id="status_sekolah"
+                                    data-allow-clear="true" data-placeholder="Pilih Status Sekolah">
                                     <option value="Negeri">Negeri</option>
                                     <option value="Swasta">Swasta</option>
                                     <option value="Luar Negeri">Luar Negeri</option>
@@ -64,7 +59,7 @@
                             <div class="d-flex flex-column mb-2">
                                 <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">Jurusan</label>
                                 <input type="text" name="jurusan" class="form-control form-control-sm fs-sm-8 fs-lg-6"
-                                       id="jurusan" placeholder="Masukkan jurusan" maxlength="100">
+                                    id="jurusan" placeholder="Masukkan jurusan" maxlength="100">
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
@@ -73,8 +68,8 @@
                                 <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">Nomor
                                     Induk</label>
                                 <input type="text" name="nomor_induk"
-                                       class="form-control form-control-sm fs-sm-8 fs-lg-6"
-                                       id="nomor_induk" placeholder="Masukkan nomor induk" maxlength="50">
+                                    class="form-control form-control-sm fs-sm-8 fs-lg-6" id="nomor_induk"
+                                    placeholder="Masukkan nomor induk" maxlength="50">
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
@@ -83,8 +78,8 @@
                                 <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">Tahun
                                     Masuk</label>
                                 <input type="number" name="tahun_masuk"
-                                       class="form-control form-control-sm fs-sm-8 fs-lg-6"
-                                       id="tahun_masuk" placeholder="Masukkan tahun masuk" min="1900" max="2100">
+                                    class="form-control form-control-sm fs-sm-8 fs-lg-6" id="tahun_masuk"
+                                    placeholder="Masukkan tahun masuk" min="1900" max="2100">
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
@@ -93,8 +88,8 @@
                                 <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">Tahun
                                     Lulus</label>
                                 <input type="number" name="tahun_lulus"
-                                       class="form-control form-control-sm fs-sm-8 fs-lg-6"
-                                       id="tahun_lulus" placeholder="Masukkan tahun lulus" min="1900" max="2100">
+                                    class="form-control form-control-sm fs-sm-8 fs-lg-6" id="tahun_lulus"
+                                    placeholder="Masukkan tahun lulus" min="1900" max="2100">
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
@@ -103,8 +98,8 @@
                                 <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">Gelar
                                     Akademik</label>
                                 <input type="text" name="gelar_akademik"
-                                       class="form-control form-control-sm fs-sm-8 fs-lg-6"
-                                       id="gelar_akademik" placeholder="Masukkan gelar akademik" maxlength="10">
+                                    class="form-control form-control-sm fs-sm-8 fs-lg-6" id="gelar_akademik"
+                                    placeholder="Masukkan gelar akademik" maxlength="10">
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
@@ -113,8 +108,8 @@
                                 <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">Bidang
                                     Studi</label>
                                 <input type="text" name="bidang_studi"
-                                       class="form-control form-control-sm fs-sm-8 fs-lg-6"
-                                       id="bidang_studi" placeholder="Masukkan bidang studi" maxlength="100">
+                                    class="form-control form-control-sm fs-sm-8 fs-lg-6" id="bidang_studi"
+                                    placeholder="Masukkan bidang studi" maxlength="100">
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
@@ -122,7 +117,7 @@
                             <div class="d-flex flex-column mb-2">
                                 <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">IPK</label>
                                 <input type="number" name="ipk" class="form-control form-control-sm fs-sm-8 fs-lg-6"
-                                       id="ipk" placeholder="Masukkan IPK" min="0" max="4" step="0.01">
+                                    id="ipk" placeholder="Masukkan IPK" min="0" max="4" step="0.01">
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
@@ -131,8 +126,8 @@
                                 <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">Tanggal
                                     Lulus</label>
                                 <input type="text" name="tanggal_lulus"
-                                       class="form-control form-control-sm fs-sm-8 fs-lg-6"
-                                       id="tanggal_lulus" placeholder="Pilih tanggal lulus">
+                                    class="form-control form-control-sm fs-sm-8 fs-lg-6" id="tanggal_lulus"
+                                    placeholder="Pilih tanggal lulus">
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
@@ -141,8 +136,8 @@
                                 <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">Jumlah
                                     Semester</label>
                                 <input type="number" name="jumlah_semester"
-                                       class="form-control form-control-sm fs-sm-8 fs-lg-6"
-                                       id="jumlah_semester" placeholder="Masukkan jumlah semester" min="0" max="20">
+                                    class="form-control form-control-sm fs-sm-8 fs-lg-6" id="jumlah_semester"
+                                    placeholder="Masukkan jumlah semester" min="0" max="20">
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
@@ -151,8 +146,8 @@
                                 <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">Jumlah
                                     SKS</label>
                                 <input type="number" name="jumlah_sks"
-                                       class="form-control form-control-sm fs-sm-8 fs-lg-6"
-                                       id="jumlah_sks" placeholder="Masukkan jumlah SKS" min="0" max="200">
+                                    class="form-control form-control-sm fs-sm-8 fs-lg-6" id="jumlah_sks"
+                                    placeholder="Masukkan jumlah SKS" min="0" max="200">
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
@@ -161,8 +156,8 @@
                                 <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">Nomor
                                     Ijazah</label>
                                 <input type="text" name="nomor_ijazah"
-                                       class="form-control form-control-sm fs-sm-8 fs-lg-6"
-                                       id="nomor_ijazah" placeholder="Masukkan nomor ijazah" maxlength="50">
+                                    class="form-control form-control-sm fs-sm-8 fs-lg-6" id="nomor_ijazah"
+                                    placeholder="Masukkan nomor ijazah" maxlength="50">
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
@@ -171,9 +166,8 @@
                                 <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">Sumber
                                     Biaya</label>
                                 <select data-control="select2" name="sumber_biaya"
-                                        class="form-select form-select-sm fs-sm-8 fs-lg-6"
-                                        id="sumber_biaya" data-allow-clear="true"
-                                        data-placeholder="Pilih Sumber Biaya">
+                                    class="form-select form-select-sm fs-sm-8 fs-lg-6" id="sumber_biaya"
+                                    data-allow-clear="true" data-placeholder="Pilih Sumber Biaya">
                                     <option value="Pribadi">Pribadi</option>
                                     <option value="Beasiswa">Beasiswa</option>
                                     <option value="Institusi">Institusi</option>
@@ -187,8 +181,8 @@
                                 <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">Nama
                                     Pembimbing</label>
                                 <input type="text" name="nama_pembimbing"
-                                       class="form-control form-control-sm fs-sm-8 fs-lg-6"
-                                       id="nama_pembimbing" placeholder="Masukkan nama pembimbing" maxlength="100">
+                                    class="form-control form-control-sm fs-sm-8 fs-lg-6" id="nama_pembimbing"
+                                    placeholder="Masukkan nama pembimbing" maxlength="100">
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
@@ -197,8 +191,8 @@
                                 <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">Judul Tugas
                                     Akhir</label>
                                 <textarea name="judul_tugas_akhir" class="form-control form-control-sm fs-sm-8 fs-lg-6"
-                                          rows="3" maxlength="255"
-                                          id="judul_tugas_akhir" placeholder="Masukkan judul tugas akhir"></textarea>
+                                    rows="3" maxlength="255" id="judul_tugas_akhir"
+                                    placeholder="Masukkan judul tugas akhir"></textarea>
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
@@ -206,11 +200,12 @@
                             <div class="d-flex flex-column mb-2">
                                 <label class="fs-sm-8 fs-lg-6 fw-bolder mb-1">File Ijazah</label>
                                 <input type="file" id="file_ijazah" name="file_ijazah"
-                                       class="form-control form-control-sm fs-sm-8 fs-lg-6"
-                                       accept=".pdf,.jpg,.jpeg,.png">
+                                    class="form-control form-control-sm fs-sm-8 fs-lg-6" accept=".pdf,.jpg,.jpeg,.png">
                                 <div class="form-text fs-sm-9 fs-lg-7 text-muted">
-                                    Format file: PDF, JPG, JPEG, PNG. Maksimal 5MB
+                                    Format file: PDF, JPG, JPEG, PNG. Maksimal 10MB
                                 </div>
+                                <div id="file_ijazah_summary" class="mt-1 small text-primary fw-bold"
+                                    style="display:none;"></div>
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
@@ -218,11 +213,12 @@
                             <div class="d-flex flex-column mb-2">
                                 <label class="fs-sm-8 fs-lg-6 fw-bolder mb-1">File Transkip</label>
                                 <input type="file" id="file_transkip" name="file_transkip"
-                                       class="form-control form-control-sm fs-sm-8 fs-lg-6"
-                                       accept=".pdf,.jpg,.jpeg,.png">
+                                    class="form-control form-control-sm fs-sm-8 fs-lg-6" accept=".pdf,.jpg,.jpeg,.png">
                                 <div class="form-text fs-sm-9 fs-lg-7 text-muted">
-                                    Format file: PDF, JPG, JPEG, PNG. Maksimal 5MB
+                                    Format file: PDF, JPG, JPEG, PNG. Maksimal 10MB
                                 </div>
+                                <div id="file_transkip_summary" class="mt-1 small text-primary fw-bold"
+                                    style="display:none;"></div>
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>

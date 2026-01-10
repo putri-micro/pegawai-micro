@@ -12,8 +12,8 @@
                     Swal.fire('Warning', response.message, 'warning');
                 }
             }).catch(function (error) {
-            ErrorHandler.handleError(error);
-        });
+                ErrorHandler.handleError(error);
+            });
 
         $('#bt_submit_edit').on('submit', function (e) {
             e.preventDefault();
@@ -38,12 +38,17 @@
                     };
                     const update = '{{ route('admin.master.unit.update', [':id']) }}';
                     DataManager.putData(update.replace(':id', id), input).then(response => {
-                        if (response.success) {
-                            Swal.fire('Success', response.message, 'success');
-                            setTimeout(function () {
-                                location.reload();
-                            }, 1000);
-                        }
+                        $('#form_edit').modal('hide');
+                        Swal.fire({
+                            title: 'Success',
+                            text: response.message,
+                            icon: 'success',
+                            confirmButtonText: "OK",
+                            timer: 500,
+                            timerProgressBar: true
+                        }).then(() => {
+                            location.reload();
+                        });
                         if (!response.success && response.errors) {
                             const validationErrorFilter = new ValidationErrorFilter('edit_');
                             validationErrorFilter.filterValidationErrors(response);

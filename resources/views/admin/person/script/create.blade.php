@@ -8,6 +8,18 @@
             altInput: true,
         });
 
+
+
+        $('#foto').on('change', function () {
+            const file = this.files[0];
+            if (file) {
+                const size = (file.size / 1024 / 1024).toFixed(2);
+                $('#foto_summary').html(`Ringkasan: ${file.name} (${size} MB)`).show();
+            } else {
+                $('#foto_summary').hide();
+            }
+        });
+
         fetchDataDropdown("{{ route('api.almt.provinsi') }}", "#id_provinsi", "provinsi", "provinsi");
 
         $('#id_provinsi').off('change').on('change', function () {
@@ -17,7 +29,7 @@
             $('#id_desa').empty().append('<option value="">-- Pilih Desa/Kelurahan --</option>');
 
             if (provinsiId) {
-                const kabupatenUrl =`{{ route('api.almt.kabupaten', ':id') }}`.replace(':id', provinsiId);
+                const kabupatenUrl = `{{ route('api.almt.kabupaten', ':id') }}`.replace(':id', provinsiId);
                 fetchDataDropdown(kabupatenUrl, '#id_kabupaten', 'kabupaten', 'kabupaten');
             }
         });
@@ -28,7 +40,7 @@
             $('#id_desa').empty().append('<option value="">-- Pilih Desa/Kelurahan --</option>');
 
             if (kabupatenId) {
-                const kecamatanUrl =`{{ route('api.almt.kecamatan', ':id') }}`.replace(':id', kabupatenId);
+                const kecamatanUrl = `{{ route('api.almt.kecamatan', ':id') }}`.replace(':id', kabupatenId);
                 fetchDataDropdown(kecamatanUrl, '#id_kecamatan', 'kecamatan', 'kecamatan');
             }
         });
@@ -38,7 +50,7 @@
             $('#id_desa').empty().append('<option value="">-- Pilih Desa/Kelurahan --</option>');
 
             if (kecamatanId) {
-                const desaUrl =`{{ route('api.almt.desa', ':id') }}`.replace(':id', kecamatanId);
+                const desaUrl = `{{ route('api.almt.desa', ':id') }}`.replace(':id', kecamatanId);
                 fetchDataDropdown(desaUrl, '#id_desa', 'desa', 'desa');
             }
         });
@@ -78,17 +90,37 @@
 
                     const fileInput = $('#foto')[0];
                     if (fileInput.files[0]) {
-                        formData.append('foto', fileInput.files[0]);
+                        const file = fileInput.files[0];
+                        const fileSize = file.size / 1024 / 1024; // MB
+                        const allowedExtensions = ['jpg', 'jpeg', 'png'];
+                        const extension = file.name.split('.').pop().toLowerCase();
+
+                        if (fileSize > 8) {
+                            Swal.fire('Warning', 'Ukuran foto maksimal 8MB', 'warning');
+                            return;
+                        }
+
+                        if (!allowedExtensions.includes(extension)) {
+                            Swal.fire('Warning', 'Format foto harus JPG, JPEG, atau PNG', 'warning');
+                            return;
+                        }
+
+                        formData.append('foto', file);
                     }
 
                     const action = "{{ route('admin.person.store') }}";
                     DataManager.formData(action, formData).then(response => {
-                        if (response.success) {
-                            Swal.fire('Success', response.message, 'success');
-                            setTimeout(function () {
-                                location.reload();
-                            }, 1000);
-                        }
+                        $('#form_create').modal('hide');
+                        Swal.fire({
+                            title: 'Success',
+                            text: response.message,
+                            icon: 'success',
+                            confirmButtonText: "OK",
+                            timer: 1500,
+                            timerProgressBar: true
+                        }).then(() => {
+                            $('#example').DataTable().ajax.reload();
+                        });
                         if (!response.success && response.errors) {
                             const validationErrorFilter = new ValidationErrorFilter();
                             validationErrorFilter.filterValidationErrors(response);

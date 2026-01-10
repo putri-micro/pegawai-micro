@@ -3,13 +3,23 @@
         // Don't reset here - let global cleaner handle it
         const button = $(e.relatedTarget);
         const id = button.data("id");
-        const detail = '{{ route('admin.person.show',[':id'])}}';
+        const detail = '{{ route('admin.person.show', [':id'])}}';
 
         let edit_tanggal_lahir = $('#edit_tanggal_lahir').flatpickr({
             dateFormat: 'Y-m-d',
             altFormat: 'd/m/Y',
             allowInput: false,
             altInput: true,
+        });
+
+        $('#edit_foto').on('change', function () {
+            const file = this.files[0];
+            if (file) {
+                const size = (file.size / 1024 / 1024).toFixed(2);
+                $('#edit_foto_summary').html(`Ringkasan: ${file.name} (${size} MB)`).show();
+            } else {
+                $('#edit_foto_summary').hide();
+            }
         });
 
         DataManager.fetchData(detail.replace(':id', id))
@@ -88,8 +98,8 @@
                     Swal.fire('Warning', response.message, 'warning');
                 }
             }).catch(function (error) {
-            ErrorHandler.handleError(error);
-        });
+                ErrorHandler.handleError(error);
+            });
 
         $('#edit_id_provinsi').off('change.edit').on('change.edit', function () {
             const provinsiId = $(this).val();
@@ -98,7 +108,7 @@
             $('#edit_id_desa').empty().append('<option value="">-- Pilih Desa/Kelurahan --</option>');
 
             if (provinsiId) {
-                const kabupatenUrl =`{{ route('api.almt.kabupaten', ':id') }}`.replace(':id', provinsiId);
+                const kabupatenUrl = `{{ route('api.almt.kabupaten', ':id') }}`.replace(':id', provinsiId);
                 fetchDataDropdown(kabupatenUrl, '#edit_id_kabupaten', 'kabupaten', 'kabupaten');
             }
         });
@@ -109,7 +119,7 @@
             $('#edit_id_desa').empty().append('<option value="">-- Pilih Desa/Kelurahan --</option>');
 
             if (kabupatenId) {
-                const kecamatanUrl =`{{ route('api.almt.kecamatan', ':id') }}`.replace(':id', kabupatenId);
+                const kecamatanUrl = `{{ route('api.almt.kecamatan', ':id') }}`.replace(':id', kabupatenId);
                 fetchDataDropdown(kecamatanUrl, '#edit_id_kecamatan', 'kecamatan', 'kecamatan');
             }
         });
@@ -119,7 +129,7 @@
             $('#edit_id_desa').empty().append('<option value="">-- Pilih Desa/Kelurahan --</option>');
 
             if (kecamatanId) {
-                const desaUrl =`{{ route('api.almt.desa', ':id') }}`.replace(':id', kecamatanId);
+                const desaUrl = `{{ route('api.almt.desa', ':id') }}`.replace(':id', kecamatanId);
                 fetchDataDropdown(desaUrl, '#edit_id_desa', 'desa', 'desa');
             }
         });
@@ -159,17 +169,37 @@
 
                     const fileInput = $('#edit_foto')[0];
                     if (fileInput.files[0]) {
-                        formData.append('foto', fileInput.files[0]);
+                        const file = fileInput.files[0];
+                        const fileSize = file.size / 1024 / 1024; // MB
+                        const allowedExtensions = ['jpg', 'jpeg', 'png'];
+                        const extension = file.name.split('.').pop().toLowerCase();
+
+                        if (fileSize > 8) {
+                            Swal.fire('Warning', 'Ukuran foto maksimal 8MB', 'warning');
+                            return;
+                        }
+
+                        if (!allowedExtensions.includes(extension)) {
+                            Swal.fire('Warning', 'Format foto harus JPG, JPEG, atau PNG', 'warning');
+                            return;
+                        }
+
+                        formData.append('foto', file);
                     }
 
-                    const update ='{{ route('admin.person.update',[':id'])}}';
+                    const update = '{{ route('admin.person.update', [':id'])}}';
                     DataManager.formData(update.replace(':id', id), formData).then(response => {
-                        if (response.success) {
-                            Swal.fire('Success', response.message, 'success');
-                            setTimeout(function () {
-                                location.reload();
-                            }, 1000);
-                        }
+                        $('#form_edit').modal('hide');
+                        Swal.fire({
+                            title: 'Success',
+                            text: response.message,
+                            icon: 'success',
+                            confirmButtonText: "OK",
+                            timer: 1500,
+                            timerProgressBar: true
+                        }).then(() => {
+                            $('#example').DataTable().ajax.reload();
+                        });
                         if (!response.success && response.errors) {
                             const validationErrorFilter = new ValidationErrorFilter(
                                 'edit_');

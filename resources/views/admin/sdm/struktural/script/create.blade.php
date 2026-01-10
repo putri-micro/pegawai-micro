@@ -12,6 +12,26 @@
             }
         });
 
+        $('#file_sk_masuk').on('change', function () {
+            const file = this.files[0];
+            if (file) {
+                const size = (file.size / 1024 / 1024).toFixed(2);
+                $('#file_sk_masuk_summary').html(`Ringkasan: ${file.name} (${size} MB)`).show();
+            } else {
+                $('#file_sk_masuk_summary').hide();
+            }
+        });
+
+        $('#file_sk_keluar').on('change', function () {
+            const file = this.files[0];
+            if (file) {
+                const size = (file.size / 1024 / 1024).toFixed(2);
+                $('#file_sk_keluar_summary').html(`Ringkasan: ${file.name} (${size} MB)`).show();
+            } else {
+                $('#file_sk_keluar_summary').hide();
+            }
+        });
+
         $("#tanggal_sk").flatpickr({
             dateFormat: "Y-m-d",
             altFormat: "d/m/Y",
@@ -33,7 +53,7 @@
             altInput: true,
         });
 
-        $("#bt_submit_create").on("submit", function (e) {
+        $("#bt_submit_create").off("submit").on("submit", function (e) {
             e.preventDefault();
             const filesk_masukInput = document.getElementById('file_sk_masuk');
             const filesk_keluarInput = document.getElementById('file_sk_keluar');
@@ -41,7 +61,7 @@
             const filesk_keluar = filesk_keluarInput.files[0];
             const allowedTypes = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'];
             if (filesk_masuk) {
-                if (filesk_masuk.size > 5 * 1024 * 1024) {
+                if (filesk_masuk.size > 10 * 1024 * 1024) {
                     Swal.fire("Warning", "Ukuran file sk_masuk tidak boleh lebih dari 10MB", "warning");
                     return;
                 }
@@ -53,7 +73,7 @@
             }
 
             if (filesk_keluar) {
-                if (filesk_keluar.size > 5 * 1024 * 1024) {
+                if (filesk_keluar.size > 10 * 1024 * 1024) {
                     Swal.fire("Warning", "Ukuran file sk_keluar tidak boleh lebih dari 10MB", "warning");
                     return;
                 }
@@ -98,17 +118,17 @@
 
                     DataManager.formData(createUrl, formData).then(response => {
                         if (response.success) {
+                            $('#form_create').modal('hide');
                             Swal.fire({
-                                title: "Success",
+                                title: 'Success',
                                 text: response.message,
-                                icon: "success",
-                                timer: 1000,
-                                showConfirmButton: false
+                                icon: 'success',
+                                confirmButtonText: "OK",
+                                timer: 1500,
+                                timerProgressBar: true
+                            }).then(() => {
+                                $('#example').DataTable().ajax.reload();
                             });
-                            setTimeout(() => {
-                                $('#example').DataTable().ajax.reload(null, false);
-                                $('#form_create').modal('hide');
-                            }, 1000);
                         } else if (response.errors) {
                             const validationErrorFilter = new ValidationErrorFilter();
                             validationErrorFilter.filterValidationErrors(response);
@@ -123,12 +143,11 @@
                 }
             });
         });
-    })
-        .on("hidden.bs.modal", function () {
-            const $m = $(this);
-            $m.find('form').trigger('reset');
-            $m.find('select, textarea').val('').trigger('change');
-            $m.find('.is-invalid, .is-valid').removeClass('is-invalid is-valid');
-            $m.find('.invalid-feedback, .valid-feedback, .text-danger').remove();
-        });
+    }).on("hidden.bs.modal", function () {
+        const $m = $(this);
+        $m.find('form').trigger('reset');
+        $m.find('select, textarea').val('').trigger('change');
+        $m.find('.is-invalid, .is-valid').removeClass('is-invalid is-valid');
+        $m.find('.invalid-feedback, .valid-feedback, .text-danger').remove();
+    });
 </script>

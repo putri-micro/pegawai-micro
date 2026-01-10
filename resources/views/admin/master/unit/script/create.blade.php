@@ -23,12 +23,17 @@
                     };
                     const action = '{{ route('admin.master.unit.store') }}';
                     DataManager.postData(action, input).then(response => {
-                        if (response.success) {
-                            Swal.fire('Success', response.message, 'success');
-                            setTimeout(function () {
-                                location.reload();
-                            }, 1000);
-                        }
+                        $('#form_create').modal('hide');
+                        Swal.fire({
+                            title: 'Success',
+                            text: response.message,
+                            icon: 'success',
+                            confirmButtonText: "OK",
+                            timer: 500,
+                            timerProgressBar: true
+                        }).then(() => {
+                            location.reload();
+                        });
                         if (!response.success && response.errors) {
                             const validationErrorFilter = new ValidationErrorFilter();
                             validationErrorFilter.filterValidationErrors(response);

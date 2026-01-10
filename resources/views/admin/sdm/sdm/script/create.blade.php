@@ -96,19 +96,17 @@
                     };
                     const action = "{{ route('admin.sdm.sdm.store') }}";
                     DataManager.postData(action, input).then(response => {
-                        if (response.success) {
-                            Swal.fire({
-                                title: 'Success',
-                                text: response.message,
-                                icon: 'success',
-                                timer: 1000,
-                                showConfirmButton: false
-                            });
-                            setTimeout(function () {
-                                $('#example').DataTable().ajax.reload(null, false);
-                                $('#form_create').modal('hide');
-                            }, 1000);
-                        }
+                        $('#form_create').modal('hide');
+                        Swal.fire({
+                            title: 'Success',
+                            text: response.message,
+                            icon: 'success',
+                            confirmButtonText: "OK",
+                            timer: 1500,
+                            timerProgressBar: true
+                        }).then(() => {
+                            $('#example').DataTable().ajax.reload();
+                        });
                         if (!response.success && response.errors) {
                             const validationErrorFilter = new ValidationErrorFilter();
                             validationErrorFilter.filterValidationErrors(response);

@@ -134,7 +134,4 @@ final readonly class PersonSdmService
         return PersonSdm::with('person') // pastikan relasi 'person' ada di model
             ->select(['id_sdm', 'uuid_person', 'nomor_sk', 'nomor_karpeg', 'tmt', 'tmt_pensiun']);
     }
-
-
-
 }

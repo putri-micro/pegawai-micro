@@ -1,5 +1,5 @@
 <div class="modal fade" id="form_create" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
-     aria-hidden="true">
+    aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <form method="post" id="bt_submit_create" enctype="multipart/form-data">
             <div class="modal-content">
@@ -10,52 +10,56 @@
                 <div class="modal-body">
                     <div class="row">
                         <!-- Kolom 1: Foto -->
-                        <div class="col-md-3">
-                            <div class="d-flex flex-column align-items-center mb-4">
+                        <div class="col-md-2">
+                            <div class="d-flex flex-column align-items-start mb-4">
                                 <h6 class="text-primary fw-bold mb-3">Foto Profil</h6>
                                 <div class="image-input image-input-outline" data-kt-image-input="true">
                                     <div class="image-input-wrapper w-150px h-150px rounded border"
-                                         style="background-size: contain; background-repeat: no-repeat; background-position: center;"></div>
+                                        style="background-size: contain; background-repeat: no-repeat; background-position: center;">
+                                    </div>
 
-                                    <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                                           data-kt-image-input-action="change" data-bs-toggle="tooltip"
-                                           title="Ganti foto">
+                                    <label
+                                        class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                                        data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Ganti foto">
                                         <i class="bi bi-pencil fs-5">
                                         </i>
-                                        <input type="file" id="foto" name="foto" accept=".jpg,.jpeg,.png"/>
-                                        <input type="hidden" name="foto_remove"/>
+                                        <input type="file" id="foto" name="foto" accept=".jpg,.jpeg,.png" />
+                                        <input type="hidden" name="foto_remove" />
                                     </label>
 
-                                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                                          data-kt-image-input-action="cancel" data-bs-toggle="tooltip"
-                                          title="Batal ganti foto">
+                                    <span
+                                        class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                                        data-kt-image-input-action="cancel" data-bs-toggle="tooltip"
+                                        title="Batal ganti foto">
                                         <i class="bi bi-trash fs-5">
                                         </i>
                                     </span>
 
-                                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                                          data-kt-image-input-action="remove" data-bs-toggle="tooltip"
-                                          title="Hapus foto">
+                                    <span
+                                        class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                                        data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Hapus foto">
                                         <i class="bi bi-trash fs-5">
                                         </i>
                                     </span>
                                 </div>
                                 <div class="form-text text-muted text-center mt-2">
-                                    JPG, JPEG, PNG<br>Maksimal 2MB
+                                    JPG, JPEG, PNG<br>Maksimal 8MB
+                                </div>
+                                <div id="foto_summary" class="mt-2 small text-primary fw-bold" style="display:none;">
                                 </div>
                             </div>
                         </div>
 
                         <!-- Kolom 2: Data Dasar -->
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             <h6 class="text-primary fw-bold mb-3 border-bottom border-primary pb-2">Data Dasar</h6>
 
                             <div class="d-flex flex-column mb-2">
                                 <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1 required">
                                     <span>Nama Lengkap</span>
                                 </label>
-                                <input type="text" id="nama_lengkap" class="form-control form-control-sm fs-sm-8 fs-lg-6"
-                                       maxlength="50" required/>
+                                <input type="text" id="nama_lengkap"
+                                    class="form-control form-control-sm fs-sm-8 fs-lg-6" maxlength="50" required />
                                 <div class="invalid-feedback"></div>
                             </div>
 
@@ -63,8 +67,8 @@
                                 <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1 required">
                                     <span>Nama Panggilan</span>
                                 </label>
-                                <input type="text" id="nama_panggilan" class="form-control form-control-sm fs-sm-8 fs-lg-6"
-                                       maxlength="50" required/>
+                                <input type="text" id="nama_panggilan"
+                                    class="form-control form-control-sm fs-sm-8 fs-lg-6" maxlength="50" required />
                                 <div class="invalid-feedback"></div>
                             </div>
 
@@ -73,8 +77,8 @@
                                     <span>Jenis Kelamin</span>
                                 </label>
                                 <select data-control="select2" id="jk"
-                                        class="form-control form-control-sm fs-sm-8 fs-lg-6" data-allow-clear="true"
-                                        data-placeholder="Pilih Jenis Kelamin" required>
+                                    class="form-control form-control-sm fs-sm-8 fs-lg-6" data-allow-clear="true"
+                                    data-placeholder="Pilih Jenis Kelamin" required>
                                     <option value="">Pilih Jenis Kelamin</option>
                                     <option value="L">Laki-laki</option>
                                     <option value="P">Perempuan</option>
@@ -87,8 +91,7 @@
                                     <span>Tempat Lahir</span>
                                 </label>
                                 <input type="text" id="tempat_lahir"
-                                       class="form-control form-control-sm fs-sm-8 fs-lg-6"
-                                       maxlength="30" required/>
+                                    class="form-control form-control-sm fs-sm-8 fs-lg-6" maxlength="30" required />
                                 <div class="invalid-feedback"></div>
                             </div>
 
@@ -97,7 +100,7 @@
                                     <span>Tanggal Lahir</span>
                                 </label>
                                 <input type="text" id="tanggal_lahir"
-                                       class="form-control form-control-sm fs-sm-8 fs-lg-6" required/>
+                                    class="form-control form-control-sm fs-sm-8 fs-lg-6" required />
                                 <div class="invalid-feedback"></div>
                             </div>
 
@@ -106,7 +109,7 @@
                                     <span>Agama</span>
                                 </label>
                                 <input type="text" id="agama" class="form-control form-control-sm fs-sm-8 fs-lg-6"
-                                       maxlength="50" required/>
+                                    maxlength="50" required />
                                 <div class="invalid-feedback"></div>
                             </div>
 
@@ -115,7 +118,7 @@
                                     <span>Kewarganegaraan</span>
                                 </label>
                                 <input type="text" id="kewarganegaraan"
-                                       class="form-control form-control-sm fs-sm-8 fs-lg-6"/>
+                                    class="form-control form-control-sm fs-sm-8 fs-lg-6" />
                                 <div class="invalid-feedback"></div>
                             </div>
 
@@ -124,8 +127,8 @@
                                     <span>Golongan Darah</span>
                                 </label>
                                 <select data-control="select2" id="golongan_darah"
-                                        class="form-control form-control-sm fs-sm-8 fs-lg-6" data-allow-clear="true"
-                                        data-placeholder="Pilih Golongan Darah">
+                                    class="form-control form-control-sm fs-sm-8 fs-lg-6" data-allow-clear="true"
+                                    data-placeholder="Pilih Golongan Darah">
                                     <option value="">Pilih Golongan Darah</option>
                                     <option value="A">A</option>
                                     <option value="B">B</option>
@@ -140,7 +143,7 @@
                                     <span>NIK</span>
                                 </label>
                                 <input type="text" id="nik" class="form-control form-control-sm fs-sm-8 fs-lg-6"
-                                       maxlength="16"/>
+                                    maxlength="16" />
                                 <div class="invalid-feedback"></div>
                             </div>
 
@@ -149,7 +152,7 @@
                                     <span>Nomor KK</span>
                                 </label>
                                 <input type="text" id="kk" class="form-control form-control-sm fs-sm-8 fs-lg-6"
-                                       maxlength="16"/>
+                                    maxlength="16" />
                                 <div class="invalid-feedback"></div>
                             </div>
 
@@ -158,7 +161,7 @@
                                     <span>NPWP</span>
                                 </label>
                                 <input type="text" id="npwp" class="form-control form-control-sm fs-sm-8 fs-lg-6"
-                                       maxlength="30"/>
+                                    maxlength="30" />
                                 <div class="invalid-feedback"></div>
                             </div>
 
@@ -167,7 +170,7 @@
                                     <span>Nomor HP</span>
                                 </label>
                                 <input type="text" id="no_hp" class="form-control form-control-sm fs-sm-8 fs-lg-6"
-                                       maxlength="16"/>
+                                    maxlength="16" />
                                 <div class="invalid-feedback"></div>
                             </div>
 
@@ -176,7 +179,7 @@
                                     <span>Email</span>
                                 </label>
                                 <input type="text" id="email" class="form-control form-control-sm fs-sm-8 fs-lg-6"
-                                       maxlength="100"/>
+                                    maxlength="100" />
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
@@ -190,7 +193,7 @@
                                     <span>Alamat</span>
                                 </label>
                                 <textarea id="alamat" class="form-control form-control-sm fs-sm-8 fs-lg-6"
-                                          maxlength="100" rows="3"></textarea>
+                                    maxlength="100" rows="3"></textarea>
                                 <div class="invalid-feedback"></div>
                             </div>
 
@@ -201,7 +204,7 @@
                                             <span>RT</span>
                                         </label>
                                         <input type="text" id="rt" class="form-control form-control-sm fs-sm-8 fs-lg-6"
-                                               maxlength="3"/>
+                                            maxlength="3" />
                                         <div class="invalid-feedback"></div>
                                     </div>
                                 </div>
@@ -211,7 +214,7 @@
                                             <span>RW</span>
                                         </label>
                                         <input type="text" id="rw" class="form-control form-control-sm fs-sm-8 fs-lg-6"
-                                               maxlength="3"/>
+                                            maxlength="3" />
                                         <div class="invalid-feedback"></div>
                                     </div>
                                 </div>
@@ -222,8 +225,8 @@
                                     <span>Provinsi</span>
                                 </label>
                                 <select data-control="select2" id="id_provinsi"
-                                        class="form-control form-control-sm fs-sm-8 fs-lg-6"
-                                        data-allow-clear="true" data-placeholder="Pilih Provinsi">
+                                    class="form-control form-control-sm fs-sm-8 fs-lg-6" data-allow-clear="true"
+                                    data-placeholder="Pilih Provinsi">
                                 </select>
                                 <div class="invalid-feedback"></div>
                             </div>
@@ -233,8 +236,8 @@
                                     <span>Kabupaten/Kota</span>
                                 </label>
                                 <select data-control="select2" id="id_kabupaten"
-                                        class="form-control form-control-sm fs-sm-8 fs-lg-6"
-                                        data-allow-clear="true" data-placeholder="Pilih Kabupaten/Kota">
+                                    class="form-control form-control-sm fs-sm-8 fs-lg-6" data-allow-clear="true"
+                                    data-placeholder="Pilih Kabupaten/Kota">
                                 </select>
                                 <div class="invalid-feedback"></div>
                             </div>
@@ -244,8 +247,8 @@
                                     <span>Kecamatan</span>
                                 </label>
                                 <select data-control="select2" id="id_kecamatan"
-                                        class="form-control form-control-sm fs-sm-8 fs-lg-6"
-                                        data-allow-clear="true" data-placeholder="Pilih Kecamatan">
+                                    class="form-control form-control-sm fs-sm-8 fs-lg-6" data-allow-clear="true"
+                                    data-placeholder="Pilih Kecamatan">
                                 </select>
                                 <div class="invalid-feedback"></div>
                             </div>
@@ -255,8 +258,8 @@
                                     <span>Desa/Kelurahan</span>
                                 </label>
                                 <select data-control="select2" id="id_desa"
-                                        class="form-control form-control-sm fs-sm-8 fs-lg-6"
-                                        data-allow-clear="true" data-placeholder="Pilih Desa/Kelurahan">
+                                    class="form-control form-control-sm fs-sm-8 fs-lg-6" data-allow-clear="true"
+                                    data-placeholder="Pilih Desa/Kelurahan">
                                 </select>
                                 <div class="invalid-feedback"></div>
                             </div>
@@ -265,7 +268,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-dark fs-sm-8 fs-lg-6" data-bs-dismiss="modal"
-                            aria-label="Close">Close
+                        aria-label="Close">Close
                     </button>
                     <button type="submit" class="btn btn-sm btn-primary fs-sm-8 fs-lg-6">Simpan</button>
                 </div>

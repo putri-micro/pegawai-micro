@@ -5,7 +5,7 @@
         // Get SDM ID from current person
         const currentPersonId = "{{ $id ?? '' }}";
 
-        $('#btn_search_person').on('click', function () {
+        $('#btn_search_person').off('click').on('click', function () {
             const nik = $('#search_nik').val().trim();
 
             if (!nik) {
@@ -25,7 +25,7 @@
 
                     if (response.success) {
                         const data = response.data;
-                        $('#person_nama').text(data.nama);
+                        $('#person_nama').text(data.nama_lengkap);
                         $('#person_nik').text(data.nik);
                         $('#person_tempat_lahir').text(data.tempat_lahir);
                         $('#person_tanggal_lahir').text(formatter.formatDate(response.data.tanggal_lahir));
@@ -46,18 +46,18 @@
         });
 
         // Clear person search
-        $('#btn_clear_person').on('click', function () {
+        $('#btn_clear_person').off('click').on('click', function () {
             clearPersonSearch();
             Swal.fire('Info', 'Pencarian person dibersihkan', 'info');
         });
 
-        $('#search_nik').on('keypress', function (e) {
+        $('#search_nik').off('keypress').on('keypress', function (e) {
             if (e.which == 13) {
                 $('#btn_search_person').click();
             }
         });
 
-        $("#bt_submit_create").on("submit", function (e) {
+        $("#bt_submit_create").off('submit').on("submit", function (e) {
             e.preventDefault();
 
             if (!$('#id').val()) {
@@ -93,19 +93,17 @@
                     };
                     const action = "{{ route('admin.sdm.keluarga.store') }}";
                     DataManager.postData(action, input).then(response => {
-                        if (response.success) {
-                            Swal.fire({
-                                title: 'Success',
-                                text: response.message,
-                                icon: 'success',
-                                timer: 1000,
-                                showConfirmButton: false
-                            });
-                            setTimeout(function () {
-                                $('#example').DataTable().ajax.reload(null, false);
-                                $('#form_create').modal('hide');
-                            }, 1000);
-                        }
+                        $('#form_create').modal('hide');
+                        Swal.fire({
+                            title: 'Success',
+                            text: response.message,
+                            icon: 'success',
+                            confirmButtonText: "OK",
+                            timer: 1500,
+                            timerProgressBar: true
+                        }).then(() => {
+                            $('#example').DataTable().ajax.reload();
+                        });
                         if (!response.success && response.errors) {
                             const validationErrorFilter = new ValidationErrorFilter();
                             validationErrorFilter.filterValidationErrors(response);

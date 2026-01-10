@@ -3,7 +3,7 @@
         fetchDataDropdown('{{ route('api.master.unit') }}', '#id_unit', 'unit', 'unit');
         fetchDataDropdown('{{ route('api.master.periode') }}', '#id_periode', 'periode', 'periode');
         fetchDataDropdown('{{ route('api.ref.eselon') }}', '#id_eselon', 'eselon', 'eselon');
-    
+
         $('#bt_submit_create').on('submit', function (e) {
             e.preventDefault();
             Swal.fire({
@@ -29,12 +29,17 @@
                     };
                     const action = '{{ route('admin.master.jabatan.store') }}';
                     DataManager.postData(action, input).then(response => {
-                        if (response.success) {
-                            Swal.fire('Success', response.message, 'success');
-                            setTimeout(function () {
-                                location.reload();
-                            }, 1000);
-                        }
+                        $('#form_create').modal('hide');
+                        Swal.fire({
+                            title: 'Success',
+                            text: response.message,
+                            icon: 'success',
+                            confirmButtonText: "OK",
+                            timer: 500,
+                            timerProgressBar: true
+                        }).then(() => {
+                            location.reload();
+                        });
 
                         if (!response.success && response.errors) {
                             const validationErrorFilter = new ValidationErrorFilter();

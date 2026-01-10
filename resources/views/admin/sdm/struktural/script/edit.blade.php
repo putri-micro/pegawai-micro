@@ -63,9 +63,9 @@
                         if (data.id_unit) {
                             fetchDataDropdown("{{ route('api.master.jabatan') }}" + "?id_unit=" +
                                 data.id_unit, '#edit_id_jabatan', 'jabatan', 'jabatan', () => {
-                                $("#edit_id_jabatan").val(data.id_jabatan).trigger(
-                                    "change");
-                            });
+                                    $("#edit_id_jabatan").val(data.id_jabatan).trigger(
+                                        "change");
+                                });
                         }
                     });
                 $('#edit_id_unit').on('change', function () {
@@ -75,8 +75,8 @@
                     if (unitId) {
                         fetchDataDropdown("{{ route('api.master.jabatan') }}" + "?id_unit=" +
                             unitId, '#edit_id_jabatan', 'jabatan', 'jabatan', function () {
-                            $('#edit_id_jabatan').prop('disabled', false);
-                        });
+                                $('#edit_id_jabatan').prop('disabled', false);
+                            });
                     }
                 });
 
@@ -88,7 +88,7 @@
                 ErrorHandler.handleError(error);
             });
 
-        $("#bt_submit_edit").on("submit", function (e) {
+        $("#bt_submit_edit").off("submit").on("submit", function (e) {
             e.preventDefault();
             const filesk_masukInput = document.getElementById('edit_file_sk_masuk');
             const filesk_keluarInput = document.getElementById('edit_file_sk_keluar');
@@ -97,7 +97,7 @@
             const allowedTypes = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'];
 
             if (filesk_masuk) {
-                if (filesk_masuk.size > 5 * 1024 * 1024) {
+                if (filesk_masuk.size > 10 * 1024 * 1024) {
                     Swal.fire("Warning", "Ukuran file sk_masuk tidak boleh lebih dari 10MB", "warning");
                     return;
                 }
@@ -109,7 +109,7 @@
             }
 
             if (filesk_keluar) {
-                if (filesk_keluar.size > 5 * 1024 * 1024) {
+                if (filesk_keluar.size > 10 * 1024 * 1024) {
                     Swal.fire("Warning", "Ukuran file sk_keluar tidak boleh lebih dari 10MB", "warning");
                     return;
                 }
@@ -154,9 +154,18 @@
                     }
                     const updateUrl = "{{ route('admin.sdm.struktural.update', ':id') }}".replace(":id", id);
                     DataManager.formData(updateUrl, formData).then(response => {
+                        $('#form_edit').modal('hide');
                         if (response.success) {
-                            Swal.fire("Success", response.message, "success");
-                            setTimeout(() => location.reload(), 1000);
+                            Swal.fire({
+                                title: 'Success',
+                                text: response.message,
+                                icon: 'success',
+                                confirmButtonText: "OK",
+                                timer: 1500,
+                                timerProgressBar: true
+                            }).then(() => {
+                                $('#example').DataTable().ajax.reload();
+                            });
                         } else if (response.errors) {
                             const validationErrorFilter = new ValidationErrorFilter("edit_");
                             validationErrorFilter.filterValidationErrors(response);
@@ -171,12 +180,11 @@
                 }
             });
         });
-    })
-        .on("hidden.bs.modal", function () {
-            const $m = $(this);
-            $m.find('form').trigger('reset');
-            $m.find('select, textarea').val('').trigger('change');
-            $m.find('.is-invalid, .is-valid').removeClass('is-invalid is-valid');
-            $m.find('.invalid-feedback, .valid-feedback, .text-danger').remove();
-        });
+    }).on("hidden.bs.modal", function () {
+        const $m = $(this);
+        $m.find('form').trigger('reset');
+        $m.find('select, textarea').val('').trigger('change');
+        $m.find('.is-invalid, .is-valid').removeClass('is-invalid is-valid');
+        $m.find('.invalid-feedback, .valid-feedback, .text-danger').remove();
+    });
 </script>

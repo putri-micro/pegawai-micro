@@ -17,7 +17,7 @@ final class PersonSdm extends Model implements Auditable
         SkipsEmptyAudit::transformAudit insteadof AuditableTrait;
     }
 
-    
+
 
     public $timestamps = false;
 
@@ -64,5 +64,10 @@ final class PersonSdm extends Model implements Auditable
     public function getTmtPensiunAttribute($value): ?string
     {
         return $value ? Carbon::parse($value)->format('Y-m-d') : null;
+    }
+
+    public function person()
+    {
+        return $this->belongsTo(\App\Models\Person\Person::class, 'id', 'id');
     }
 }

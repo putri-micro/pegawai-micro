@@ -58,9 +58,19 @@
                     };
                     DataManager.postData(updateUrl, input).then(response => {
                         if (response.success) {
-                            Swal.fire("Success", response.message, "success");
-                            setTimeout(() => location.reload(), 1000);
-                        } else if (response.errors) {
+                            $('#form_edit').modal('hide');
+                            Swal.fire({
+                                title: 'Success',
+                                text: response.message,
+                                icon: 'success',
+                                confirmButtonText: "OK",
+                                timer: 1500,
+                                timerProgressBar: true
+                            }).then(() => {
+                                $('#example').DataTable().ajax.reload();
+                            });
+                        }
+                        else if (response.errors) {
                             const validationErrorFilter = new ValidationErrorFilter("edit_");
                             validationErrorFilter.filterValidationErrors(response);
                             Swal.fire('Peringatan', 'Isian Anda belum lengkap atau tidak valid.', 'warning');

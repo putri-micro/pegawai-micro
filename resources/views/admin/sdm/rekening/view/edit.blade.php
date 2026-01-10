@@ -1,5 +1,5 @@
 <div class="modal fade" id="form_edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
-     aria-hidden="true">
+    aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
@@ -18,18 +18,19 @@
                                 <label class="required d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">No
                                     Rekening</label>
                                 <input type="text" name="no_rekening"
-                                       class="form-control form-control-sm fs-sm-8 fs-lg-6"
-                                       id="edit_no_rekening" placeholder="Masukkan nomor rekening" maxlength="25"
-                                       required>
+                                    class="form-control form-control-sm fs-sm-8 fs-lg-6" id="edit_no_rekening"
+                                    placeholder="Masukkan nomor rekening" maxlength="25" required>
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="d-flex flex-column mb-2">
-                                <label class="required d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">Bank</label>
-                                <input type="text" name="bank"
-                                       class="form-control form-control-sm fs-sm-8 fs-lg-6"
-                                       id="edit_bank" placeholder="Masukkan nama bank" maxlength="50" required>
+                                <label
+                                    class="required d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">Bank</label>
+                                <select data-control="select2" class="form-select form-select-sm fs-sm-8 fs-lg-6"
+                                    id="edit_bank" name="bank" data-placeholder="Pilih Bank" required>
+                                    <option></option>
+                                </select>
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
@@ -37,17 +38,16 @@
                             <div class="d-flex flex-column mb-2">
                                 <label class="fs-sm-8 fs-lg-6 fw-bolder mb-1">Nama Pemilik</label>
                                 <input type="text" name="nama_pemilik"
-                                       class="form-control form-control-sm fs-sm-8 fs-lg-6"
-                                       id="edit_nama_pemilik" placeholder="Masukkan nama pemilik" maxlength="100">
+                                    class="form-control form-control-sm fs-sm-8 fs-lg-6" id="edit_nama_pemilik"
+                                    placeholder="Masukkan nama pemilik" maxlength="100">
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="d-flex flex-column mb-2">
                                 <label class="fs-sm-8 fs-lg-6 fw-bolder mb-1">Kode Bank</label>
-                                <input type="text" name="kode_bank"
-                                       class="form-control form-control-sm fs-sm-8 fs-lg-6"
-                                       id="edit_kode_bank" placeholder="Masukkan kode bank" maxlength="10">
+                                <input type="text" name="kode_bank" class="form-control form-control-sm fs-sm-8 fs-lg-6"
+                                    id="edit_kode_bank" placeholder="Masukkan kode bank" maxlength="10">
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
@@ -55,19 +55,17 @@
                             <div class="d-flex flex-column mb-2">
                                 <label class="fs-sm-8 fs-lg-6 fw-bolder mb-1">Cabang Bank</label>
                                 <input type="text" name="cabang_bank"
-                                       class="form-control form-control-sm fs-sm-8 fs-lg-6"
-                                       id="edit_cabang_bank" placeholder="Masukkan cabang bank" maxlength="100">
+                                    class="form-control form-control-sm fs-sm-8 fs-lg-6" id="edit_cabang_bank"
+                                    placeholder="Masukkan cabang bank" maxlength="100">
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="d-flex flex-column mb-2">
                                 <label class="fs-sm-8 fs-lg-6 fw-bolder mb-1">Jenis Rekening</label>
-                                <select data-control="select2"
-                                        class="form-select form-select-sm fs-sm-8 fs-lg-6"
-                                        id="edit_jenis_rekening"
-                                        name="jenis_rekening"
-                                        data-placeholder="Pilih Jenis Rekening">
+                                <select data-control="select2" class="form-select form-select-sm fs-sm-8 fs-lg-6"
+                                    id="edit_jenis_rekening" name="jenis_rekening"
+                                    data-placeholder="Pilih Jenis Rekening">
                                     <option></option>
                                     <option value="Tabungan">Tabungan</option>
                                     <option value="Giro">Giro</option>
@@ -79,11 +77,8 @@
                         <div class="col-md-6">
                             <div class="d-flex flex-column mb-2">
                                 <label class="fs-sm-8 fs-lg-6 fw-bolder mb-1">Status Aktif</label>
-                                <select data-control="select2"
-                                        class="form-select form-select-sm fs-sm-8 fs-lg-6"
-                                        id="edit_status_aktif"
-                                        name="status_aktif"
-                                        data-placeholder="Pilih Status Aktif">
+                                <select data-control="select2" class="form-select form-select-sm fs-sm-8 fs-lg-6"
+                                    id="edit_status_aktif" name="status_aktif" data-placeholder="Pilih Status Aktif">
                                     <option></option>
                                     <option value="Aktif">Aktif</option>
                                     <option value="Nonaktif">Nonaktif</option>
@@ -95,11 +90,9 @@
                         <div class="col-md-6">
                             <div class="d-flex flex-column mb-2">
                                 <label class="fs-sm-8 fs-lg-6 fw-bolder mb-1">Rekening Utama</label>
-                                <select data-control="select2"
-                                        class="form-select form-select-sm fs-sm-8 fs-lg-6"
-                                        id="edit_rekening_utama"
-                                        name="rekening_utama"
-                                        data-placeholder="Pilih Rekening Utama">
+                                <select data-control="select2" class="form-select form-select-sm fs-sm-8 fs-lg-6"
+                                    id="edit_rekening_utama" name="rekening_utama"
+                                    data-placeholder="Pilih Rekening Utama">
                                     <option></option>
                                     <option value="y">Ya</option>
                                     <option value="n">Tidak</option>

@@ -1,13 +1,13 @@
 <script defer>
     $('#form_create').on('show.bs.modal', function (e) {
-         $('#tanggal_awal').flatpickr({
+        $('#tanggal_awal').flatpickr({
             dateFormat: 'Y-m-d',
             altFormat: 'd/m/Y',
             allowInput: false,
             altInput: true,
         });
-        
-         $('#tanggal_akhir').flatpickr({
+
+        $('#tanggal_akhir').flatpickr({
             dateFormat: 'Y-m-d',
             altFormat: 'd/m/Y',
             allowInput: false,
@@ -39,12 +39,17 @@
                     };
                     const action = '{{ route('admin.master.periode.store') }}';
                     DataManager.postData(action, input).then(response => {
-                        if (response.success) {
-                            Swal.fire('Success', response.message, 'success');
-                            setTimeout(function () {
-                                location.reload();
-                            }, 1000);
-                        }
+                        $('#form_create').modal('hide');
+                        Swal.fire({
+                            title: 'Success',
+                            text: response.message,
+                            icon: 'success',
+                            confirmButtonText: "OK",
+                            timer: 500,
+                            timerProgressBar: true
+                        }).then(() => {
+                            location.reload();
+                        });
                         if (!response.success && response.errors) {
                             const validationErrorFilter = new ValidationErrorFilter();
                             validationErrorFilter.filterValidationErrors(response);

@@ -61,17 +61,17 @@
                     };
                     DataManager.postData(updateUrl, input).then(response => {
                         if (response.success) {
+                            $('#form_edit').modal('hide');
                             Swal.fire({
-                                title: 'Berhasil',
+                                title: 'Success',
                                 text: response.message,
                                 icon: 'success',
-                                timer: 1000,
-                                showConfirmButton: false
+                                confirmButtonText: "OK",
+                                timer: 1500,
+                                timerProgressBar: true
+                            }).then(() => {
+                                $('#example').DataTable().ajax.reload();
                             });
-                            setTimeout(() => {
-                                $('#example').DataTable().ajax.reload(null, false);
-                                $('#form_edit').modal('hide');
-                            }, 1000);
                         } else if (response.errors) {
                             const validationErrorFilter = new ValidationErrorFilter("edit_");
                             validationErrorFilter.filterValidationErrors(response);
