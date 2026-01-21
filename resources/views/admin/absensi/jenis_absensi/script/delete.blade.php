@@ -13,10 +13,9 @@
             if (result.isConfirmed) {
                 DataManager.openLoading();
                 DataManager.requestApi(
-                    "{{ route('admin.absensi.absensi.destroy', ':id') }}".replace(':id', id),
+                    "{{ route('admin.absensi.jenis_absensi.destroy', ':id') }}".replace(':id', id),
                     {
-                        method: 'POST',
-                        data: { _method: 'DELETE' } 
+                        method: 'DELETE'
                     }
                 ).then(response => {
                     if (response.success) {
@@ -34,7 +33,7 @@
                     }
                 }).catch(error => {
                     ErrorHandler.handleError(error);
-       });
+                });
             }
         });
     }

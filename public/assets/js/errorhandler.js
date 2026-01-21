@@ -11,7 +11,7 @@ const ErrorHandler = (() => {
         date.toISOString().replace("T", " ").split(".")[0];
 
     const getBaseUrl = (() => {
-        const {origin, pathname} = window.location;
+        const { origin, pathname } = window.location;
         const pathSegments = pathname.split("/").filter(Boolean);
 
         if (window.location.hostname === "localhost") {
@@ -32,24 +32,38 @@ const ErrorHandler = (() => {
 
     const extractStackLocation = (stack) => {
         const match = stack.split("\n")[1]?.match(/at\s(.+):(\d+):(\d+)/);
-        return match ? {file: match[1], line: match[2], column: match[3]} : {
+        return match ? { file: match[1], line: match[2], column: match[3] } : {
             file: "Unknown",
             line: "N/A",
             column: "N/A"
         };
     };
 
-    const processError = (error) => ({
-        message: error?.message || "Unknown error",
-        stack: error?.stack || "No stack trace available",
-        type: error?.response ? `HTTP Error ${error.response.status}` : "Client Error",
-        location: extractStackLocation(error?.stack || ""),
-        userAgent: navigator.userAgent,
-        url: window.location.href,
-        timestamp: formatDate(),
-        ...(error?.response && {response: error.response}),
-        ...(error?.request && {request: error.request}),
-    });
+    const processError = (error) => {
+        let message = error?.message || "Unknown error";
+        let type = "Client Error";
+
+        // Handle jQuery XHR objects
+        if (error?.responseJSON && error.responseJSON.message) {
+            message = error.responseJSON.message;
+            type = `Server Error ${error.status}`;
+        } else if (error?.statusText && error.status) {
+            message = `HTTP Error ${error.status}: ${error.statusText}`;
+            type = `HTTP Error ${error.status}`;
+        }
+
+        return {
+            message: message,
+            stack: error?.stack || "No stack trace available",
+            type: type,
+            location: extractStackLocation(error?.stack || ""),
+            userAgent: navigator.userAgent,
+            url: window.location.href,
+            timestamp: formatDate(),
+            ...(error?.response && { response: error.response }),
+            ...(error?.request && { request: error.request }),
+        };
+    };
 
     const enqueueError = (errorDetails) => {
         errorQueue.push(errorDetails);
@@ -72,7 +86,7 @@ const ErrorHandler = (() => {
             const response = await fetch(`${getBaseUrl}${config.errorEndpoint}`, {
                 method: "POST",
                 headers: defaultHeaders,
-                body: JSON.stringify({errors}),
+                body: JSON.stringify({ errors }),
             });
 
             if (!response.ok) {
@@ -83,11 +97,11 @@ const ErrorHandler = (() => {
         }
     };
 
-    const displayErrorToUser = () => {
+    const displayErrorToUser = (message = "Internal server error") => {
         Swal.fire({
             icon: "error",
             title: "Error",
-            text: "Internal server error",
+            text: message,
             confirmButtonText: "Close",
         });
     };
@@ -107,5 +121,5 @@ const ErrorHandler = (() => {
 
     setupHeaders();
 
-    return {handleError};
+    return { handleError };
 })();

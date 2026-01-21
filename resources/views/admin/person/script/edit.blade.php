@@ -47,7 +47,7 @@
                         const photoUrl = '{{ route('admin.view-file', [':folder', ':filename']) }}'
                             .replace(':folder', 'person')
                             .replace(':filename', response.data.foto);
-                        $('#edit_image_preview').css('background-image', url('${photoUrl}'));
+                        $('#edit_image_preview').css('background-image', `url('${photoUrl}')`);
                         $('#edit_image_preview').css('background-size', 'cover');
                         $('#edit_image_preview').css('background-position', 'center');
                     } else {
@@ -150,7 +150,7 @@
                     DataManager.openLoading();
                     const formData = new FormData();
                     formData.append('nama_lengkap', $('#edit_nama_lengkap').val());
-                    formData.append('nama_lengkap', $('#edit_nama_lengkap').val());
+                    formData.append('nama_panggilan', $('#edit_nama_panggilan').val());
                     formData.append('jk', $('#edit_jk').val());
                     formData.append('tempat_lahir', $('#edit_tempat_lahir').val());
                     formData.append('tanggal_lahir', $('#edit_tanggal_lahir').val());
@@ -164,7 +164,7 @@
                     formData.append('rw', $('#edit_rw').val());
                     formData.append('id_desa', $('#edit_id_desa').val());
                     formData.append('npwp', $('#edit_npwp').val());
-                    formData.append('no_hp', $('#edit_hp').val());
+                    formData.append('no_hp', $('#edit_no_hp').val());
                     formData.append('email', $('#edit_email').val());
 
                     const fileInput = $('#edit_foto')[0];

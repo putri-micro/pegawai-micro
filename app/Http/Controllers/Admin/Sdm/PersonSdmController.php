@@ -49,6 +49,7 @@ final class PersonSdmController extends Controller
                     $this->transactionService->actionButton($row->id_sdm, 'detail'),
                     $this->transactionService->actionButton($row->id_sdm, 'edit'),
                     $this->transactionService->actionLink(route('admin.sdm.sdm.histori', $row->uuid_person), 'histori', 'Riwayat'),
+                    $this->transactionService->actionButton($row->id_sdm, 'delete'),
                 ]))
                 ->filterColumn('nama_lengkap', function ($query, $keyword) {
                     $query->where('person.nama_lengkap', 'like', "%{$keyword}%");
@@ -146,6 +147,19 @@ final class PersonSdmController extends Controller
             }
 
             return $this->responseService->successResponse('Data berhasil diambil', $data);
+        });
+    }
+
+    public function destroy(string $id): JsonResponse
+    {
+        return $this->transactionService->handleWithTransaction(function () use ($id) {
+            $data = $this->personSdmService->findById($id);
+            if (!$data) {
+                return $this->responseService->errorResponse('Data tidak ditemukan');
+            }
+            $this->personSdmService->delete($data);
+
+            return $this->responseService->successResponse('Data berhasil dihapus');
         });
     }
 }

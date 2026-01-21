@@ -37,7 +37,7 @@
                                 class="table table-sm align-middle table-row-bordered table-row-solid gs-0 gy-2">
                                 <thead>
                                     <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0 fs-sm-8 fs-lg-6">
-                                        <th class="min-w-75px ps-5">Aksi</th>
+                                        <th class="min-w-150px ps-5">Aksi</th>
                                         <th class="min-w-150px">Nama</th>
                                         <th class="min-w-150px">Nomor SK</th>
                                         <th class="min-w-100px">KARPEG</th>
@@ -78,4 +78,5 @@
     @include('admin.sdm.sdm.script.create')
     @include('admin.sdm.sdm.script.edit')
     @include('admin.sdm.sdm.script.detail')
+    @include('admin.sdm.sdm.script.delete')
 @endsection

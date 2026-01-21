@@ -81,4 +81,5 @@
     @include('admin.absensi.jenis_absensi.script.create')
     @include('admin.absensi.jenis_absensi.script.edit')
     @include('admin.absensi.jenis_absensi.script.detail')
+    @include('admin.absensi.jenis_absensi.script.delete')
 @endsection

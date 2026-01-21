@@ -1,7 +1,7 @@
 class DataManager {
     static async setData(key, value, expirationDurationInSeconds = 86400) {
         const expiresAt = new Date(Date.now() + expirationDurationInSeconds * 1000).toISOString();
-        const dataEntry = {value, expiresAt};
+        const dataEntry = { value, expiresAt };
         localStorage.setItem(key, JSON.stringify(dataEntry));
     }
 
@@ -11,7 +11,7 @@ class DataManager {
             if (!entry) {
                 return null;
             }
-            const {value, expiresAt} = entry;
+            const { value, expiresAt } = entry;
             if (new Date(expiresAt) < new Date()) {
                 localStorage.removeItem(key);
                 return null;
@@ -31,16 +31,17 @@ class DataManager {
         for (let i = 0; i < maxRetries; i++) {
             try {
                 const response = await fetch(url, options);
-                if (!response.ok && [500, 404, 405, 401, 403].includes(response.status)) {
+                const isJson = response.headers.get("content-type")?.includes("application/json");
+                const responseData = isJson ? await response.json() : null;
+
+                if (!response.ok) {
+                    if (responseData && responseData.message) {
+                        throw new Error(responseData.message);
+                    }
                     throw new Error(`HTTP Error: ${response.status} - ${response.statusText}`);
                 }
-                const responseBackup = response.clone();
-                try {
-                    return await response.json();
-                } catch (jsonError) {
-                    const text = await responseBackup.text();
-                    throw new Error(`Expected JSON but received: ${text}`);
-                }
+
+                return responseData;
             } catch (error) {
                 console.error(`Fetch error on attempt ${i + 1}: `, error);
                 if (i < maxRetries - 1) {
@@ -53,15 +54,18 @@ class DataManager {
         }
     }
 
-    static async requestApi(url, {method = "GET", data = null, isFormData = false} = {}) {
+    static async requestApi(url, { method = "GET", data = null, isFormData = false } = {}) {
         const headers = new Headers();
-        if (!isFormData && method !== "GET" && method !== "HEAD") {
-            headers.append("Content-Type", "application/json");
-            data = JSON.stringify({...data, _token: this.getToken("X-CSRF-TOKEN")});
-        } else if (isFormData && method !== "GET") {
-            data.append('_token', this.getToken("X-CSRF-TOKEN"));
-        } else if (method === "GET") {
-            headers.append("Accept", "application/json");
+        headers.append("Accept", "application/json");
+        if (method !== "GET" && method !== "HEAD") {
+            headers.append("X-CSRF-TOKEN", this.getToken("X-CSRF-TOKEN"));
+            if (!isFormData) {
+                headers.append("Content-Type", "application/json");
+                data = JSON.stringify({ ...data, _token: this.getToken("X-CSRF-TOKEN") });
+            } else {
+                data.append('_token', this.getToken("X-CSRF-TOKEN"));
+            }
+        } else {
             headers.append("Content-Type", "application/json");
             headers.append("X-CSRF-TOKEN", this.getToken("X-CSRF-TOKEN"));
         }
@@ -75,7 +79,7 @@ class DataManager {
     }
 
     static async fetchData(url, data = {}, method = "GET", isFormData = false) {
-        return DataManager.requestApi(url, {method, data, isFormData});
+        return DataManager.requestApi(url, { method, data, isFormData });
     }
 
     static async postData(url, data) {

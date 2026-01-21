@@ -58,6 +58,8 @@ Route::prefix('sdm')->group(function () {
         return redirect()->route('sdm.sdm.index')
             ->with('error', 'Parameter ID tidak ditemukan');
     });
+    Route::post('destroy/{id}', [PersonSdmController::class, 'destroy'])
+        ->name('sdm.sdm.destroy');
 
     Route::prefix('riwayat-pendidikan')->group(function () {
         Route::get('/{id}', [SdmRiwayatPendidikanController::class, 'index'])

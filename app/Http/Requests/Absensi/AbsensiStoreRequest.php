@@ -4,7 +4,7 @@ namespace App\Http\Requests\Absensi;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AbsensiStoreRequest extends FormRequest
+final class AbsensiStoreRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -14,9 +14,9 @@ class AbsensiStoreRequest extends FormRequest
     protected function prepareForValidation(): void
     {
         $this->merge([
-            'total_jam_kerja' => $this->total_jam_kerja ? str_replace(',', '.', $this->total_jam_kerja) : null,
-            'total_terlambat' => $this->total_terlambat ? str_replace(',', '.', $this->total_terlambat) : null,
-            'total_pulang_awal' => $this->total_pulang_awal ? str_replace(',', '.', $this->total_pulang_awal) : null,
+            'total_jam_kerja' => $this->filled('total_jam_kerja') ? str_replace(',', '.', $this->total_jam_kerja) : null,
+            'total_terlambat' => $this->filled('total_terlambat') ? str_replace(',', '.', $this->total_terlambat) : null,
+            'total_pulang_awal' => $this->filled('total_pulang_awal') ? str_replace(',', '.', $this->total_pulang_awal) : null,
         ]);
     }
 

@@ -109,7 +109,7 @@
                             text: response.message,
                             icon: 'success',
                             confirmButtonText: "OK",
-                            timer: 1500,
+                            timer: 1000,
                             timerProgressBar: true
                         }).then(() => {
                             $('#example').DataTable().ajax.reload();

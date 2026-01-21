@@ -15,8 +15,9 @@
                         title: "Berhasil!",
                         text: response.message,
                         icon: "success",
+                        confirmButtonText: "OK",
                         timer: 2000,
-                        showConfirmButton: false
+                        timerProgressBar: true
                     });
                     $(modal).modal('hide');
                     form.reset();
